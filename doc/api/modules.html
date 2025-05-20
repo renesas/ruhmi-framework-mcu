@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mera API Documentation &mdash; mera 2.3.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" />
+
+  
+    <link rel="shortcut icon" href="../_static/mera-blue-white-logo.png"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Module contents" href="mera.html" />
+    <link rel="prev" title="Quickstart Guide" href="../quickstart/quickstart_guide.html" /> 
+
+<!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:MediaServiceImageTags msdt:dt="string"></mso:MediaServiceImageTags>
+<mso:lcf76f155ced4ddcb4097134ff3c332f msdt:dt="string"></mso:lcf76f155ced4ddcb4097134ff3c332f>
+<mso:TaxCatchAll msdt:dt="string"></mso:TaxCatchAll>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            mera
+              <img src="../_static/mera-blue-white-logo.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                2.3
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../quickstart/installation_guide.html">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart/quickstart_guide.html">Quickstart Guide</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Mera API Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="mera.html">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">mera</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Mera API Documentation</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/modules.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="mera-api-documentation">
+<h1>Mera API Documentation<a class="headerlink" href="#mera-api-documentation" title="Permalink to this heading"></a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="mera.html">Module contents</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="mera.html#module-mera.deploy">mera.deploy module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mera.html#mera.deploy.Deployer"><code class="docutils literal notranslate"><span class="pre">Deployer</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="mera.html#mera.deploy.MERADeployer"><code class="docutils literal notranslate"><span class="pre">MERADeployer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.deploy.MERADeployer.deploy"><code class="docutils literal notranslate"><span class="pre">MERADeployer.deploy()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mera.html#mera.deploy.TVMDeployer"><code class="docutils literal notranslate"><span class="pre">TVMDeployer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.deploy.TVMDeployer.deploy"><code class="docutils literal notranslate"><span class="pre">TVMDeployer.deploy()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.deploy.TVMDeployer.load_data_file"><code class="docutils literal notranslate"><span class="pre">TVMDeployer.load_data_file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.deploy.TVMDeployer.save_data_file"><code class="docutils literal notranslate"><span class="pre">TVMDeployer.save_data_file()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mera.html#module-mera.deploy_project">mera.deploy_project module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mera.html#mera.deploy_project.CompilationFlow"><code class="docutils literal notranslate"><span class="pre">CompilationFlow</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.deploy_project.CompilationFlow.MCU"><code class="docutils literal notranslate"><span class="pre">CompilationFlow.MCU</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.deploy_project.CompilationFlow.MERA"><code class="docutils literal notranslate"><span class="pre">CompilationFlow.MERA</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.deploy_project.CompilationFlow.MERA_INTERPRETER"><code class="docutils literal notranslate"><span class="pre">CompilationFlow.MERA_INTERPRETER</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.deploy_project.CompilationFlow.TVM"><code class="docutils literal notranslate"><span class="pre">CompilationFlow.TVM</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mera.html#mera.deploy_project.Layout"><code class="docutils literal notranslate"><span class="pre">Layout</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.deploy_project.Layout.NCHW"><code class="docutils literal notranslate"><span class="pre">Layout.NCHW</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.deploy_project.Layout.NHWC"><code class="docutils literal notranslate"><span class="pre">Layout.NHWC</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mera.html#mera.deploy_project.Target"><code class="docutils literal notranslate"><span class="pre">Target</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.deploy_project.Target.IP"><code class="docutils literal notranslate"><span class="pre">Target.IP</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.deploy_project.Target.Interpreter"><code class="docutils literal notranslate"><span class="pre">Target.Interpreter</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.deploy_project.Target.InterpreterBf16"><code class="docutils literal notranslate"><span class="pre">Target.InterpreterBf16</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.deploy_project.Target.InterpreterHw"><code class="docutils literal notranslate"><span class="pre">Target.InterpreterHw</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.deploy_project.Target.InterpreterHwBf16"><code class="docutils literal notranslate"><span class="pre">Target.InterpreterHwBf16</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.deploy_project.Target.MCU"><code class="docutils literal notranslate"><span class="pre">Target.MCU</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.deploy_project.Target.MERA2Interpreter"><code class="docutils literal notranslate"><span class="pre">Target.MERA2Interpreter</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.deploy_project.Target.MERAInterpreter"><code class="docutils literal notranslate"><span class="pre">Target.MERAInterpreter</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.deploy_project.Target.Quantizer"><code class="docutils literal notranslate"><span class="pre">Target.Quantizer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.deploy_project.Target.Simulator"><code class="docutils literal notranslate"><span class="pre">Target.Simulator</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.deploy_project.Target.SimulatorBf16"><code class="docutils literal notranslate"><span class="pre">Target.SimulatorBf16</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.deploy_project.Target.VerilatorSimulator"><code class="docutils literal notranslate"><span class="pre">Target.VerilatorSimulator</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mera.html#mera.deploy_project.is_mera_project"><code class="docutils literal notranslate"><span class="pre">is_mera_project()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mera.html#module-mera.mera_deployment">mera.mera_deployment module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mera.html#mera.mera_deployment.DeviceTarget"><code class="docutils literal notranslate"><span class="pre">DeviceTarget</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.mera_deployment.DeviceTarget.INTEL_IA420"><code class="docutils literal notranslate"><span class="pre">DeviceTarget.INTEL_IA420</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.mera_deployment.DeviceTarget.SAKURA_1"><code class="docutils literal notranslate"><span class="pre">DeviceTarget.SAKURA_1</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.mera_deployment.DeviceTarget.SAKURA_2"><code class="docutils literal notranslate"><span class="pre">DeviceTarget.SAKURA_2</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.mera_deployment.DeviceTarget.XILINX_U50"><code class="docutils literal notranslate"><span class="pre">DeviceTarget.XILINX_U50</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.mera_deployment.DeviceTarget.code"><code class="docutils literal notranslate"><span class="pre">DeviceTarget.code</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mera.html#mera.mera_deployment.MeraDeployment"><code class="docutils literal notranslate"><span class="pre">MeraDeployment</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.mera_deployment.MeraDeployment.get_runner"><code class="docutils literal notranslate"><span class="pre">MeraDeployment.get_runner()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mera.html#mera.mera_deployment.MeraInterpreterDeployment"><code class="docutils literal notranslate"><span class="pre">MeraInterpreterDeployment</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.mera_deployment.MeraInterpreterDeployment.get_runner"><code class="docutils literal notranslate"><span class="pre">MeraInterpreterDeployment.get_runner()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mera.html#mera.mera_deployment.MeraInterpreterModelRunner"><code class="docutils literal notranslate"><span class="pre">MeraInterpreterModelRunner</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.mera_deployment.MeraInterpreterModelRunner.display_profiling_table"><code class="docutils literal notranslate"><span class="pre">MeraInterpreterModelRunner.display_profiling_table()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.mera_deployment.MeraInterpreterModelRunner.get_num_inputs"><code class="docutils literal notranslate"><span class="pre">MeraInterpreterModelRunner.get_num_inputs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.mera_deployment.MeraInterpreterModelRunner.get_num_outputs"><code class="docutils literal notranslate"><span class="pre">MeraInterpreterModelRunner.get_num_outputs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.mera_deployment.MeraInterpreterModelRunner.get_output"><code class="docutils literal notranslate"><span class="pre">MeraInterpreterModelRunner.get_output()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.mera_deployment.MeraInterpreterModelRunner.get_output_row"><code class="docutils literal notranslate"><span class="pre">MeraInterpreterModelRunner.get_output_row()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.mera_deployment.MeraInterpreterModelRunner.get_outputs"><code class="docutils literal notranslate"><span class="pre">MeraInterpreterModelRunner.get_outputs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.mera_deployment.MeraInterpreterModelRunner.get_outputs_dict"><code class="docutils literal notranslate"><span class="pre">MeraInterpreterModelRunner.get_outputs_dict()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.mera_deployment.MeraInterpreterModelRunner.get_power_metrics"><code class="docutils literal notranslate"><span class="pre">MeraInterpreterModelRunner.get_power_metrics()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.mera_deployment.MeraInterpreterModelRunner.get_runtime_metrics"><code class="docutils literal notranslate"><span class="pre">MeraInterpreterModelRunner.get_runtime_metrics()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.mera_deployment.MeraInterpreterModelRunner.run"><code class="docutils literal notranslate"><span class="pre">MeraInterpreterModelRunner.run()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.mera_deployment.MeraInterpreterModelRunner.set_input"><code class="docutils literal notranslate"><span class="pre">MeraInterpreterModelRunner.set_input()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mera.html#mera.mera_deployment.MeraInterpreterPrjDeployment"><code class="docutils literal notranslate"><span class="pre">MeraInterpreterPrjDeployment</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="mera.html#mera.mera_deployment.MeraModelRunner"><code class="docutils literal notranslate"><span class="pre">MeraModelRunner</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.mera_deployment.MeraModelRunner.get_input_handle"><code class="docutils literal notranslate"><span class="pre">MeraModelRunner.get_input_handle()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.mera_deployment.MeraModelRunner.get_input_names"><code class="docutils literal notranslate"><span class="pre">MeraModelRunner.get_input_names()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.mera_deployment.MeraModelRunner.get_num_outputs"><code class="docutils literal notranslate"><span class="pre">MeraModelRunner.get_num_outputs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.mera_deployment.MeraModelRunner.get_output"><code class="docutils literal notranslate"><span class="pre">MeraModelRunner.get_output()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.mera_deployment.MeraModelRunner.get_output_handle"><code class="docutils literal notranslate"><span class="pre">MeraModelRunner.get_output_handle()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.mera_deployment.MeraModelRunner.get_output_names"><code class="docutils literal notranslate"><span class="pre">MeraModelRunner.get_output_names()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.mera_deployment.MeraModelRunner.get_output_row"><code class="docutils literal notranslate"><span class="pre">MeraModelRunner.get_output_row()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.mera_deployment.MeraModelRunner.get_outputs"><code class="docutils literal notranslate"><span class="pre">MeraModelRunner.get_outputs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.mera_deployment.MeraModelRunner.get_outputs_dict"><code class="docutils literal notranslate"><span class="pre">MeraModelRunner.get_outputs_dict()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.mera_deployment.MeraModelRunner.get_power_metrics"><code class="docutils literal notranslate"><span class="pre">MeraModelRunner.get_power_metrics()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.mera_deployment.MeraModelRunner.get_runtime_metrics"><code class="docutils literal notranslate"><span class="pre">MeraModelRunner.get_runtime_metrics()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.mera_deployment.MeraModelRunner.run"><code class="docutils literal notranslate"><span class="pre">MeraModelRunner.run()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.mera_deployment.MeraModelRunner.set_input"><code class="docutils literal notranslate"><span class="pre">MeraModelRunner.set_input()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.mera_deployment.MeraModelRunner.set_named_input"><code class="docutils literal notranslate"><span class="pre">MeraModelRunner.set_named_input()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mera.html#mera.mera_deployment.MeraPrjDeployment"><code class="docutils literal notranslate"><span class="pre">MeraPrjDeployment</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="mera.html#mera.mera_deployment.MeraTvmDeployment"><code class="docutils literal notranslate"><span class="pre">MeraTvmDeployment</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.mera_deployment.MeraTvmDeployment.get_runner"><code class="docutils literal notranslate"><span class="pre">MeraTvmDeployment.get_runner()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mera.html#mera.mera_deployment.MeraTvmModelRunner"><code class="docutils literal notranslate"><span class="pre">MeraTvmModelRunner</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.mera_deployment.MeraTvmModelRunner.get_num_outputs"><code class="docutils literal notranslate"><span class="pre">MeraTvmModelRunner.get_num_outputs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.mera_deployment.MeraTvmModelRunner.get_output"><code class="docutils literal notranslate"><span class="pre">MeraTvmModelRunner.get_output()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.mera_deployment.MeraTvmModelRunner.get_outputs"><code class="docutils literal notranslate"><span class="pre">MeraTvmModelRunner.get_outputs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.mera_deployment.MeraTvmModelRunner.get_power_metrics"><code class="docutils literal notranslate"><span class="pre">MeraTvmModelRunner.get_power_metrics()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.mera_deployment.MeraTvmModelRunner.get_runtime_metrics"><code class="docutils literal notranslate"><span class="pre">MeraTvmModelRunner.get_runtime_metrics()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.mera_deployment.MeraTvmModelRunner.run"><code class="docutils literal notranslate"><span class="pre">MeraTvmModelRunner.run()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.mera_deployment.MeraTvmModelRunner.set_input"><code class="docutils literal notranslate"><span class="pre">MeraTvmModelRunner.set_input()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mera.html#mera.mera_deployment.ModelRunnerBase"><code class="docutils literal notranslate"><span class="pre">ModelRunnerBase</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.mera_deployment.ModelRunnerBase.get_num_outputs"><code class="docutils literal notranslate"><span class="pre">ModelRunnerBase.get_num_outputs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.mera_deployment.ModelRunnerBase.get_output"><code class="docutils literal notranslate"><span class="pre">ModelRunnerBase.get_output()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.mera_deployment.ModelRunnerBase.get_outputs"><code class="docutils literal notranslate"><span class="pre">ModelRunnerBase.get_outputs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.mera_deployment.ModelRunnerBase.get_power_metrics"><code class="docutils literal notranslate"><span class="pre">ModelRunnerBase.get_power_metrics()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.mera_deployment.ModelRunnerBase.get_runtime_metrics"><code class="docutils literal notranslate"><span class="pre">ModelRunnerBase.get_runtime_metrics()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.mera_deployment.ModelRunnerBase.run"><code class="docutils literal notranslate"><span class="pre">ModelRunnerBase.run()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.mera_deployment.ModelRunnerBase.set_input"><code class="docutils literal notranslate"><span class="pre">ModelRunnerBase.set_input()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mera.html#mera.mera_deployment.load_mera_deployment"><code class="docutils literal notranslate"><span class="pre">load_mera_deployment()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mera.html#module-mera.mera_model">mera.mera_model module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mera.html#mera.mera_model.Mera2ModelQuantized"><code class="docutils literal notranslate"><span class="pre">Mera2ModelQuantized</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="mera.html#mera.mera_model.MeraModel"><code class="docutils literal notranslate"><span class="pre">MeraModel</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.mera_model.MeraModel.get_input_shape"><code class="docutils literal notranslate"><span class="pre">MeraModel.get_input_shape()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.mera_model.MeraModel.input_desc"><code class="docutils literal notranslate"><span class="pre">MeraModel.input_desc</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mera.html#mera.mera_model.MeraModelExecutorch"><code class="docutils literal notranslate"><span class="pre">MeraModelExecutorch</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="mera.html#mera.mera_model.MeraModelFused"><code class="docutils literal notranslate"><span class="pre">MeraModelFused</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.mera_model.MeraModelFused.FusedModelFrontend"><code class="docutils literal notranslate"><span class="pre">MeraModelFused.FusedModelFrontend</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mera.html#mera.mera_model.MeraModelOnnx"><code class="docutils literal notranslate"><span class="pre">MeraModelOnnx</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="mera.html#mera.mera_model.MeraModelPytorch"><code class="docutils literal notranslate"><span class="pre">MeraModelPytorch</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="mera.html#mera.mera_model.MeraModelQuantized"><code class="docutils literal notranslate"><span class="pre">MeraModelQuantized</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="mera.html#mera.mera_model.MeraModelTflite"><code class="docutils literal notranslate"><span class="pre">MeraModelTflite</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="mera.html#mera.mera_model.ModelLoader"><code class="docutils literal notranslate"><span class="pre">ModelLoader</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.mera_model.ModelLoader.from_executorch"><code class="docutils literal notranslate"><span class="pre">ModelLoader.from_executorch()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.mera_model.ModelLoader.from_onnx"><code class="docutils literal notranslate"><span class="pre">ModelLoader.from_onnx()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.mera_model.ModelLoader.from_pytorch"><code class="docutils literal notranslate"><span class="pre">ModelLoader.from_pytorch()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.mera_model.ModelLoader.from_quantized_mera"><code class="docutils literal notranslate"><span class="pre">ModelLoader.from_quantized_mera()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.mera_model.ModelLoader.from_tflite"><code class="docutils literal notranslate"><span class="pre">ModelLoader.from_tflite()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.mera_model.ModelLoader.fuse_models"><code class="docutils literal notranslate"><span class="pre">ModelLoader.fuse_models()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mera.html#module-mera.mera_platform">mera.mera_platform module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mera.html#mera.mera_platform.AccelKind"><code class="docutils literal notranslate"><span class="pre">AccelKind</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.mera_platform.AccelKind.CPU"><code class="docutils literal notranslate"><span class="pre">AccelKind.CPU</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.mera_platform.AccelKind.DNA"><code class="docutils literal notranslate"><span class="pre">AccelKind.DNA</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.mera_platform.AccelKind.GPU"><code class="docutils literal notranslate"><span class="pre">AccelKind.GPU</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.mera_platform.AccelKind.MCU"><code class="docutils literal notranslate"><span class="pre">AccelKind.MCU</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mera.html#mera.mera_platform.Platform"><code class="docutils literal notranslate"><span class="pre">Platform</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.mera_platform.Platform.ALT1"><code class="docutils literal notranslate"><span class="pre">Platform.ALT1</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.mera_platform.Platform.ALT2"><code class="docutils literal notranslate"><span class="pre">Platform.ALT2</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.mera_platform.Platform.DNAA400L0001"><code class="docutils literal notranslate"><span class="pre">Platform.DNAA400L0001</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.mera_platform.Platform.DNAA600L0001"><code class="docutils literal notranslate"><span class="pre">Platform.DNAA600L0001</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.mera_platform.Platform.DNAA600L0002"><code class="docutils literal notranslate"><span class="pre">Platform.DNAA600L0002</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.mera_platform.Platform.DNAF10032x2"><code class="docutils literal notranslate"><span class="pre">Platform.DNAF10032x2</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.mera_platform.Platform.DNAF100L0001"><code class="docutils literal notranslate"><span class="pre">Platform.DNAF100L0001</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.mera_platform.Platform.DNAF100L0002"><code class="docutils literal notranslate"><span class="pre">Platform.DNAF100L0002</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.mera_platform.Platform.DNAF100L0003"><code class="docutils literal notranslate"><span class="pre">Platform.DNAF100L0003</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.mera_platform.Platform.DNAF132S0001"><code class="docutils literal notranslate"><span class="pre">Platform.DNAF132S0001</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.mera_platform.Platform.DNAF200L0001"><code class="docutils literal notranslate"><span class="pre">Platform.DNAF200L0001</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.mera_platform.Platform.DNAF200L0002"><code class="docutils literal notranslate"><span class="pre">Platform.DNAF200L0002</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.mera_platform.Platform.DNAF200L0003"><code class="docutils literal notranslate"><span class="pre">Platform.DNAF200L0003</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.mera_platform.Platform.DNAF232S0001"><code class="docutils literal notranslate"><span class="pre">Platform.DNAF232S0001</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.mera_platform.Platform.DNAF232S0002"><code class="docutils literal notranslate"><span class="pre">Platform.DNAF232S0002</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.mera_platform.Platform.DNAF300L0001"><code class="docutils literal notranslate"><span class="pre">Platform.DNAF300L0001</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.mera_platform.Platform.DNAF632L0001"><code class="docutils literal notranslate"><span class="pre">Platform.DNAF632L0001</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.mera_platform.Platform.DNAF632L0002"><code class="docutils literal notranslate"><span class="pre">Platform.DNAF632L0002</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.mera_platform.Platform.DNAF632L0003"><code class="docutils literal notranslate"><span class="pre">Platform.DNAF632L0003</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.mera_platform.Platform.SAKURA_1"><code class="docutils literal notranslate"><span class="pre">Platform.SAKURA_1</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.mera_platform.Platform.SAKURA_2"><code class="docutils literal notranslate"><span class="pre">Platform.SAKURA_2</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.mera_platform.Platform.SAKURA_2C"><code class="docutils literal notranslate"><span class="pre">Platform.SAKURA_2C</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.mera_platform.Platform.SAKURA_I"><code class="docutils literal notranslate"><span class="pre">Platform.SAKURA_I</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.mera_platform.Platform.SAKURA_II"><code class="docutils literal notranslate"><span class="pre">Platform.SAKURA_II</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.mera_platform.Platform.accelerator_kind"><code class="docutils literal notranslate"><span class="pre">Platform.accelerator_kind</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.mera_platform.Platform.platform_name"><code class="docutils literal notranslate"><span class="pre">Platform.platform_name</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mera.html#module-mera.version">mera.version module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mera.html#mera.version.get_mera2_rt_version"><code class="docutils literal notranslate"><span class="pre">get_mera2_rt_version()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="mera.html#mera.version.get_mera_dna_version"><code class="docutils literal notranslate"><span class="pre">get_mera_dna_version()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="mera.html#mera.version.get_mera_tvm_version"><code class="docutils literal notranslate"><span class="pre">get_mera_tvm_version()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="mera.html#mera.version.get_mera_version"><code class="docutils literal notranslate"><span class="pre">get_mera_version()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="mera.html#mera.version.get_versions"><code class="docutils literal notranslate"><span class="pre">get_versions()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mera.html#module-mera.mera_quantizer">mera.mera_quantizer module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mera.html#mera.mera_quantizer.Quantizer"><code class="docutils literal notranslate"><span class="pre">Quantizer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.mera_quantizer.Quantizer.apply_smoothquant"><code class="docutils literal notranslate"><span class="pre">Quantizer.apply_smoothquant()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.mera_quantizer.Quantizer.calibrate"><code class="docutils literal notranslate"><span class="pre">Quantizer.calibrate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.mera_quantizer.Quantizer.evaluate_quality"><code class="docutils literal notranslate"><span class="pre">Quantizer.evaluate_quality()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.mera_quantizer.Quantizer.get_report"><code class="docutils literal notranslate"><span class="pre">Quantizer.get_report()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.mera_quantizer.Quantizer.quantize"><code class="docutils literal notranslate"><span class="pre">Quantizer.quantize()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.mera_quantizer.Quantizer.reset"><code class="docutils literal notranslate"><span class="pre">Quantizer.reset()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.mera_quantizer.Quantizer.save_to"><code class="docutils literal notranslate"><span class="pre">Quantizer.save_to()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mera.html#mera.mera_quantizer.get_input_desc"><code class="docutils literal notranslate"><span class="pre">get_input_desc()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mera.html#module-mera.quantizer.quantizer_config">mera.quantizer module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mera.html#mera.quantizer.quantizer_config.LayerConfig"><code class="docutils literal notranslate"><span class="pre">LayerConfig</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.quantizer.quantizer_config.LayerConfig.conv_act"><code class="docutils literal notranslate"><span class="pre">LayerConfig.conv_act</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.quantizer.quantizer_config.LayerConfig.conv_weights"><code class="docutils literal notranslate"><span class="pre">LayerConfig.conv_weights</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.quantizer.quantizer_config.LayerConfig.mm_act"><code class="docutils literal notranslate"><span class="pre">LayerConfig.mm_act</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.quantizer.quantizer_config.LayerConfig.mm_weights"><code class="docutils literal notranslate"><span class="pre">LayerConfig.mm_weights</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mera.html#mera.quantizer.quantizer_config.ObserverClass"><code class="docutils literal notranslate"><span class="pre">ObserverClass</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.quantizer.quantizer_config.ObserverClass.HISTOGRAM"><code class="docutils literal notranslate"><span class="pre">ObserverClass.HISTOGRAM</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.quantizer.quantizer_config.ObserverClass.MAX_ABS"><code class="docutils literal notranslate"><span class="pre">ObserverClass.MAX_ABS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.quantizer.quantizer_config.ObserverClass.MIN_MAX"><code class="docutils literal notranslate"><span class="pre">ObserverClass.MIN_MAX</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mera.html#mera.quantizer.quantizer_config.OperatorConfig"><code class="docutils literal notranslate"><span class="pre">OperatorConfig</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.quantizer.quantizer_config.OperatorConfig.observer"><code class="docutils literal notranslate"><span class="pre">OperatorConfig.observer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.quantizer.quantizer_config.OperatorConfig.qmode"><code class="docutils literal notranslate"><span class="pre">OperatorConfig.qmode</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.quantizer.quantizer_config.OperatorConfig.qscheme"><code class="docutils literal notranslate"><span class="pre">OperatorConfig.qscheme</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.quantizer.quantizer_config.OperatorConfig.qtarget"><code class="docutils literal notranslate"><span class="pre">OperatorConfig.qtarget</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.quantizer.quantizer_config.OperatorConfig.qtype"><code class="docutils literal notranslate"><span class="pre">OperatorConfig.qtype</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.quantizer.quantizer_config.OperatorConfig.set_options"><code class="docutils literal notranslate"><span class="pre">OperatorConfig.set_options()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mera.html#mera.quantizer.quantizer_config.QMode"><code class="docutils literal notranslate"><span class="pre">QMode</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.quantizer.quantizer_config.QMode.PER_CHANNEL"><code class="docutils literal notranslate"><span class="pre">QMode.PER_CHANNEL</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.quantizer.quantizer_config.QMode.PER_CHANNEL_GROUP"><code class="docutils literal notranslate"><span class="pre">QMode.PER_CHANNEL_GROUP</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.quantizer.quantizer_config.QMode.PER_TENSOR"><code class="docutils literal notranslate"><span class="pre">QMode.PER_TENSOR</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mera.html#mera.quantizer.quantizer_config.QScheme"><code class="docutils literal notranslate"><span class="pre">QScheme</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.quantizer.quantizer_config.QScheme.AFFINE"><code class="docutils literal notranslate"><span class="pre">QScheme.AFFINE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.quantizer.quantizer_config.QScheme.SYMMETRIC"><code class="docutils literal notranslate"><span class="pre">QScheme.SYMMETRIC</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mera.html#mera.quantizer.quantizer_config.QTarget"><code class="docutils literal notranslate"><span class="pre">QTarget</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.quantizer.quantizer_config.QTarget.DATA"><code class="docutils literal notranslate"><span class="pre">QTarget.DATA</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.quantizer.quantizer_config.QTarget.WEIGHT"><code class="docutils literal notranslate"><span class="pre">QTarget.WEIGHT</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mera.html#mera.quantizer.quantizer_config.QType"><code class="docutils literal notranslate"><span class="pre">QType</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.quantizer.quantizer_config.QType.BF16"><code class="docutils literal notranslate"><span class="pre">QType.BF16</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.quantizer.quantizer_config.QType.S7"><code class="docutils literal notranslate"><span class="pre">QType.S7</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.quantizer.quantizer_config.QType.S8"><code class="docutils literal notranslate"><span class="pre">QType.S8</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.quantizer.quantizer_config.QType.U7"><code class="docutils literal notranslate"><span class="pre">QType.U7</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.quantizer.quantizer_config.QType.U8"><code class="docutils literal notranslate"><span class="pre">QType.U8</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mera.html#mera.quantizer.quantizer_config.QuantizerConfig"><code class="docutils literal notranslate"><span class="pre">QuantizerConfig</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.quantizer.quantizer_config.QuantizerConfig.to_dict"><code class="docutils literal notranslate"><span class="pre">QuantizerConfig.to_dict()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.quantizer.quantizer_config.QuantizerConfig.transform_cfg"><code class="docutils literal notranslate"><span class="pre">QuantizerConfig.transform_cfg</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mera.html#mera.quantizer.quantizer_config.QuantizerConfigPresets"><code class="docutils literal notranslate"><span class="pre">QuantizerConfigPresets</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.quantizer.quantizer_config.QuantizerConfigPresets.ALT"><code class="docutils literal notranslate"><span class="pre">QuantizerConfigPresets.ALT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.quantizer.quantizer_config.QuantizerConfigPresets.DEFAULT"><code class="docutils literal notranslate"><span class="pre">QuantizerConfigPresets.DEFAULT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.quantizer.quantizer_config.QuantizerConfigPresets.DNA_SAKURA_II"><code class="docutils literal notranslate"><span class="pre">QuantizerConfigPresets.DNA_SAKURA_II</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mera.html#mera.quantizer.quantizer_config.TransformConfig"><code class="docutils literal notranslate"><span class="pre">TransformConfig</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.quantizer.quantizer_config.TransformConfig.fuse_i8_concat_domains"><code class="docutils literal notranslate"><span class="pre">TransformConfig.fuse_i8_concat_domains</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.quantizer.quantizer_config.TransformConfig.glu_bf16_outlier_threshold"><code class="docutils literal notranslate"><span class="pre">TransformConfig.glu_bf16_outlier_threshold</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.quantizer.quantizer_config.TransformConfig.map_silu_to_hswish"><code class="docutils literal notranslate"><span class="pre">TransformConfig.map_silu_to_hswish</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.quantizer.quantizer_config.TransformConfig.use_bf16_for_small_ch_conv"><code class="docutils literal notranslate"><span class="pre">TransformConfig.use_bf16_for_small_ch_conv</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mera.html#mera.quantizer.quality.QuantizationQuality"><code class="docutils literal notranslate"><span class="pre">QuantizationQuality</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.quantizer.quality.QuantizationQuality.node_summary"><code class="docutils literal notranslate"><span class="pre">QuantizationQuality.node_summary()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.quantizer.quality.QuantizationQuality.out_summary"><code class="docutils literal notranslate"><span class="pre">QuantizationQuality.out_summary()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mera.html#mera.quantizer.quality.QuantizationQuality.to_table"><code class="docutils literal notranslate"><span class="pre">QuantizationQuality.to_table()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../quickstart/quickstart_guide.html" class="btn btn-neutral float-left" title="Quickstart Guide" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="mera.html" class="btn btn-neutral float-right" title="Module contents" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, EdgeCortix Inc..</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
