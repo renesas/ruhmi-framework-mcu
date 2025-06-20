@@ -1,10 +1,11 @@
-# CURRENT LIMITATIONS
+# MERA 2.3.2 based limitations  
 
-This section outlines the known constraints and boundaries of the system. While designed to address a wide range of use cases, certain technical, operational, or design limitations may apply. Understanding these limitations ensures optimal deployment and helps guide workarounds or future enhancements.
+There are some known constraints and boundaries of the system.   
+While designed to address a wide range of use cases, certain technical, operational, or design limitations may apply. Understanding these limitations ensures optimal deployment and helps guide workarounds or future enhancements.
 
-### 6.1 Quantizer Limitations
+## 6.1 Quantizer Limitations
 
-Below is a table of different operators and the MERA Quantizer support for each of them. Depending on the target (MCU_CPU or MCU_ETHOS) different types could be available based on the fatures of C-Codegen and/or Vela.
+Below is a table of different operators and the Quantizer support for each of them. Depending on the target (MCU_CPU or MCU_ETHOS) different types could be available based on the fatures of C-Codegen and/or Vela.
 Other operators are not supported for quantization, those are marked with X.
 
 
@@ -64,4 +65,8 @@ Table 1: Quantizer Operator Support
 
 ## 6.2 C-Codegen Limitations
 
-• tfl.concatenation (TFL::ConcatenationOp) Only supports up to 4 dimensional inputs.
+• tfl.concatenation (TFL::ConcatenationOp) Only supports up to 4 dimensional inputs.  
+• CIMSIS-NN 7.0で動くけど、Transpose convは未サポート  
+
+# 他には？？  
+

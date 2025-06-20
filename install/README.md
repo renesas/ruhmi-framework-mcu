@@ -1,6 +1,16 @@
-*RUHMI consists of MERA IP provided by EdgeCortix. You will see the name of MERA sometimes in the process.*
 
 # Installation  
+
+In order to install the software tool, the installation file below shall be used.
+RUHMI framework includes MERA IPs supported by EdgeCortix, so you will see the files and some discriptions with the name of MERA included.
+Also, the version number included in the file name like 2.3.2 depens on MERA IP.
+```
+\install\mera-2.3.2+pkg.1595-cp310-cp310-manylinux_2_27_x86_64.whl  
+\install\mera-2.3.2-cp310-cp310-win_amd64.whl  
+```
+**RUHMI Framework consists of MERA IP provided by EdgeCortix(TM). You will see the name of MERA sometimes in the process.**  
+
+**The resource for RUHMI Framework has located in the GitHub, [RUHMI-FRAMEWORK-MCU](https://github.com/renesas/ruhmi-framework-mcu)**  
 
 ## Installation - Ubuntu Linux  
 In order to install RUHMI on supported environment, you will need:
@@ -8,14 +18,14 @@ In order to install RUHMI on supported environment, you will need:
 * A working installation of PyEnv or other Python virtual environment management system that provides Python
 version 3.10.x.
 
-### Installation steps  
-System dependencies necessary to create environments and run demos:
+**Prepare the environment**  
+System dependencies necessary to create environments and run demos:  
 
 ```
 sudo apt update; sudo apt install build-essential cmake python3-venv python3-pip
 ```
 
-### Recommended: use the default Python installation  
+**Recommended: use the default Python installation**  
 Because MERA software stack is compatible by default with the base system Python version provided by Ubuntu 22.04
 we can create a virtual environment as follows:
 
@@ -28,7 +38,7 @@ pip install --upgrade pip && pip install decorator typing_extensions psutil attr
 Your prompt should now show that you are under a virtual environment mera-env:
 (mera-env) user@compute:~$
 
-### Alternative: PyEnv installation
+**Alternative: PyEnv installation**  
 If PyEnv is preffered over the base system Python installation you can get started with:
 
 ```
@@ -60,7 +70,7 @@ pip install decorator typing_extensions psutil attrs pybind11
 Your prompt should now show that you are under a virtual environment mera-env:  
 (mera-env) user@compute:~$  
 
-### Install MERA  
+**Install MERA**  
 Finally install MERA on the virtual environment mera-env:  
 
 ```
@@ -88,25 +98,28 @@ Create and move to the working folder. Assuming C:\work is the current folder in
 PS CD C:\work
 ```
 
+**Prepare the virtual environment**  
 Biuild the vertual environment for Python  
 ``
 PS C:\work> py -3.10 -m venv .venv  
 ``
 
 Activate the vurtual environment as following   
+Before activating the vertual environment, you may need to change the execution policy for shell execution.  
 ```
 PS C:\work> Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process  
 PS C:\work> .venv\Scripts\Activate.ps1  
 ```
+**Install MERA into Windows**  
 Copy the installation file under the install into the current folder.  
 The file name may vary depending on the release version.
+
+Install RUHMI AI Compiler into the virtual environment.
+Also, install required dependencies.
 ```
-C:\work\install\mera-2.3.2-cp310-cp310-win_amd64.whl  
+(.venv) PS C:\work\install> python -m pip install .\mera-2.3.2-cp310-cp310-win_amd64.whl   
+(.venv) PS C:\work\install> python -m pip install onnx==1.17.0 tflite==2.18.0
 ```
 
-At this point MERA should be ready to use. You can confirm with the following example:  
 
-```
-python -c "import mera;print(dir(mera))"  
-```
 
