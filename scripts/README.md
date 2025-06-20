@@ -1,25 +1,26 @@
 # How to deploy models  
 The sample script shows how to use the deployment API to compile an already quantized TFLite model on a board with Ethos-U55 support.  
 
+The directory configuration for the sample scripts to run is below.
+This release provides some tested models, if the models provided are for example:  
+```
+  ├── scripts
+  |     ├── mcu_deploy.py  // sample script for deploy
+  |     └── mcu_quantize.py  // sample script for quantize and deploy
+  ├── models_int8  
+  |     └── ad01_int8.tflite  // sample model to iput to deployer from MLCommons
+  ├── models_fp32  
+  |     └── ad01_fp32.tflite  // sample model to input to Quantizer from MLCommons
+  ├── models_fp32_ethos  
+  |     └── ad01_fp32.tflite  // sample model to input to Quantizer from MLCommons
+```
+
 ## Deploy to CPU only   
 By running the provided script **scripts/mcu_deploy.py**. we can compile the model for MCU only:  
 ```
   cd scripts/  
   # deploy for CPU only  
   python mcu_deploy.py --ref_data ../models_int8 deploy_qtzed  
-```
-
-This release provides some tested models, if the models provided are for example:  
-```
-  models_int8/  
-  ├── ad_medium_int8.tflite
-  ├── kws_micronet_m.tflite
-  ├── mobilenet_v2_1.0_224_INT8.tflite
-  ├── person-det.tflite
-  ├── rnnoise_INT8.tflite
-  ├── vww4_128_128_INT8.tflite
-  ├── wav2letter_int8.tflite
-  ├── yolo-fastest_192_face_v4.tflite
 ```
 
 ## Deploy to CPU with Ethos U55 supported    
@@ -33,19 +34,12 @@ python mcu_deploy.py --ethos --ref_data ../models_int8 deploy_qtzed_ethos
 you will get the following results:
 ```
     deploy_qtzed
-    ├── ad_medium_int8_no_ospi
-    ├── kws_micronet_m_no_ospi
-    ├── mobilenet_v2_1.0_224_INT8_ospi
-    ├── person-det_no_ospi
-    ├── rnnoise_INT8_no_ospi
-    ├── vww4_128_128_INT8_no_ospi
-    ├── wav2letter_int8_ospi
-    ├── yolo-fastest_192_face_v4_no_ospi
+    ├── ad01_int8_no_ospi  
 ```
 
 When Ethos-U support is enabled, each of the directories contain a deployment of the corresponding model for MCU + Ethos-U55 platform:  
 ```
-└── [ad_medium_int8_no_ospi]  # an example for "ad_medium_int8_no_ospi"  
+└── [ad01_int8_no_ospi]  # an example for "ad01_int8_no_ospi"  
     ├── build  
         ├── MCU  
             ├── compilation  

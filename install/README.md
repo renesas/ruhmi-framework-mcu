@@ -117,6 +117,7 @@ The file name may vary depending on the release version.
 Install RUHMI AI Compiler into the virtual environment.
 Also, install required dependencies.
 ```
+(.venv) PS C:\work> cd install
 (.venv) PS C:\work\install> python -m pip install .\mera-2.3.2-cp310-cp310-win_amd64.whl   
 (.venv) PS C:\work\install> python -m pip install onnx==1.17.0 tflite==2.18.0
 ```
