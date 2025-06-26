@@ -3,14 +3,18 @@
 # RUHMI, Robust Unified Heterogeneous Model Integration, Framework supports AI model optimization and deployment with powered by EdgeCortix© MERA™.
 
 ## License
-(C) Copyright EdgeCortix, Inc. 2025 (C) Copyright Renesas Electronics Corporation 2025 Contributors Licensed under [each license](LICENSE.md).  
+(C) Copyright EdgeCortix, Inc. 2025 (C) Copyright Renesas Electronics Corporation 2025 Contributors Licensed under Apache-2.0.
+The framework shall use some external components to be installed inthe instalation process.
+Please refer the detail of [the license summery](LICENSE.md).  
 
 ## Introduction
-RUHMI Framework povides a compiler and the necessary tools to convert machine learning models into C source code compatible with range of Renesas MCUs powered by Arm Ethos-U NPUs.
+RUHMI Framework[^1] povides a compiler and the necessary tools to convert machine learning models into C source code compatible with range of Renesas MCUs powered by Arm Ethos-U NPUs.
 The software stack generates C source code while ensuring compatibility and tight integration the with Renesas e2 studio.
 It also ships with Quantizer, a post-training static INT8 quantizer, allowing more demanding models to meet the memory and latency constraints typical of microcontrollers and Ethos-U accelerators.
 
-## RUHMI Framework workflow
+[^1]: RUHMI Framework is powered by EdgeCortix© MERA™.
+
+## RUHMI Framework[^1] workflow
 ![](doc/material/workflow_ruhmi.GIF)
 
 ## Supported embedded platforms  
@@ -58,12 +62,15 @@ You might want to see the cutermised method to quantize and to optimise your mod
   [AI model compiler API](doc/mera_api.html)
 
 ## Support  
-### Error List  
-If error occurred at compile/runtime operation, please refer [error list](./doc/error_list.md).  
+### Tips  
+If you see any warnings in the process of installation and runing the sample scripts, you can refer [Tips](./doc/tips.md)  
 
 ### Limitation  
 There are some known constraints of the functions, Quatizer and C-Codegen.
 Please see [LIMITATIONS](LIMITATIONS.md).
+
+### Error List  
+If error occurred at compile/runtime operation, please refer [error list](./doc/error_list.md).  
 
 ### Enquiries  
 If you have any questions, please contact [Renesas Technical Support](https://www.renesas.com/support).  
