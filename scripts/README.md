@@ -1,17 +1,27 @@
+The section introduces how to execute the model compilation with the sample scripts for each exmple case below.   
+* [Deploy models](# How-to-deploy-models)  
+  - Deploy to CPU only   
+  - Deploy to CPU with Ethos U55 supported    
+* [Quantize and deploy models](# How-to-quantize-and-deploy-models)
+  - Deploy to CPU only   
+  - Deploy to CPU with Ethos U55 supported    
+The sample scripts are [here](https://github.com/Masamitsu1025/ruhmi-framework-mcu/tree/main/scripts).
+
+
 # How to deploy models  
 The sample script shows how to use the deployment API to compile an already quantized TFLite model on a board with Ethos-U55 support.  
 
 The directory configuration for the sample scripts to run is below.
-This release introduces some tested models, if the models provided are for example:  
+This release introduces some tested models. Also introduces the location you can find those models.
 ```
   ├── scripts
   |     ├── mcu_deploy.py  // sample script for deploy
   |     └── mcu_quantize.py  // sample script for quantize and deploy
-  ├── models_int8  
+  ├── [models_int8](https://github.com/Masamitsu1025/ruhmi-framework-mcu/tree/main/models_int8)  
   |     └── ad01_int8.tflite  // sample model to iput to deployer from MLCommons
-  ├── models_fp32  
+  ├── [models_fp32](https://github.com/Masamitsu1025/ruhmi-framework-mcu/tree/main/models_fp32)  
   |     └── ad01_fp32.tflite  // sample model to input to Quantizer from MLCommons
-  ├── models_fp32_ethos  
+  ├── [models_fp32_ethos](https://github.com/Masamitsu1025/ruhmi-framework-mcu/tree/main/models_fp32_ethos)    
   |     └── ad01_fp32.tflite  // sample model to input to Quantizer from MLCommons
 ```
 
@@ -20,18 +30,18 @@ This release introduces some tested models, if the models provided are for examp
 ## Deploy to CPU only   
 By running the provided script **scripts/mcu_deploy.py**. we can compile the model for MCU only:  
 ```
-  cd scripts/  
-  # deploy for CPU only  
-  python mcu_deploy.py --ref_data ../models_int8 deploy_qtzed  
+(.venv) PS C:\work> cd scripts/  
+(.venv) PS C:\work> python mcu_deploy.py --ref_data ../models_int8 deploy_qtzed  
 ```
 
 ## Deploy to CPU with Ethos U55 supported    
 When enabling Ethos-U support:  
 ```
 (.venv) PS C:\work> cd scripts  
-# deploy for CPU+Ethos-U55  
 (.venv) PS C:\work> python mcu_deploy.py --ethos --ref_data ../models_int8 deploy_qtzed_ethos  
  ```
+
+## Check the deploy result
 
 you will get the following results:
 ```
@@ -83,18 +93,25 @@ The generated C code under **"build/MCU/compilation/src"** can be incorporated i
 You can refer to [the runtime API specification](doc/runtime_api.md) to study how to use the output file from RUHMI Framework.  
 
 # How to quantize and deploy models 
+
 If the starting point it is a Float32 precision model, it is possible to use the Quantizer to first quantize the model and finally deploy with MCU/Ethos-U55 support.
-The sample script with using the Quantizer can be refred.
+The sample script with using the Quantizer can be refered.
+
+## Deploy to CPU only   
 
 To run the script:
 ```
-cd scripts/
-# deploy for CPU only
-python mcu_quantize.py ../models_fp32 deploy_mcu
-
-# deploy for CPU+Ethos-U55
-python mcu_quantize.py -e ../models_fp32_ethos deploy_ethos
+(.venv) PS C:\work> cd scripts/  
+(.venv) PS C:\work> python mcu_quantize.py ../models_fp32 deploy_mcu   
 ```
+
+## Deploy to CPU with Ethos U55 supported   
+```
+(.venv) PS C:\work> cd scripts/  
+(.venv) PS C:\work> python mcu_quantize.py -e ../models_fp32_ethos deploy_ethos  
+```
+
+## Check the quantize and deploy result   
 
 When Ethos-U support is enabled, each of the directories contain a deployment of the corresponding model for MCU + Ethos-U55 platform:  
 ```
@@ -131,6 +148,6 @@ C:\work\scripts\deploy_ethos\model_000_ad01_fp32\deploy_mcu\build\MCU\compilatio
 ```
 
 The generated C code under **"build/MCU/compilation/src"** can be incorporated into a e2studio project.  
-You can refer to [the runtime API specification](doc/runtime_api.md) to study how to use the output file from RUHMI Framework.  
+You can refer to [Guide to the generated C source code](docs/runtime_api.md) to study how to use the output file from RUHMI Framework.  
 
 

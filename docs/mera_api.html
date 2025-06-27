@@ -1,0 +1,1688 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI model compile API Specification &mdash; ruhmi_api  documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="ruhmi_api documentation" href="ruhmi_api.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">AI model compile API Specification</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-contents">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#module-mera">mera module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-mera.deploy">mera.deploy module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mera.deploy.Deployer"><code class="docutils literal notranslate"><span class="pre">Deployer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mera.deploy.MERADeployer"><code class="docutils literal notranslate"><span class="pre">MERADeployer</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-mera.deploy_project">mera.deploy_project module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mera.deploy_project.Layout"><code class="docutils literal notranslate"><span class="pre">Layout</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mera.deploy_project.Target"><code class="docutils literal notranslate"><span class="pre">Target</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mera.deploy_project.is_mera_project"><code class="docutils literal notranslate"><span class="pre">is_mera_project()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-mera.mera_deployment">mera.mera_deployment module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mera.mera_deployment.DeviceTarget"><code class="docutils literal notranslate"><span class="pre">DeviceTarget</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mera.mera_deployment.MeraDeployment"><code class="docutils literal notranslate"><span class="pre">MeraDeployment</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mera.mera_deployment.MeraInterpreterDeployment"><code class="docutils literal notranslate"><span class="pre">MeraInterpreterDeployment</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mera.mera_deployment.MeraInterpreterModelRunner"><code class="docutils literal notranslate"><span class="pre">MeraInterpreterModelRunner</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mera.mera_deployment.MeraInterpreterPrjDeployment"><code class="docutils literal notranslate"><span class="pre">MeraInterpreterPrjDeployment</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mera.mera_deployment.MeraModelRunner"><code class="docutils literal notranslate"><span class="pre">MeraModelRunner</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mera.mera_deployment.MeraPrjDeployment"><code class="docutils literal notranslate"><span class="pre">MeraPrjDeployment</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mera.mera_deployment.MeraTvmModelRunner"><code class="docutils literal notranslate"><span class="pre">MeraTvmModelRunner</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mera.mera_deployment.ModelRunnerBase"><code class="docutils literal notranslate"><span class="pre">ModelRunnerBase</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mera.mera_deployment.load_mera_deployment"><code class="docutils literal notranslate"><span class="pre">load_mera_deployment()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-mera.mera_model">mera.mera_model module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mera.mera_model.Mera2ModelQuantized"><code class="docutils literal notranslate"><span class="pre">Mera2ModelQuantized</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mera.mera_model.MeraModel"><code class="docutils literal notranslate"><span class="pre">MeraModel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mera.mera_model.MeraModelExecutorch"><code class="docutils literal notranslate"><span class="pre">MeraModelExecutorch</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mera.mera_model.MeraModelOnnx"><code class="docutils literal notranslate"><span class="pre">MeraModelOnnx</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mera.mera_model.MeraModelTflite"><code class="docutils literal notranslate"><span class="pre">MeraModelTflite</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mera.mera_model.ModelLoader"><code class="docutils literal notranslate"><span class="pre">ModelLoader</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-mera.mera_platform">mera.mera_platform module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mera.mera_platform.AccelKind"><code class="docutils literal notranslate"><span class="pre">AccelKind</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mera.mera_platform.Platform"><code class="docutils literal notranslate"><span class="pre">Platform</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-mera.version">mera.version module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mera.version.get_mera2_rt_version"><code class="docutils literal notranslate"><span class="pre">get_mera2_rt_version()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mera.version.get_mera_dna_version"><code class="docutils literal notranslate"><span class="pre">get_mera_dna_version()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mera.version.get_mera_tvm_version"><code class="docutils literal notranslate"><span class="pre">get_mera_tvm_version()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mera.version.get_mera_version"><code class="docutils literal notranslate"><span class="pre">get_mera_version()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mera.version.get_versions"><code class="docutils literal notranslate"><span class="pre">get_versions()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-mera.mera_quantizer">mera.mera_quantizer module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mera.mera_quantizer.Quantizer"><code class="docutils literal notranslate"><span class="pre">Quantizer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mera.mera_quantizer.get_input_desc"><code class="docutils literal notranslate"><span class="pre">get_input_desc()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-mera.quantizer.quantizer_config">mera.quantizer module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mera.quantizer.quantizer_config.LayerConfig"><code class="docutils literal notranslate"><span class="pre">LayerConfig</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mera.quantizer.quantizer_config.ObserverClass"><code class="docutils literal notranslate"><span class="pre">ObserverClass</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mera.quantizer.quantizer_config.OperatorConfig"><code class="docutils literal notranslate"><span class="pre">OperatorConfig</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mera.quantizer.quantizer_config.QMode"><code class="docutils literal notranslate"><span class="pre">QMode</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mera.quantizer.quantizer_config.QScheme"><code class="docutils literal notranslate"><span class="pre">QScheme</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mera.quantizer.quantizer_config.QTarget"><code class="docutils literal notranslate"><span class="pre">QTarget</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mera.quantizer.quantizer_config.QType"><code class="docutils literal notranslate"><span class="pre">QType</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mera.quantizer.quantizer_config.QuantizerConfig"><code class="docutils literal notranslate"><span class="pre">QuantizerConfig</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mera.quantizer.quantizer_config.QuantizerConfigPresets"><code class="docutils literal notranslate"><span class="pre">QuantizerConfigPresets</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mera.quantizer.quantizer_config.TransformConfig"><code class="docutils literal notranslate"><span class="pre">TransformConfig</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mera.quantizer.quality.QuantizationQuality"><code class="docutils literal notranslate"><span class="pre">QuantizationQuality</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="ruhmi_api.html">ruhmi_api</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="ruhmi_api.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">AI model compile API Specification</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/mera_api.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="ai-model-compile-api-specification">
+<h1>AI model compile API Specification<a class="headerlink" href="#ai-model-compile-api-specification" title="Link to this heading"></a></h1>
+<section id="module-contents">
+<h2>Module contents<a class="headerlink" href="#module-contents" title="Link to this heading"></a></h2>
+<section id="module-mera">
+<span id="mera-module"></span><h3>mera module<a class="headerlink" href="#module-mera" title="Link to this heading"></a></h3>
+<p>Mera: Public API for Mera ML compiler stack.</p>
+</section>
+<section id="module-mera.deploy">
+<span id="mera-deploy-module"></span><h3>mera.deploy module<a class="headerlink" href="#module-mera.deploy" title="Link to this heading"></a></h3>
+<p>Mera Deployer classes</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mera.deploy.Deployer">
+<span class="sig-prename descclassname"><span class="pre">mera.deploy.</span></span><span class="sig-name descname"><span class="pre">Deployer</span></span><a class="headerlink" href="#mera.deploy.Deployer" title="Link to this definition"></a></dt>
+<dd><p>alias of <a class="reference internal" href="#mera.deploy.MERADeployer" title="mera.deploy.MERADeployer"><code class="xref py py-class docutils literal notranslate"><span class="pre">MERADeployer</span></code></a></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mera.deploy.MERADeployer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mera.deploy.</span></span><span class="sig-name descname"><span class="pre">MERADeployer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mera.deploy.MERADeployer" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_DeployerBase</span></code></p>
+<p>MERA standard deployer with MERA’s compiler stack:</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="mera.deploy.MERADeployer.deploy">
+<span class="sig-name descname"><span class="pre">deploy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#mera.mera_model.MeraModel" title="mera.mera_model.MeraModel"><span class="pre">MeraModel</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">mera_platform</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#mera.mera_platform.Platform" title="mera.mera_platform.Platform"><span class="pre">Platform</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Platform.SAKURA_2C</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">build_config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#mera.deploy_project.Target" title="mera.deploy_project.Target"><span class="pre">Target</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Target.Simulator</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">host_arch</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mcu_config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vela_config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mera.deploy.MERADeployer.deploy" title="Link to this definition"></a></dt>
+<dd><p>Launches the compilation of a MERA project for a MERA model using the MERA stack.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model</strong> – Model object loaded from mera.ModelLoader</p></li>
+<li><p><strong>mera_platform</strong> – MERA platform architecture enum value</p></li>
+<li><p><strong>build_config</strong> – MERA build configuration dict</p></li>
+<li><p><strong>target</strong> – MERA build target</p></li>
+<li><p><strong>host_arch</strong> – Host arch to deploy for. If unset, it will pick the current host platform,
+provide a value to override the setting.</p></li>
+<li><p><strong>mcu_config</strong> – Dictionary with user overrides for MCU CCodegen tool. The following fields are allowed:
+<cite>suffix</cite>, <cite>weight_location</cite>, <cite>use_x86</cite></p></li>
+<li><p><strong>vela_config</strong> – Dictionary with user overrides for MCU Vela tool. The following fields are allowed:
+<cite>enable_ospi</cite>, <cite>config</cite>, <cite>sys_config</cite>, <cite>accel_config</cite>, <cite>optimise</cite>, <cite>memory_mode</cite>, <cite>verbose_all</cite>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The object representing the result of a MERA deployment</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-mera.deploy_project">
+<span id="mera-deploy-project-module"></span><h3>mera.deploy_project module<a class="headerlink" href="#module-mera.deploy_project" title="Link to this heading"></a></h3>
+<p>Mera Deploy Project utilities.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="mera.deploy_project.Layout">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mera.deploy_project.</span></span><span class="sig-name descname"><span class="pre">Layout</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mera.deploy_project.Layout" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>List of possible data layouts</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mera.deploy_project.Layout.NCHW">
+<span class="sig-name descname"><span class="pre">NCHW</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'NCHW'</span></em><a class="headerlink" href="#mera.deploy_project.Layout.NCHW" title="Link to this definition"></a></dt>
+<dd><p>N batches, Channels, Height, Width.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mera.deploy_project.Layout.NHWC">
+<span class="sig-name descname"><span class="pre">NHWC</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'NHWC'</span></em><a class="headerlink" href="#mera.deploy_project.Layout.NHWC" title="Link to this definition"></a></dt>
+<dd><p>N batches, Height, Width, Channels.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mera.deploy_project.Target">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mera.deploy_project.</span></span><span class="sig-name descname"><span class="pre">Target</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mera.deploy_project.Target" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>List of possible Mera Target values.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mera.deploy_project.Target.IP">
+<span class="sig-name descname"><span class="pre">IP</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('IP',</span> <span class="pre">False,</span> <span class="pre">False)</span></em><a class="headerlink" href="#mera.deploy_project.Target.IP" title="Link to this definition"></a></dt>
+<dd><p>Target HW accelerator. Valid for <cite>arm</cite> and <cite>x86</cite> architectures.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mera.deploy_project.Target.Interpreter">
+<span class="sig-name descname"><span class="pre">Interpreter</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('Interpreter',</span> <span class="pre">True,</span> <span class="pre">True)</span></em><a class="headerlink" href="#mera.deploy_project.Target.Interpreter" title="Link to this definition"></a></dt>
+<dd><p>Target sw interpretation of the model in floating point. Only valid for <cite>x86</cite></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mera.deploy_project.Target.InterpreterBf16">
+<span class="sig-name descname"><span class="pre">InterpreterBf16</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('InterpreterBf16',</span> <span class="pre">True,</span> <span class="pre">True)</span></em><a class="headerlink" href="#mera.deploy_project.Target.InterpreterBf16" title="Link to this definition"></a></dt>
+<dd><p>Target sw interpretation of the model in BF16. Only valid for <cite>x86</cite></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mera.deploy_project.Target.InterpreterHw">
+<span class="sig-name descname"><span class="pre">InterpreterHw</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('InterpreterHw',</span> <span class="pre">True,</span> <span class="pre">False)</span></em><a class="headerlink" href="#mera.deploy_project.Target.InterpreterHw" title="Link to this definition"></a></dt>
+<dd><p>Target sw interpretation of the model. Only valid for <cite>x86</cite></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mera.deploy_project.Target.InterpreterHwBf16">
+<span class="sig-name descname"><span class="pre">InterpreterHwBf16</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('InterpreterHwBf16',</span> <span class="pre">True,</span> <span class="pre">True)</span></em><a class="headerlink" href="#mera.deploy_project.Target.InterpreterHwBf16" title="Link to this definition"></a></dt>
+<dd><p>Target IP sw interpretation of the model in BF16. Only valid for <cite>x86</cite></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mera.deploy_project.Target.MCU">
+<span class="sig-name descname"><span class="pre">MCU</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('MCU',</span> <span class="pre">False,</span> <span class="pre">True)</span></em><a class="headerlink" href="#mera.deploy_project.Target.MCU" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mera.deploy_project.Target.MERA2Interpreter">
+<span class="sig-name descname"><span class="pre">MERA2Interpreter</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('MERAInterpreter',</span> <span class="pre">True,</span> <span class="pre">True)</span></em><a class="headerlink" href="#mera.deploy_project.Target.MERA2Interpreter" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mera.deploy_project.Target.MERAInterpreter">
+<span class="sig-name descname"><span class="pre">MERAInterpreter</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('MERAInterpreter',</span> <span class="pre">True,</span> <span class="pre">True)</span></em><a class="headerlink" href="#mera.deploy_project.Target.MERAInterpreter" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mera.deploy_project.Target.Quantizer">
+<span class="sig-name descname"><span class="pre">Quantizer</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('Quantizer',</span> <span class="pre">True,</span> <span class="pre">True)</span></em><a class="headerlink" href="#mera.deploy_project.Target.Quantizer" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mera.deploy_project.Target.Simulator">
+<span class="sig-name descname"><span class="pre">Simulator</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('Simulator',</span> <span class="pre">True,</span> <span class="pre">False)</span></em><a class="headerlink" href="#mera.deploy_project.Target.Simulator" title="Link to this definition"></a></dt>
+<dd><p>Target sw simulation of the IP model. Only valid for <cite>x86</cite></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mera.deploy_project.Target.SimulatorBf16">
+<span class="sig-name descname"><span class="pre">SimulatorBf16</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('SimulatorBf16',</span> <span class="pre">True,</span> <span class="pre">True)</span></em><a class="headerlink" href="#mera.deploy_project.Target.SimulatorBf16" title="Link to this definition"></a></dt>
+<dd><p>Target sw simulation of the IP BF16 model. Only valid for <cite>x86</cite></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mera.deploy_project.Target.VerilatorSimulator">
+<span class="sig-name descname"><span class="pre">VerilatorSimulator</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('VerilatorSimulator',</span> <span class="pre">True,</span> <span class="pre">False)</span></em><a class="headerlink" href="#mera.deploy_project.Target.VerilatorSimulator" title="Link to this definition"></a></dt>
+<dd><p>Target hw emulation of the IP model. Only valid for <cite>x86</cite></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mera.deploy_project.is_mera_project">
+<span class="sig-prename descclassname"><span class="pre">mera.deploy_project.</span></span><span class="sig-name descname"><span class="pre">is_mera_project</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#mera.deploy_project.is_mera_project" title="Link to this definition"></a></dt>
+<dd><p>Returns whether a provided path is a MeraProject or not</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>path</strong> – Path to check for project existence</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Whether the path belongs to a project</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-mera.mera_deployment">
+<span id="mera-mera-deployment-module"></span><h3>mera.mera_deployment module<a class="headerlink" href="#module-mera.mera_deployment" title="Link to this heading"></a></h3>
+<p>Mera Deployment classes</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="mera.mera_deployment.DeviceTarget">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mera.mera_deployment.</span></span><span class="sig-name descname"><span class="pre">DeviceTarget</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mera.mera_deployment.DeviceTarget" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>List of possible MERA runtime devices for running IP deployments.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mera.mera_deployment.DeviceTarget.INTEL_IA420">
+<span class="sig-name descname"><span class="pre">INTEL_IA420</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('Intel</span> <span class="pre">IA420',</span> <span class="pre">3)</span></em><a class="headerlink" href="#mera.mera_deployment.DeviceTarget.INTEL_IA420" title="Link to this definition"></a></dt>
+<dd><p>Target device is an Intel IA420 FPGA board.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mera.mera_deployment.DeviceTarget.SAKURA_1">
+<span class="sig-name descname"><span class="pre">SAKURA_1</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('Sakura-1',</span> <span class="pre">1)</span></em><a class="headerlink" href="#mera.mera_deployment.DeviceTarget.SAKURA_1" title="Link to this definition"></a></dt>
+<dd><p>Target device is an EdgeCortix’s Sakura-1 ASIC.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mera.mera_deployment.DeviceTarget.SAKURA_2">
+<span class="sig-name descname"><span class="pre">SAKURA_2</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('Sakura-2',</span> <span class="pre">5)</span></em><a class="headerlink" href="#mera.mera_deployment.DeviceTarget.SAKURA_2" title="Link to this definition"></a></dt>
+<dd><p>Target device is an EdgeCortix’s Sakura-2 ASIC.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mera.mera_deployment.DeviceTarget.XILINX_U50">
+<span class="sig-name descname"><span class="pre">XILINX_U50</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('AMD</span> <span class="pre">Xilinx</span> <span class="pre">U50',</span> <span class="pre">2)</span></em><a class="headerlink" href="#mera.mera_deployment.DeviceTarget.XILINX_U50" title="Link to this definition"></a></dt>
+<dd><p>Target device is an AMD Xilinx U50 FPGA board.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="mera.mera_deployment.DeviceTarget.code">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">code</span></span><a class="headerlink" href="#mera.mera_deployment.DeviceTarget.code" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mera.mera_deployment.MeraDeployment">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mera.mera_deployment.</span></span><span class="sig-name descname"><span class="pre">MeraDeployment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plan_loc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mera.mera_deployment.MeraDeployment" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="mera.mera_deployment.MeraDeployment.get_runner">
+<span class="sig-name descname"><span class="pre">get_runner</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device_target</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#mera.mera_deployment.DeviceTarget" title="mera.mera_deployment.DeviceTarget"><span class="pre">DeviceTarget</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">DeviceTarget.SAKURA_1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dynamic_output_list</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#mera.mera_deployment.MeraModelRunner" title="mera.mera_deployment.MeraModelRunner"><span class="pre">MeraModelRunner</span></a></span></span><a class="headerlink" href="#mera.mera_deployment.MeraDeployment.get_runner" title="Link to this definition"></a></dt>
+<dd><p>Prepares the model for running with a given target</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device_target</strong> – Selects the device run target where the IP deployment will be run. Only applicable for deployments
+with target=IP. See <cite>DeviceTarget</cite> enum for a detailed list of possible values.</p></li>
+<li><p><strong>device_ids</strong> – When running in a multi card environment, selects the SAKURA device(s) where the deployment will be run.
+If unset, MERA will automatically select any available card in the system. Only applicable in the case device_target=DeviceTarget.SAKURA_1</p></li>
+<li><p><strong>dynamic_output_list</strong> – Marks certain outputs so that only a dynamic subset of the data is returned. See special get_output_row() function
+in MeraModelRunner. This feature is only supported when running in IP.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Runner object</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mera.mera_deployment.MeraInterpreterDeployment">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mera.mera_deployment.</span></span><span class="sig-name descname"><span class="pre">MeraInterpreterDeployment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_loc</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mera.mera_deployment.MeraInterpreterDeployment" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="mera.mera_deployment.MeraInterpreterDeployment.get_runner">
+<span class="sig-name descname"><span class="pre">get_runner</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">profiling_mode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_dict</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#mera.mera_deployment.MeraInterpreterModelRunner" title="mera.mera_deployment.MeraInterpreterModelRunner"><span class="pre">MeraInterpreterModelRunner</span></a></span></span><a class="headerlink" href="#mera.mera_deployment.MeraInterpreterDeployment.get_runner" title="Link to this definition"></a></dt>
+<dd><p>Prepares the Interpreter for running the model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>profiling_mode</strong> – Enables collection of node execution times.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Runner object</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mera.mera_deployment.MeraInterpreterModelRunner">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mera.mera_deployment.</span></span><span class="sig-name descname"><span class="pre">MeraInterpreterModelRunner</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">int_runner</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">int_cfg</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mera.mera_deployment.MeraInterpreterModelRunner" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#mera.mera_deployment.ModelRunnerBase" title="mera.mera_deployment.ModelRunnerBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelRunnerBase</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="mera.mera_deployment.MeraInterpreterModelRunner.display_profiling_table">
+<span class="sig-name descname"><span class="pre">display_profiling_table</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mera.mera_deployment.MeraInterpreterModelRunner.display_profiling_table" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mera.mera_deployment.MeraInterpreterModelRunner.get_num_inputs">
+<span class="sig-name descname"><span class="pre">get_num_inputs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#mera.mera_deployment.MeraInterpreterModelRunner.get_num_inputs" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mera.mera_deployment.MeraInterpreterModelRunner.get_num_outputs">
+<span class="sig-name descname"><span class="pre">get_num_outputs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#mera.mera_deployment.MeraInterpreterModelRunner.get_num_outputs" title="Link to this definition"></a></dt>
+<dd><p>Gets the number of available outputs</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Number of output variables</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mera.mera_deployment.MeraInterpreterModelRunner.get_output">
+<span class="sig-name descname"><span class="pre">get_output</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output_idx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="headerlink" href="#mera.mera_deployment.MeraInterpreterModelRunner.get_output" title="Link to this definition"></a></dt>
+<dd><p>Returns the output tensor given an output id index. <a class="reference internal" href="#mera.mera_deployment.MeraInterpreterModelRunner.run" title="mera.mera_deployment.MeraInterpreterModelRunner.run"><code class="xref py py-func docutils literal notranslate"><span class="pre">run()</span></code></a> needs to be called before <a class="reference internal" href="#mera.mera_deployment.MeraInterpreterModelRunner.get_output" title="mera.mera_deployment.MeraInterpreterModelRunner.get_output"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_output()</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>output_idx</strong> – Index of output variable to query</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Output tensor values in numpy format</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mera.mera_deployment.MeraInterpreterModelRunner.get_output_row">
+<span class="sig-name descname"><span class="pre">get_output_row</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">row_idx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_idx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="headerlink" href="#mera.mera_deployment.MeraInterpreterModelRunner.get_output_row" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mera.mera_deployment.MeraInterpreterModelRunner.get_outputs">
+<span class="sig-name descname"><span class="pre">get_outputs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#mera.mera_deployment.MeraInterpreterModelRunner.get_outputs" title="Link to this definition"></a></dt>
+<dd><p>Returns a list of all output tensors. Equivalent to <a class="reference internal" href="#mera.mera_deployment.MeraInterpreterModelRunner.get_output" title="mera.mera_deployment.MeraInterpreterModelRunner.get_output"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_output()</span></code></a> from <cite>[0, get_num_outputs()]</cite></p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List of output tensor values in numpy format</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mera.mera_deployment.MeraInterpreterModelRunner.get_outputs_dict">
+<span class="sig-name descname"><span class="pre">get_outputs_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#mera.mera_deployment.MeraInterpreterModelRunner.get_outputs_dict" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mera.mera_deployment.MeraInterpreterModelRunner.get_power_metrics">
+<span class="sig-name descname"><span class="pre">get_power_metrics</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">PowerMetrics</span></span></span><a class="headerlink" href="#mera.mera_deployment.MeraInterpreterModelRunner.get_power_metrics" title="Link to this definition"></a></dt>
+<dd><p>Gets the power metrics reported from MERA after a <a class="reference internal" href="#mera.mera_deployment.MeraInterpreterModelRunner.run" title="mera.mera_deployment.MeraInterpreterModelRunner.run"><code class="xref py py-func docutils literal notranslate"><span class="pre">run()</span></code></a>.
+Note power measurement mode might need to be enable in order to collect and generate such metrics.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Container with summary analysis of all collected metrics from MERA.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mera.mera_deployment.MeraInterpreterModelRunner.get_runtime_metrics">
+<span class="sig-name descname"><span class="pre">get_runtime_metrics</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#mera.mera_deployment.MeraInterpreterModelRunner.get_runtime_metrics" title="Link to this definition"></a></dt>
+<dd><p>Gets the runtime metrics reported from Mera after a <a class="reference internal" href="#mera.mera_deployment.MeraInterpreterModelRunner.run" title="mera.mera_deployment.MeraInterpreterModelRunner.run"><code class="xref py py-func docutils literal notranslate"><span class="pre">run()</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dictionary of measured metrics</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mera.mera_deployment.MeraInterpreterModelRunner.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#mera.mera_deployment.MeraInterpreterModelRunner.run" title="Link to this definition"></a></dt>
+<dd><p>Runs the model with the specified input data. <a class="reference internal" href="#mera.mera_deployment.MeraInterpreterModelRunner.set_input" title="mera.mera_deployment.MeraInterpreterModelRunner.set_input"><code class="xref py py-func docutils literal notranslate"><span class="pre">set_input()</span></code></a> needs to be called before <a class="reference internal" href="#mera.mera_deployment.MeraInterpreterModelRunner.run" title="mera.mera_deployment.MeraInterpreterModelRunner.run"><code class="xref py py-func docutils literal notranslate"><span class="pre">run()</span></code></a></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mera.mera_deployment.MeraInterpreterModelRunner.set_input">
+<span class="sig-name descname"><span class="pre">set_input</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mera.mera_deployment.MeraInterpreterModelRunner.set_input" title="Link to this definition"></a></dt>
+<dd><p>Sets the input data for running</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>data</strong> – Input numpy data tensor or dict of input numpy data tensors if the model has more than one input.
+Setting multiple inputs should have the format <cite>{input_name : input_data}</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mera.mera_deployment.MeraInterpreterPrjDeployment">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mera.mera_deployment.</span></span><span class="sig-name descname"><span class="pre">MeraInterpreterPrjDeployment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_loc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prj</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mera.mera_deployment.MeraInterpreterPrjDeployment" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#mera.mera_deployment.MeraInterpreterDeployment" title="mera.mera_deployment.MeraInterpreterDeployment"><code class="xref py py-class docutils literal notranslate"><span class="pre">MeraInterpreterDeployment</span></code></a></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mera.mera_deployment.MeraModelRunner">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mera.mera_deployment.</span></span><span class="sig-name descname"><span class="pre">MeraModelRunner</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">runner</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plan</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mera.mera_deployment.MeraModelRunner" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#mera.mera_deployment.ModelRunnerBase" title="mera.mera_deployment.ModelRunnerBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelRunnerBase</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="mera.mera_deployment.MeraModelRunner.get_input_handle">
+<span class="sig-name descname"><span class="pre">get_input_handle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">as_numpy</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'float32'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mera.mera_deployment.MeraModelRunner.get_input_handle" title="Link to this definition"></a></dt>
+<dd><p>Gets the zero-copy handler to the specified model input.
+:param name: Name of the input.
+:param as_numpy: Whether to prepare handle as numpy array. Defaults to true.
+:param dtype: Viewer data type.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Input data handler.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mera.mera_deployment.MeraModelRunner.get_input_names">
+<span class="sig-name descname"><span class="pre">get_input_names</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#mera.mera_deployment.MeraModelRunner.get_input_names" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mera.mera_deployment.MeraModelRunner.get_num_outputs">
+<span class="sig-name descname"><span class="pre">get_num_outputs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#mera.mera_deployment.MeraModelRunner.get_num_outputs" title="Link to this definition"></a></dt>
+<dd><p>Gets the number of available outputs</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Number of output variables</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mera.mera_deployment.MeraModelRunner.get_output">
+<span class="sig-name descname"><span class="pre">get_output</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output_idx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="headerlink" href="#mera.mera_deployment.MeraModelRunner.get_output" title="Link to this definition"></a></dt>
+<dd><p>Returns the output tensor given an output id index. <a class="reference internal" href="#mera.mera_deployment.MeraModelRunner.run" title="mera.mera_deployment.MeraModelRunner.run"><code class="xref py py-func docutils literal notranslate"><span class="pre">run()</span></code></a> needs to be called before <a class="reference internal" href="#mera.mera_deployment.MeraModelRunner.get_output" title="mera.mera_deployment.MeraModelRunner.get_output"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_output()</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>output_idx</strong> – Index of output variable to query</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Output tensor values in numpy format</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mera.mera_deployment.MeraModelRunner.get_output_handle">
+<span class="sig-name descname"><span class="pre">get_output_handle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">as_numpy</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'float32'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mera.mera_deployment.MeraModelRunner.get_output_handle" title="Link to this definition"></a></dt>
+<dd><p>Gets the zero-copy handler to the specified model output.
+:param name: Name of the output.
+:param as_numpy: Whether to prepare handle as numpy array. Defaults to true.
+:param dtype: Viewer data type.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Output data handler.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mera.mera_deployment.MeraModelRunner.get_output_names">
+<span class="sig-name descname"><span class="pre">get_output_names</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#mera.mera_deployment.MeraModelRunner.get_output_names" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mera.mera_deployment.MeraModelRunner.get_output_row">
+<span class="sig-name descname"><span class="pre">get_output_row</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">row_idx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_idx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="headerlink" href="#mera.mera_deployment.MeraModelRunner.get_output_row" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mera.mera_deployment.MeraModelRunner.get_outputs">
+<span class="sig-name descname"><span class="pre">get_outputs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#mera.mera_deployment.MeraModelRunner.get_outputs" title="Link to this definition"></a></dt>
+<dd><p>Returns a list of all output tensors. Equivalent to <a class="reference internal" href="#mera.mera_deployment.MeraModelRunner.get_output" title="mera.mera_deployment.MeraModelRunner.get_output"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_output()</span></code></a> from <cite>[0, get_num_outputs()]</cite></p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List of output tensor values in numpy format</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mera.mera_deployment.MeraModelRunner.get_outputs_dict">
+<span class="sig-name descname"><span class="pre">get_outputs_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#mera.mera_deployment.MeraModelRunner.get_outputs_dict" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mera.mera_deployment.MeraModelRunner.get_power_metrics">
+<span class="sig-name descname"><span class="pre">get_power_metrics</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">PowerMetrics</span></span></span><a class="headerlink" href="#mera.mera_deployment.MeraModelRunner.get_power_metrics" title="Link to this definition"></a></dt>
+<dd><p>Gets the power metrics reported from MERA after a <a class="reference internal" href="#mera.mera_deployment.MeraModelRunner.run" title="mera.mera_deployment.MeraModelRunner.run"><code class="xref py py-func docutils literal notranslate"><span class="pre">run()</span></code></a>.
+Note power measurement mode might need to be enable in order to collect and generate such metrics.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Container with summary analysis of all collected metrics from MERA.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mera.mera_deployment.MeraModelRunner.get_runtime_metrics">
+<span class="sig-name descname"><span class="pre">get_runtime_metrics</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#mera.mera_deployment.MeraModelRunner.get_runtime_metrics" title="Link to this definition"></a></dt>
+<dd><p>Gets the runtime metrics reported from Mera after a <a class="reference internal" href="#mera.mera_deployment.MeraModelRunner.run" title="mera.mera_deployment.MeraModelRunner.run"><code class="xref py py-func docutils literal notranslate"><span class="pre">run()</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dictionary of measured metrics</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mera.mera_deployment.MeraModelRunner.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#mera.mera_deployment.MeraModelRunner.run" title="Link to this definition"></a></dt>
+<dd><p>Runs the model with the specified input data. <a class="reference internal" href="#mera.mera_deployment.MeraModelRunner.set_input" title="mera.mera_deployment.MeraModelRunner.set_input"><code class="xref py py-func docutils literal notranslate"><span class="pre">set_input()</span></code></a> needs to be called before <a class="reference internal" href="#mera.mera_deployment.MeraModelRunner.run" title="mera.mera_deployment.MeraModelRunner.run"><code class="xref py py-func docutils literal notranslate"><span class="pre">run()</span></code></a></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mera.mera_deployment.MeraModelRunner.set_input">
+<span class="sig-name descname"><span class="pre">set_input</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mera.mera_deployment.MeraModelRunner.set_input" title="Link to this definition"></a></dt>
+<dd><p>Sets the input data for running</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>data</strong> – Input numpy data tensor or dict of input numpy data tensors if the model has more than one input.
+Setting multiple inputs should have the format <cite>{input_name : input_data}</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mera.mera_deployment.MeraModelRunner.set_named_input">
+<span class="sig-name descname"><span class="pre">set_named_input</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mera.mera_deployment.MeraModelRunner.set_named_input" title="Link to this definition"></a></dt>
+<dd><p>Gets the zero-copy numpy handler and copies data to the device.
+:param name: Name of the input.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mera.mera_deployment.MeraPrjDeployment">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mera.mera_deployment.</span></span><span class="sig-name descname"><span class="pre">MeraPrjDeployment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plan_loc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mera.mera_deployment.MeraPrjDeployment" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#mera.mera_deployment.MeraDeployment" title="mera.mera_deployment.MeraDeployment"><code class="xref py py-class docutils literal notranslate"><span class="pre">MeraDeployment</span></code></a></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mera.mera_deployment.MeraTvmModelRunner">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mera.mera_deployment.</span></span><span class="sig-name descname"><span class="pre">MeraTvmModelRunner</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rt_mod</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mera.mera_deployment.MeraTvmModelRunner" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#mera.mera_deployment.ModelRunnerBase" title="mera.mera_deployment.ModelRunnerBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelRunnerBase</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="mera.mera_deployment.MeraTvmModelRunner.get_num_outputs">
+<span class="sig-name descname"><span class="pre">get_num_outputs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#mera.mera_deployment.MeraTvmModelRunner.get_num_outputs" title="Link to this definition"></a></dt>
+<dd><p>Gets the number of available outputs</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Number of output variables</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mera.mera_deployment.MeraTvmModelRunner.get_output">
+<span class="sig-name descname"><span class="pre">get_output</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output_idx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="headerlink" href="#mera.mera_deployment.MeraTvmModelRunner.get_output" title="Link to this definition"></a></dt>
+<dd><p>Returns the output tensor given an output id index. <a class="reference internal" href="#mera.mera_deployment.MeraTvmModelRunner.run" title="mera.mera_deployment.MeraTvmModelRunner.run"><code class="xref py py-func docutils literal notranslate"><span class="pre">run()</span></code></a> needs to be called before <a class="reference internal" href="#mera.mera_deployment.MeraTvmModelRunner.get_output" title="mera.mera_deployment.MeraTvmModelRunner.get_output"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_output()</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>output_idx</strong> – Index of output variable to query</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Output tensor values in numpy format</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mera.mera_deployment.MeraTvmModelRunner.get_outputs">
+<span class="sig-name descname"><span class="pre">get_outputs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#mera.mera_deployment.MeraTvmModelRunner.get_outputs" title="Link to this definition"></a></dt>
+<dd><p>Returns a list of all output tensors. Equivalent to <a class="reference internal" href="#mera.mera_deployment.MeraTvmModelRunner.get_output" title="mera.mera_deployment.MeraTvmModelRunner.get_output"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_output()</span></code></a> from <cite>[0, get_num_outputs()]</cite></p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List of output tensor values in numpy format</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mera.mera_deployment.MeraTvmModelRunner.get_power_metrics">
+<span class="sig-name descname"><span class="pre">get_power_metrics</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">PowerMetrics</span></span></span><a class="headerlink" href="#mera.mera_deployment.MeraTvmModelRunner.get_power_metrics" title="Link to this definition"></a></dt>
+<dd><p>Gets the power metrics reported from MERA after a <a class="reference internal" href="#mera.mera_deployment.MeraTvmModelRunner.run" title="mera.mera_deployment.MeraTvmModelRunner.run"><code class="xref py py-func docutils literal notranslate"><span class="pre">run()</span></code></a>.
+Note power measurement mode might need to be enable in order to collect and generate such metrics.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Container with summary analysis of all collected metrics from MERA.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mera.mera_deployment.MeraTvmModelRunner.get_runtime_metrics">
+<span class="sig-name descname"><span class="pre">get_runtime_metrics</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#mera.mera_deployment.MeraTvmModelRunner.get_runtime_metrics" title="Link to this definition"></a></dt>
+<dd><p>Gets the runtime metrics reported from Mera after a <a class="reference internal" href="#mera.mera_deployment.MeraTvmModelRunner.run" title="mera.mera_deployment.MeraTvmModelRunner.run"><code class="xref py py-func docutils literal notranslate"><span class="pre">run()</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dictionary of measured metrics</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mera.mera_deployment.MeraTvmModelRunner.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#mera.mera_deployment.MeraTvmModelRunner.run" title="Link to this definition"></a></dt>
+<dd><p>Runs the model with the specified input data. <a class="reference internal" href="#mera.mera_deployment.MeraTvmModelRunner.set_input" title="mera.mera_deployment.MeraTvmModelRunner.set_input"><code class="xref py py-func docutils literal notranslate"><span class="pre">set_input()</span></code></a> needs to be called before <a class="reference internal" href="#mera.mera_deployment.MeraTvmModelRunner.run" title="mera.mera_deployment.MeraTvmModelRunner.run"><code class="xref py py-func docutils literal notranslate"><span class="pre">run()</span></code></a></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mera.mera_deployment.MeraTvmModelRunner.set_input">
+<span class="sig-name descname"><span class="pre">set_input</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mera.mera_deployment.MeraTvmModelRunner.set_input" title="Link to this definition"></a></dt>
+<dd><p>Sets the input data for running</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>data</strong> – Input numpy data tensor or dict of input numpy data tensors if the model has more than one input.
+Setting multiple inputs should have the format <cite>{input_name : input_data}</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mera.mera_deployment.ModelRunnerBase">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mera.mera_deployment.</span></span><span class="sig-name descname"><span class="pre">ModelRunnerBase</span></span><a class="headerlink" href="#mera.mera_deployment.ModelRunnerBase" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>API for runtime inference of a model.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="mera.mera_deployment.ModelRunnerBase.get_num_outputs">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_num_outputs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#mera.mera_deployment.ModelRunnerBase.get_num_outputs" title="Link to this definition"></a></dt>
+<dd><p>Gets the number of available outputs</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Number of output variables</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mera.mera_deployment.ModelRunnerBase.get_output">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_output</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output_idx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="headerlink" href="#mera.mera_deployment.ModelRunnerBase.get_output" title="Link to this definition"></a></dt>
+<dd><p>Returns the output tensor given an output id index. <a class="reference internal" href="#mera.mera_deployment.ModelRunnerBase.run" title="mera.mera_deployment.ModelRunnerBase.run"><code class="xref py py-func docutils literal notranslate"><span class="pre">run()</span></code></a> needs to be called before <a class="reference internal" href="#mera.mera_deployment.ModelRunnerBase.get_output" title="mera.mera_deployment.ModelRunnerBase.get_output"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_output()</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>output_idx</strong> – Index of output variable to query</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Output tensor values in numpy format</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mera.mera_deployment.ModelRunnerBase.get_outputs">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_outputs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#mera.mera_deployment.ModelRunnerBase.get_outputs" title="Link to this definition"></a></dt>
+<dd><p>Returns a list of all output tensors. Equivalent to <a class="reference internal" href="#mera.mera_deployment.ModelRunnerBase.get_output" title="mera.mera_deployment.ModelRunnerBase.get_output"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_output()</span></code></a> from <cite>[0, get_num_outputs()]</cite></p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List of output tensor values in numpy format</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mera.mera_deployment.ModelRunnerBase.get_power_metrics">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_power_metrics</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">PowerMetrics</span></span></span><a class="headerlink" href="#mera.mera_deployment.ModelRunnerBase.get_power_metrics" title="Link to this definition"></a></dt>
+<dd><p>Gets the power metrics reported from MERA after a <a class="reference internal" href="#mera.mera_deployment.ModelRunnerBase.run" title="mera.mera_deployment.ModelRunnerBase.run"><code class="xref py py-func docutils literal notranslate"><span class="pre">run()</span></code></a>.
+Note power measurement mode might need to be enable in order to collect and generate such metrics.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Container with summary analysis of all collected metrics from MERA.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mera.mera_deployment.ModelRunnerBase.get_runtime_metrics">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_runtime_metrics</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#mera.mera_deployment.ModelRunnerBase.get_runtime_metrics" title="Link to this definition"></a></dt>
+<dd><p>Gets the runtime metrics reported from Mera after a <a class="reference internal" href="#mera.mera_deployment.ModelRunnerBase.run" title="mera.mera_deployment.ModelRunnerBase.run"><code class="xref py py-func docutils literal notranslate"><span class="pre">run()</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dictionary of measured metrics</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mera.mera_deployment.ModelRunnerBase.run">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#mera.mera_deployment.ModelRunnerBase.run" title="Link to this definition"></a></dt>
+<dd><p>Runs the model with the specified input data. <a class="reference internal" href="#mera.mera_deployment.ModelRunnerBase.set_input" title="mera.mera_deployment.ModelRunnerBase.set_input"><code class="xref py py-func docutils literal notranslate"><span class="pre">set_input()</span></code></a> needs to be called before <a class="reference internal" href="#mera.mera_deployment.ModelRunnerBase.run" title="mera.mera_deployment.ModelRunnerBase.run"><code class="xref py py-func docutils literal notranslate"><span class="pre">run()</span></code></a></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mera.mera_deployment.ModelRunnerBase.set_input">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">set_input</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mera.mera_deployment.ModelRunnerBase.set_input" title="Link to this definition"></a></dt>
+<dd><p>Sets the input data for running</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>data</strong> – Input numpy data tensor or dict of input numpy data tensors if the model has more than one input.
+Setting multiple inputs should have the format <cite>{input_name : input_data}</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mera.mera_deployment.load_mera_deployment">
+<span class="sig-prename descclassname"><span class="pre">mera.mera_deployment.</span></span><span class="sig-name descname"><span class="pre">load_mera_deployment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#mera.deploy_project.Target" title="mera.deploy_project.Target"><span class="pre">Target</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mera.mera_deployment.load_mera_deployment" title="Link to this definition"></a></dt>
+<dd><p>Loads an already built deployment from a directory</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> – Directory of a Mera deployment project or full directory of built mera results</p></li>
+<li><p><strong>target</strong> – If there are multiple targets built in the mera project selects which one.
+Optional if not loading a project or if there is a single target built.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Reference to deployment object</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-mera.mera_model">
+<span id="mera-mera-model-module"></span><h3>mera.mera_model module<a class="headerlink" href="#module-mera.mera_model" title="Link to this heading"></a></h3>
+<p>Mera Model classes.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="mera.mera_model.Mera2ModelQuantized">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mera.mera_model.</span></span><span class="sig-name descname"><span class="pre">Mera2ModelQuantized</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mera.mera_model.Mera2ModelQuantized" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#mera.mera_model.MeraModel" title="mera.mera_model.MeraModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">MeraModel</span></code></a></p>
+<p>MeraModel class of a model quantized with MERA2 tools.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mera.mera_model.MeraModel">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mera.mera_model.</span></span><span class="sig-name descname"><span class="pre">MeraModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_prequantize_input</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_model</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mera.mera_model.MeraModel" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Base class representing a ML model compatible with MERA deployment project.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="mera.mera_model.MeraModel.get_input_shape">
+<span class="sig-name descname"><span class="pre">get_input_shape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#mera.mera_model.MeraModel.get_input_shape" title="Link to this definition"></a></dt>
+<dd><p>Utility class to query the shape of an input variable of the model</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>input_name</strong> – Specifies which input to get the shape from. If unset, assumes there is only one input.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A tuple with 4 items representing the shape of the input variable in the model.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="mera.mera_model.MeraModel.input_desc">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">input_desc</span></span><a class="headerlink" href="#mera.mera_model.MeraModel.input_desc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mera.mera_model.MeraModelExecutorch">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mera.mera_model.</span></span><span class="sig-name descname"><span class="pre">MeraModelExecutorch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mera.mera_model.MeraModelExecutorch" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#mera.mera_model.MeraModel" title="mera.mera_model.MeraModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">MeraModel</span></code></a></p>
+<p>Specialization of MeraModel for a Executorch/EXIR ML model.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mera.mera_model.MeraModelOnnx">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mera.mera_model.</span></span><span class="sig-name descname"><span class="pre">MeraModelOnnx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_num</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shape_mapping</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_info</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mera.mera_model.MeraModelOnnx" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#mera.mera_model.MeraModel" title="mera.mera_model.MeraModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">MeraModel</span></code></a></p>
+<p>Specialization of MeraModel for a ONNX ML model.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mera.mera_model.MeraModelTflite">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mera.mera_model.</span></span><span class="sig-name descname"><span class="pre">MeraModelTflite</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_prequantize_input</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mera.mera_model.MeraModelTflite" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#mera.mera_model.MeraModel" title="mera.mera_model.MeraModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">MeraModel</span></code></a></p>
+<p>Specialization of MeraModel for a TFLite ML model.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mera.mera_model.ModelLoader">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mera.mera_model.</span></span><span class="sig-name descname"><span class="pre">ModelLoader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">deployer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mera.mera_model.ModelLoader" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Utility class for loading and converting ML models into models compatible with MERA</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>deployer</strong> (<em>mera.deploy.TVMDeployer</em>) – Reference to a MERA deployer class, if None is provided,
+information about the model will not be added to the deployment project.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="mera.mera_model.ModelLoader.from_executorch">
+<span class="sig-name descname"><span class="pre">from_executorch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#mera.mera_model.MeraModelExecutorch" title="mera.mera_model.MeraModelExecutorch"><span class="pre">MeraModelExecutorch</span></a></span></span><a class="headerlink" href="#mera.mera_model.ModelLoader.from_executorch" title="Link to this definition"></a></dt>
+<dd><p>Converts a PyTorch model in Executorch/EXIR format (.pte) into a compatible model for MERA.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model_path</strong> – Path to the PyTorch model file in ExecuTorch format (.pte)</p></li>
+<li><p><strong>model_name</strong> – Display name of the model being deployed.
+Will default to the stem name of the model file if not provided.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The input model compatible with MERA.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mera.mera_model.ModelLoader.from_onnx">
+<span class="sig-name descname"><span class="pre">from_onnx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#mera.deploy_project.Layout" title="mera.deploy_project.Layout"><span class="pre">Layout</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Layout.NHWC</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_num</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shape_mapping</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_info</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#mera.mera_model.MeraModelOnnx" title="mera.mera_model.MeraModelOnnx"><span class="pre">MeraModelOnnx</span></a></span></span><a class="headerlink" href="#mera.mera_model.ModelLoader.from_onnx" title="Link to this definition"></a></dt>
+<dd><p>Converts a ONNX model into a compatible model for MERA.
+NOTE this loader is best optimised for float models using op_set=12</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model_path</strong> – Path to the ONNX model file.</p></li>
+<li><p><strong>model_name</strong> – Display name of the model being deployed.
+Will default to the stem name of the model file if not provided.</p></li>
+<li><p><strong>layout</strong> – Data layout of the model being loaded. Defaults to NHWC layout</p></li>
+<li><p><strong>batch_num</strong> – If the model contains symbolic batch numbers, loads it resolving its value to
+the parameter provided. Defaults to 1.</p></li>
+<li><p><strong>shape_mapping</strong> – If the model contains symbolic shapes, provides their static mapping.</p></li>
+<li><p><strong>model_info</strong> – An optional dictionary with model’s metadata or other hyperparameters.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The input model compatible with MERA.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mera.mera_model.ModelLoader.from_pytorch">
+<span class="sig-name descname"><span class="pre">from_pytorch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_desc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">tuple</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#mera.deploy_project.Layout" title="mera.deploy_project.Layout"><span class="pre">Layout</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Layout.NHWC</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_prequantize_input</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">MeraModelPytorch</span></span></span><a class="headerlink" href="#mera.mera_model.ModelLoader.from_pytorch" title="Link to this definition"></a></dt>
+<dd><p>&lt;&lt;Deprecated&gt;&gt; Converts a PyTorch model in TorchScript format into a compatible model for MERA.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model_path</strong> – Path to the PyTorch model file in TorchScript format</p></li>
+<li><p><strong>input_desc</strong> – Map of input names and their dimensions and types.
+Expects a format of {input_name : (input_size, input_type)}</p></li>
+<li><p><strong>model_name</strong> – Display name of the model being deployed.
+Will default to the stem name of the model file if not provided.</p></li>
+<li><p><strong>layout</strong> – Data layout of the model being loaded. Defaults to NHWC layout</p></li>
+<li><p><strong>use_prequantize_input</strong> – Whether input is provided prequantized, or not. Defaults to False</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The input model compatible with MERA.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mera.mera_model.ModelLoader.from_quantized_mera">
+<span class="sig-name descname"><span class="pre">from_quantized_mera</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_legacy</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mera.mera_model.ModelLoader.from_quantized_mera" title="Link to this definition"></a></dt>
+<dd><p>Converts a previously quantized MERA model into a compatible deployable model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model_path</strong> – Path to the MERA model file</p></li>
+<li><p><strong>model_name</strong> – Display name of the model being deployed.
+Will default to the stem name of the model file if not provided.</p></li>
+<li><p><strong>use_legacy</strong> – Whether to use older MERA v1 model loader. Use only in the case of legacy quantizer.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The input model compatible with MERA.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mera.mera_model.ModelLoader.from_tflite">
+<span class="sig-name descname"><span class="pre">from_tflite</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_prequantize_input</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#mera.mera_model.MeraModelTflite" title="mera.mera_model.MeraModelTflite"><span class="pre">MeraModelTflite</span></a></span></span><a class="headerlink" href="#mera.mera_model.ModelLoader.from_tflite" title="Link to this definition"></a></dt>
+<dd><p>Converts a tensorflow model in TFLite format into a compatible model for MERA.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model_path</strong> – Path to the tensorflow model file in TFLite format</p></li>
+<li><p><strong>model_name</strong> – Display name of the model being deployed.
+Will default to the stem name of the model file if not provided.</p></li>
+<li><p><strong>use_prequantize_input</strong> – Whether input is provided prequantized, or not. Defaults to False</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The input model compatible with MERA.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mera.mera_model.ModelLoader.fuse_models">
+<span class="sig-name descname"><span class="pre">fuse_models</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mera_models</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#mera.mera_model.MeraModel" title="mera.mera_model.MeraModel"><span class="pre">MeraModel</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">share_input</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">MeraModelFused</span></span></span><a class="headerlink" href="#mera.mera_model.ModelLoader.fuse_models" title="Link to this definition"></a></dt>
+<dd><dl class="simple">
+<dt>Fusing multiple MERA models into a single model for compilation and deployment.</dt><dd><p>This is especially useful for fully utilizing the compute resources of a large platform.
+The inputs of the fused model are the concatenation of the inputs of the models to be fused.
+Similarly, the outputs of the fused model are the concatenation of the outputs of the models to be fused.
+For example, let’s suppose <cite>mera_models</cite> has two models, m1 and m2, then for the fused model,
+the inputs are [m1 inputs, m2 inputs] and the outputs are [m1 outputs, m2 outputs].
+When each model in <cite>mera_models</cite> has one input and <cite>share_input</cite> is True, the fused model has one input.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mera_models</strong> – List of MERA models to be fused.</p></li>
+<li><p><strong>share_input</strong> – Whether the models share input or not.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The fused model.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-mera.mera_platform">
+<span id="mera-mera-platform-module"></span><h3>mera.mera_platform module<a class="headerlink" href="#module-mera.mera_platform" title="Link to this heading"></a></h3>
+<p>MERA platform selection</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="mera.mera_platform.AccelKind">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mera.mera_platform.</span></span><span class="sig-name descname"><span class="pre">AccelKind</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mera.mera_platform.AccelKind" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>An enumeration.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mera.mera_platform.AccelKind.CPU">
+<span class="sig-name descname"><span class="pre">CPU</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'CPU'</span></em><a class="headerlink" href="#mera.mera_platform.AccelKind.CPU" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mera.mera_platform.AccelKind.DNA">
+<span class="sig-name descname"><span class="pre">DNA</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'DNA'</span></em><a class="headerlink" href="#mera.mera_platform.AccelKind.DNA" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mera.mera_platform.AccelKind.GPU">
+<span class="sig-name descname"><span class="pre">GPU</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'GPU'</span></em><a class="headerlink" href="#mera.mera_platform.AccelKind.GPU" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mera.mera_platform.AccelKind.MCU">
+<span class="sig-name descname"><span class="pre">MCU</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'MCU'</span></em><a class="headerlink" href="#mera.mera_platform.AccelKind.MCU" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mera.mera_platform.Platform">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mera.mera_platform.</span></span><span class="sig-name descname"><span class="pre">Platform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mera.mera_platform.Platform" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>List of all valid MERA platforms</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mera.mera_platform.Platform.ALT1">
+<span class="sig-name descname"><span class="pre">ALT1</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('ALT1',</span> <span class="pre">AccelKind.MCU)</span></em><a class="headerlink" href="#mera.mera_platform.Platform.ALT1" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mera.mera_platform.Platform.ALT2">
+<span class="sig-name descname"><span class="pre">ALT2</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('ALT2',</span> <span class="pre">AccelKind.MCU)</span></em><a class="headerlink" href="#mera.mera_platform.Platform.ALT2" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mera.mera_platform.Platform.DNAA400L0001">
+<span class="sig-name descname"><span class="pre">DNAA400L0001</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'DNAA400L0001'</span></em><a class="headerlink" href="#mera.mera_platform.Platform.DNAA400L0001" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mera.mera_platform.Platform.DNAA600L0001">
+<span class="sig-name descname"><span class="pre">DNAA600L0001</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'DNAA600L0001'</span></em><a class="headerlink" href="#mera.mera_platform.Platform.DNAA600L0001" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mera.mera_platform.Platform.DNAA600L0002">
+<span class="sig-name descname"><span class="pre">DNAA600L0002</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'DNAA600L0002'</span></em><a class="headerlink" href="#mera.mera_platform.Platform.DNAA600L0002" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mera.mera_platform.Platform.DNAF10032x2">
+<span class="sig-name descname"><span class="pre">DNAF10032x2</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'DNAF10032x2'</span></em><a class="headerlink" href="#mera.mera_platform.Platform.DNAF10032x2" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mera.mera_platform.Platform.DNAF100L0001">
+<span class="sig-name descname"><span class="pre">DNAF100L0001</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'DNAF100L0001'</span></em><a class="headerlink" href="#mera.mera_platform.Platform.DNAF100L0001" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mera.mera_platform.Platform.DNAF100L0002">
+<span class="sig-name descname"><span class="pre">DNAF100L0002</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'DNAF100L0002'</span></em><a class="headerlink" href="#mera.mera_platform.Platform.DNAF100L0002" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mera.mera_platform.Platform.DNAF100L0003">
+<span class="sig-name descname"><span class="pre">DNAF100L0003</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'DNAF100L0003'</span></em><a class="headerlink" href="#mera.mera_platform.Platform.DNAF100L0003" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mera.mera_platform.Platform.DNAF132S0001">
+<span class="sig-name descname"><span class="pre">DNAF132S0001</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'DNAF132S0001'</span></em><a class="headerlink" href="#mera.mera_platform.Platform.DNAF132S0001" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mera.mera_platform.Platform.DNAF200L0001">
+<span class="sig-name descname"><span class="pre">DNAF200L0001</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'DNAF200L0001'</span></em><a class="headerlink" href="#mera.mera_platform.Platform.DNAF200L0001" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mera.mera_platform.Platform.DNAF200L0002">
+<span class="sig-name descname"><span class="pre">DNAF200L0002</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'DNAF200L0002'</span></em><a class="headerlink" href="#mera.mera_platform.Platform.DNAF200L0002" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mera.mera_platform.Platform.DNAF200L0003">
+<span class="sig-name descname"><span class="pre">DNAF200L0003</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'DNAF200L0003'</span></em><a class="headerlink" href="#mera.mera_platform.Platform.DNAF200L0003" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mera.mera_platform.Platform.DNAF232S0001">
+<span class="sig-name descname"><span class="pre">DNAF232S0001</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'DNAF232S0001'</span></em><a class="headerlink" href="#mera.mera_platform.Platform.DNAF232S0001" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mera.mera_platform.Platform.DNAF232S0002">
+<span class="sig-name descname"><span class="pre">DNAF232S0002</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'DNAF232S0002'</span></em><a class="headerlink" href="#mera.mera_platform.Platform.DNAF232S0002" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mera.mera_platform.Platform.DNAF300L0001">
+<span class="sig-name descname"><span class="pre">DNAF300L0001</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'DNAF300L0001'</span></em><a class="headerlink" href="#mera.mera_platform.Platform.DNAF300L0001" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mera.mera_platform.Platform.DNAF632L0001">
+<span class="sig-name descname"><span class="pre">DNAF632L0001</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'DNAF632L0001'</span></em><a class="headerlink" href="#mera.mera_platform.Platform.DNAF632L0001" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mera.mera_platform.Platform.DNAF632L0002">
+<span class="sig-name descname"><span class="pre">DNAF632L0002</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'DNAF632L0002'</span></em><a class="headerlink" href="#mera.mera_platform.Platform.DNAF632L0002" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mera.mera_platform.Platform.DNAF632L0003">
+<span class="sig-name descname"><span class="pre">DNAF632L0003</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'DNAF632L0003'</span></em><a class="headerlink" href="#mera.mera_platform.Platform.DNAF632L0003" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mera.mera_platform.Platform.MCU_CPU">
+<span class="sig-name descname"><span class="pre">MCU_CPU</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('ALT1',</span> <span class="pre">AccelKind.MCU)</span></em><a class="headerlink" href="#mera.mera_platform.Platform.MCU_CPU" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mera.mera_platform.Platform.MCU_ETHOS">
+<span class="sig-name descname"><span class="pre">MCU_ETHOS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('ALT2',</span> <span class="pre">AccelKind.MCU)</span></em><a class="headerlink" href="#mera.mera_platform.Platform.MCU_ETHOS" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mera.mera_platform.Platform.SAKURA_1">
+<span class="sig-name descname"><span class="pre">SAKURA_1</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'DNAA600L0002'</span></em><a class="headerlink" href="#mera.mera_platform.Platform.SAKURA_1" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mera.mera_platform.Platform.SAKURA_2">
+<span class="sig-name descname"><span class="pre">SAKURA_2</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'DNAA600L0003'</span></em><a class="headerlink" href="#mera.mera_platform.Platform.SAKURA_2" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mera.mera_platform.Platform.SAKURA_2C">
+<span class="sig-name descname"><span class="pre">SAKURA_2C</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'DNAA600L0003'</span></em><a class="headerlink" href="#mera.mera_platform.Platform.SAKURA_2C" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mera.mera_platform.Platform.SAKURA_I">
+<span class="sig-name descname"><span class="pre">SAKURA_I</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'DNAA600L0002'</span></em><a class="headerlink" href="#mera.mera_platform.Platform.SAKURA_I" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mera.mera_platform.Platform.SAKURA_II">
+<span class="sig-name descname"><span class="pre">SAKURA_II</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'DNAA600L0003'</span></em><a class="headerlink" href="#mera.mera_platform.Platform.SAKURA_II" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="mera.mera_platform.Platform.accelerator_kind">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">accelerator_kind</span></span><a class="headerlink" href="#mera.mera_platform.Platform.accelerator_kind" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="mera.mera_platform.Platform.platform_name">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">platform_name</span></span><a class="headerlink" href="#mera.mera_platform.Platform.platform_name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-mera.version">
+<span id="mera-version-module"></span><h3>mera.version module<a class="headerlink" href="#module-mera.version" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="mera.version.get_mera2_rt_version">
+<span class="sig-prename descclassname"><span class="pre">mera.version.</span></span><span class="sig-name descname"><span class="pre">get_mera2_rt_version</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#mera.version.get_mera2_rt_version" title="Link to this definition"></a></dt>
+<dd><p>“return: The version string for mera2-runtime</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mera.version.get_mera_dna_version">
+<span class="sig-prename descclassname"><span class="pre">mera.version.</span></span><span class="sig-name descname"><span class="pre">get_mera_dna_version</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#mera.version.get_mera_dna_version" title="Link to this definition"></a></dt>
+<dd><p>Gets the version string for libmeradna</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Summary of libmeradna version</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mera.version.get_mera_tvm_version">
+<span class="sig-prename descclassname"><span class="pre">mera.version.</span></span><span class="sig-name descname"><span class="pre">get_mera_tvm_version</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#mera.version.get_mera_tvm_version" title="Link to this definition"></a></dt>
+<dd><p>Gets the version string for mera-tvm module</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>mera-tvm version</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mera.version.get_mera_version">
+<span class="sig-prename descclassname"><span class="pre">mera.version.</span></span><span class="sig-name descname"><span class="pre">get_mera_version</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#mera.version.get_mera_version" title="Link to this definition"></a></dt>
+<dd><p>Gets the version string for Mera</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Version string for Mera</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mera.version.get_versions">
+<span class="sig-prename descclassname"><span class="pre">mera.version.</span></span><span class="sig-name descname"><span class="pre">get_versions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#mera.version.get_versions" title="Link to this definition"></a></dt>
+<dd><p>Return a summary of all installed modules on the Mera environment</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List of all module’s versions.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-mera.mera_quantizer">
+<span id="mera-mera-quantizer-module"></span><h3>mera.mera_quantizer module<a class="headerlink" href="#module-mera.mera_quantizer" title="Link to this heading"></a></h3>
+<p>Mera Quantizer classes</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="mera.mera_quantizer.Quantizer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mera.mera_quantizer.</span></span><span class="sig-name descname"><span class="pre">Quantizer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">deployer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quantizer_config:</span> <span class="pre">~mera.quantizer.quantizer_config.QuantizerConfig</span> <span class="pre">=</span> <span class="pre">&lt;mera.quantizer.quantizer_config.QuantizerConfig</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mera_platform:</span> <span class="pre">~mera.mera_platform.Platform</span> <span class="pre">=</span> <span class="pre">Platform.SAKURA_2C</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mera.mera_quantizer.Quantizer" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class with API to quantize models using MERA</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="mera.mera_quantizer.Quantizer.apply_smoothquant">
+<span class="sig-name descname"><span class="pre">apply_smoothquant</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autotune</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mera.mera_quantizer.Quantizer.apply_smoothquant" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mera.mera_quantizer.Quantizer.calibrate">
+<span class="sig-name descname"><span class="pre">calibrate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">calibration_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mera.mera_quantizer.Quantizer.calibrate" title="Link to this definition"></a></dt>
+<dd><p>Feeds a series of realistic input data samples in order to be able to compute accurate internal ranges.
+MERA will collect the information from the execution of these data samples and compute the quantization domains as determined
+by the user configuration. It is recommended to use a big enough dataset of realistic samples in order to obtain the best
+quantization accuracy results.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>calibration_data</strong> – List of dictionaries with the format {‘input_name’ : ‘np_array’} containing the different data samples.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mera.mera_quantizer.Quantizer.evaluate_quality">
+<span class="sig-name descname"><span class="pre">evaluate_quality</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">evaluation_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">display_table</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mera.mera_quantizer.Quantizer.evaluate_quality" title="Link to this definition"></a></dt>
+<dd><p>Measures the quantization quality of a transformed model with a given evaluation data.
+This should be some realistic data sample(s) ideally different from the calibration dataset.
+In order to measure quality the user must have called quantize() method first.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>evaluation_data</strong> – List of dictionaries with the format {‘input_name’ : ‘np_array’} containing the different data samples.</p></li>
+<li><p><strong>display_table</strong> – Whether to display quality metrics to stdout or not.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of quality metrics container.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mera.mera_quantizer.Quantizer.get_report">
+<span class="sig-name descname"><span class="pre">get_report</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mera.mera_quantizer.Quantizer.get_report" title="Link to this definition"></a></dt>
+<dd><p>Extracts all information about the quantization process as a dictionary that can be saved for debugging.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>model_id</strong> – Identifier to be used for this document.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mera.mera_quantizer.Quantizer.quantize">
+<span class="sig-name descname"><span class="pre">quantize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mera.mera_quantizer.Quantizer.quantize" title="Link to this definition"></a></dt>
+<dd><p>Uses the data gathered from the calibrate() method and creates a transformed model based on the quantizer configuration.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mera.mera_quantizer.Quantizer.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mera.mera_quantizer.Quantizer.reset" title="Link to this definition"></a></dt>
+<dd><p>Resets all the internal observed metrics of the quantizer as well as any existing qtz transformed model.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mera.mera_quantizer.Quantizer.save_to">
+<span class="sig-name descname"><span class="pre">save_to</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dst_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mera.mera_quantizer.Quantizer.save_to" title="Link to this definition"></a></dt>
+<dd><p>Saves the transformed model to file. Must have called quantize() first.
+:param dst_path: Destination path where the model will be saved.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mera.mera_quantizer.get_input_desc">
+<span class="sig-prename descclassname"><span class="pre">mera.mera_quantizer.</span></span><span class="sig-name descname"><span class="pre">get_input_desc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mera_model_path</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">InputDescriptionContainer</span></span></span><a class="headerlink" href="#mera.mera_quantizer.get_input_desc" title="Link to this definition"></a></dt>
+<dd><p>Retrieve the input description of a MERA quantized model generated with MERA2.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>mera_model_path</strong> – Path to .mera model file.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dict with info about the model’s inputs.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-mera.quantizer.quantizer_config">
+<span id="mera-quantizer-module"></span><h3>mera.quantizer module<a class="headerlink" href="#module-mera.quantizer.quantizer_config" title="Link to this heading"></a></h3>
+<p>MERA Quantizer Configuration classes.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="mera.quantizer.quantizer_config.LayerConfig">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mera.quantizer.quantizer_config.</span></span><span class="sig-name descname"><span class="pre">LayerConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">conv_act</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#mera.quantizer.quantizer_config.OperatorConfig" title="mera.quantizer.quantizer_config.OperatorConfig"><span class="pre">OperatorConfig</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">conv_weights</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#mera.quantizer.quantizer_config.OperatorConfig" title="mera.quantizer.quantizer_config.OperatorConfig"><span class="pre">OperatorConfig</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">mm_act</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#mera.quantizer.quantizer_config.OperatorConfig" title="mera.quantizer.quantizer_config.OperatorConfig"><span class="pre">OperatorConfig</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">mm_weights</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#mera.quantizer.quantizer_config.OperatorConfig" title="mera.quantizer.quantizer_config.OperatorConfig"><span class="pre">OperatorConfig</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mera.quantizer.quantizer_config.LayerConfig" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Set of quantization configurations to be applied for a Layer in the model</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="mera.quantizer.quantizer_config.LayerConfig.conv_act">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">conv_act</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#mera.quantizer.quantizer_config.OperatorConfig" title="mera.quantizer.quantizer_config.OperatorConfig"><span class="pre">OperatorConfig</span></a></em><a class="headerlink" href="#mera.quantizer.quantizer_config.LayerConfig.conv_act" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="mera.quantizer.quantizer_config.LayerConfig.conv_weights">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">conv_weights</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#mera.quantizer.quantizer_config.OperatorConfig" title="mera.quantizer.quantizer_config.OperatorConfig"><span class="pre">OperatorConfig</span></a></em><a class="headerlink" href="#mera.quantizer.quantizer_config.LayerConfig.conv_weights" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="mera.quantizer.quantizer_config.LayerConfig.mm_act">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">mm_act</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#mera.quantizer.quantizer_config.OperatorConfig" title="mera.quantizer.quantizer_config.OperatorConfig"><span class="pre">OperatorConfig</span></a></em><a class="headerlink" href="#mera.quantizer.quantizer_config.LayerConfig.mm_act" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="mera.quantizer.quantizer_config.LayerConfig.mm_weights">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">mm_weights</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#mera.quantizer.quantizer_config.OperatorConfig" title="mera.quantizer.quantizer_config.OperatorConfig"><span class="pre">OperatorConfig</span></a></em><a class="headerlink" href="#mera.quantizer.quantizer_config.LayerConfig.mm_weights" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mera.quantizer.quantizer_config.ObserverClass">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mera.quantizer.quantizer_config.</span></span><span class="sig-name descname"><span class="pre">ObserverClass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mera.quantizer.quantizer_config.ObserverClass" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>An enumeration.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mera.quantizer.quantizer_config.ObserverClass.HISTOGRAM">
+<span class="sig-name descname"><span class="pre">HISTOGRAM</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'HISTOGRAM'</span></em><a class="headerlink" href="#mera.quantizer.quantizer_config.ObserverClass.HISTOGRAM" title="Link to this definition"></a></dt>
+<dd><p>An optimised &lt;min,max&gt; is calculated based on the distribution of the calibration data using a histogram. Can only be used PER_TENSOR.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mera.quantizer.quantizer_config.ObserverClass.MAX_ABS">
+<span class="sig-name descname"><span class="pre">MAX_ABS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'MAX_ABS'</span></em><a class="headerlink" href="#mera.quantizer.quantizer_config.ObserverClass.MAX_ABS" title="Link to this definition"></a></dt>
+<dd><p>Will get the quantization range as &lt;-max(abs),max(abs)&gt; of the calibration data.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mera.quantizer.quantizer_config.ObserverClass.MIN_MAX">
+<span class="sig-name descname"><span class="pre">MIN_MAX</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'MIN_MAX'</span></em><a class="headerlink" href="#mera.quantizer.quantizer_config.ObserverClass.MIN_MAX" title="Link to this definition"></a></dt>
+<dd><p>Will get the quantization range as &lt;min,max&gt; based on the whole calibration data.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mera.quantizer.quantizer_config.OperatorConfig">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mera.quantizer.quantizer_config.</span></span><span class="sig-name descname"><span class="pre">OperatorConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">qtype</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#mera.quantizer.quantizer_config.QType" title="mera.quantizer.quantizer_config.QType"><span class="pre">QType</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">qscheme</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#mera.quantizer.quantizer_config.QScheme" title="mera.quantizer.quantizer_config.QScheme"><span class="pre">QScheme</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">qmode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#mera.quantizer.quantizer_config.QMode" title="mera.quantizer.quantizer_config.QMode"><span class="pre">QMode</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">qtarget</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#mera.quantizer.quantizer_config.QTarget" title="mera.quantizer.quantizer_config.QTarget"><span class="pre">QTarget</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">observer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#mera.quantizer.quantizer_config.ObserverClass" title="mera.quantizer.quantizer_config.ObserverClass"><span class="pre">ObserverClass</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mera.quantizer.quantizer_config.OperatorConfig" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Set of quantizer configurations to be applied to an operator.</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="mera.quantizer.quantizer_config.OperatorConfig.observer">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">observer</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#mera.quantizer.quantizer_config.ObserverClass" title="mera.quantizer.quantizer_config.ObserverClass"><span class="pre">ObserverClass</span></a></em><a class="headerlink" href="#mera.quantizer.quantizer_config.OperatorConfig.observer" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="mera.quantizer.quantizer_config.OperatorConfig.qmode">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">qmode</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#mera.quantizer.quantizer_config.QMode" title="mera.quantizer.quantizer_config.QMode"><span class="pre">QMode</span></a></em><a class="headerlink" href="#mera.quantizer.quantizer_config.OperatorConfig.qmode" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="mera.quantizer.quantizer_config.OperatorConfig.qscheme">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">qscheme</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#mera.quantizer.quantizer_config.QScheme" title="mera.quantizer.quantizer_config.QScheme"><span class="pre">QScheme</span></a></em><a class="headerlink" href="#mera.quantizer.quantizer_config.OperatorConfig.qscheme" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="mera.quantizer.quantizer_config.OperatorConfig.qtarget">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">qtarget</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#mera.quantizer.quantizer_config.QTarget" title="mera.quantizer.quantizer_config.QTarget"><span class="pre">QTarget</span></a></em><a class="headerlink" href="#mera.quantizer.quantizer_config.OperatorConfig.qtarget" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="mera.quantizer.quantizer_config.OperatorConfig.qtype">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">qtype</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#mera.quantizer.quantizer_config.QType" title="mera.quantizer.quantizer_config.QType"><span class="pre">QType</span></a></em><a class="headerlink" href="#mera.quantizer.quantizer_config.OperatorConfig.qtype" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mera.quantizer.quantizer_config.OperatorConfig.set_options">
+<span class="sig-name descname"><span class="pre">set_options</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">histogram_n_bins</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">histogram_obs_upsample_rate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">per_channel_limit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">per_channel_grp_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_symmetric_range</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mera.quantizer.quantizer_config.OperatorConfig.set_options" title="Link to this definition"></a></dt>
+<dd><p>Sets advanced quantization options for this operator.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>histogram_n_bins</strong> – When using histogram observer, overrides default number of bins used.</p></li>
+<li><p><strong>histogram_upsample_rate</strong> – When using histogram observer, overrides default upsample rate for histogram aggregations.</p></li>
+<li><p><strong>per_channel_limit</strong> – Architecture limitation to mark the maximum number of channels of a tensor possible
+where PER_CHANNEL quantization can still be done. Any operation above this limit will switch to use PER_CHANNEL_GROUP instead.</p></li>
+<li><p><strong>per_channel_grp_size</strong> – When using PER_CHANNEL_GROUP, specifies the max size of q_params that will group all the channels in a tensor.</p></li>
+<li><p><strong>use_symmetric_range</strong> – Reduces the range of quantization so that values are set in &lt;-MaxVal,MaxVal&gt;. e.g. [-127,127] for int8 type.
+Only valid for the case of signed quantization.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mera.quantizer.quantizer_config.QMode">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mera.quantizer.quantizer_config.</span></span><span class="sig-name descname"><span class="pre">QMode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mera.quantizer.quantizer_config.QMode" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>An enumeration.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mera.quantizer.quantizer_config.QMode.PER_CHANNEL">
+<span class="sig-name descname"><span class="pre">PER_CHANNEL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'PER_CHANNEL'</span></em><a class="headerlink" href="#mera.quantizer.quantizer_config.QMode.PER_CHANNEL" title="Link to this definition"></a></dt>
+<dd><p>A different set of &lt;scale,zero_point&gt; for each of the tensor’s channels.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mera.quantizer.quantizer_config.QMode.PER_CHANNEL_GROUP">
+<span class="sig-name descname"><span class="pre">PER_CHANNEL_GROUP</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'PER_CHANNEL_GROUP'</span></em><a class="headerlink" href="#mera.quantizer.quantizer_config.QMode.PER_CHANNEL_GROUP" title="Link to this definition"></a></dt>
+<dd><p>A different set of &lt;scale,zero_point&gt; for each group of several tensor’s channels.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mera.quantizer.quantizer_config.QMode.PER_TENSOR">
+<span class="sig-name descname"><span class="pre">PER_TENSOR</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'PER_TENSOR'</span></em><a class="headerlink" href="#mera.quantizer.quantizer_config.QMode.PER_TENSOR" title="Link to this definition"></a></dt>
+<dd><p>Single set of &lt;scale,zero_point&gt; for the whole tensor.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mera.quantizer.quantizer_config.QScheme">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mera.quantizer.quantizer_config.</span></span><span class="sig-name descname"><span class="pre">QScheme</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mera.quantizer.quantizer_config.QScheme" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>An enumeration.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mera.quantizer.quantizer_config.QScheme.AFFINE">
+<span class="sig-name descname"><span class="pre">AFFINE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'AFFINE'</span></em><a class="headerlink" href="#mera.quantizer.quantizer_config.QScheme.AFFINE" title="Link to this definition"></a></dt>
+<dd><p>Quantization range adjusted to observed &lt;min,max&gt; from data</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mera.quantizer.quantizer_config.QScheme.SYMMETRIC">
+<span class="sig-name descname"><span class="pre">SYMMETRIC</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'SYMMETRIC'</span></em><a class="headerlink" href="#mera.quantizer.quantizer_config.QScheme.SYMMETRIC" title="Link to this definition"></a></dt>
+<dd><p>Quantization range centered around real value 0.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mera.quantizer.quantizer_config.QTarget">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mera.quantizer.quantizer_config.</span></span><span class="sig-name descname"><span class="pre">QTarget</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mera.quantizer.quantizer_config.QTarget" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>An enumeration.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mera.quantizer.quantizer_config.QTarget.DATA">
+<span class="sig-name descname"><span class="pre">DATA</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'DATA'</span></em><a class="headerlink" href="#mera.quantizer.quantizer_config.QTarget.DATA" title="Link to this definition"></a></dt>
+<dd><p>Tensor representing the activated data of a quantizable operation.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mera.quantizer.quantizer_config.QTarget.WEIGHT">
+<span class="sig-name descname"><span class="pre">WEIGHT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'WEIGHT'</span></em><a class="headerlink" href="#mera.quantizer.quantizer_config.QTarget.WEIGHT" title="Link to this definition"></a></dt>
+<dd><p>Tensor are the weights of a quantizable operation.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mera.quantizer.quantizer_config.QType">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mera.quantizer.quantizer_config.</span></span><span class="sig-name descname"><span class="pre">QType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mera.quantizer.quantizer_config.QType" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>An enumeration.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mera.quantizer.quantizer_config.QType.BF16">
+<span class="sig-name descname"><span class="pre">BF16</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'BF16'</span></em><a class="headerlink" href="#mera.quantizer.quantizer_config.QType.BF16" title="Link to this definition"></a></dt>
+<dd><p>Unquantized BrainFloat16 type.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mera.quantizer.quantizer_config.QType.S7">
+<span class="sig-name descname"><span class="pre">S7</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'S7'</span></em><a class="headerlink" href="#mera.quantizer.quantizer_config.QType.S7" title="Link to this definition"></a></dt>
+<dd><p>7-bit signed, ranged [-64, 63]</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mera.quantizer.quantizer_config.QType.S8">
+<span class="sig-name descname"><span class="pre">S8</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'S8'</span></em><a class="headerlink" href="#mera.quantizer.quantizer_config.QType.S8" title="Link to this definition"></a></dt>
+<dd><p>8-bit signed, ranged [-128, 127]</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mera.quantizer.quantizer_config.QType.U7">
+<span class="sig-name descname"><span class="pre">U7</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'U7'</span></em><a class="headerlink" href="#mera.quantizer.quantizer_config.QType.U7" title="Link to this definition"></a></dt>
+<dd><p>7-bit unsigned, ranged [0, 127]</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mera.quantizer.quantizer_config.QType.U8">
+<span class="sig-name descname"><span class="pre">U8</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'U8'</span></em><a class="headerlink" href="#mera.quantizer.quantizer_config.QType.U8" title="Link to this definition"></a></dt>
+<dd><p>8-bit unsigned, ranged [0, 255]</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mera.quantizer.quantizer_config.QuantizerConfig">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mera.quantizer.quantizer_config.</span></span><span class="sig-name descname"><span class="pre">QuantizerConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">global_cfg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#mera.quantizer.quantizer_config.LayerConfig" title="mera.quantizer.quantizer_config.LayerConfig"><span class="pre">LayerConfig</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">flow_version</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mera.quantizer.quantizer_config.QuantizerConfig" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class representing the configuration of the MERA quantizer.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="mera.quantizer.quantizer_config.QuantizerConfig.to_dict">
+<span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mera.quantizer.quantizer_config.QuantizerConfig.to_dict" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="mera.quantizer.quantizer_config.QuantizerConfig.transform_cfg">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">transform_cfg</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#mera.quantizer.quantizer_config.TransformConfig" title="mera.quantizer.quantizer_config.TransformConfig"><span class="pre">TransformConfig</span></a></em><a class="headerlink" href="#mera.quantizer.quantizer_config.QuantizerConfig.transform_cfg" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mera.quantizer.quantizer_config.QuantizerConfigPresets">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mera.quantizer.quantizer_config.</span></span><span class="sig-name descname"><span class="pre">QuantizerConfigPresets</span></span><a class="headerlink" href="#mera.quantizer.quantizer_config.QuantizerConfigPresets" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mera.quantizer.quantizer_config.QuantizerConfigPresets.ALT">
+<span class="sig-name descname"><span class="pre">ALT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;mera.quantizer.quantizer_config.QuantizerConfig</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#mera.quantizer.quantizer_config.QuantizerConfigPresets.ALT" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mera.quantizer.quantizer_config.QuantizerConfigPresets.DEFAULT">
+<span class="sig-name descname"><span class="pre">DEFAULT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;mera.quantizer.quantizer_config.QuantizerConfig</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#mera.quantizer.quantizer_config.QuantizerConfigPresets.DEFAULT" title="Link to this definition"></a></dt>
+<dd><p>Sample base configuration for DNA quantizations.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mera.quantizer.quantizer_config.QuantizerConfigPresets.DNA_SAKURA_II">
+<span class="sig-name descname"><span class="pre">DNA_SAKURA_II</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;mera.quantizer.quantizer_config.QuantizerConfig</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#mera.quantizer.quantizer_config.QuantizerConfigPresets.DNA_SAKURA_II" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mera.quantizer.quantizer_config.QuantizerConfigPresets.MCU">
+<span class="sig-name descname"><span class="pre">MCU</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;mera.quantizer.quantizer_config.QuantizerConfig</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#mera.quantizer.quantizer_config.QuantizerConfigPresets.MCU" title="Link to this definition"></a></dt>
+<dd><p>Sample base configuration for MCU quantizations.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mera.quantizer.quantizer_config.TransformConfig">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mera.quantizer.quantizer_config.</span></span><span class="sig-name descname"><span class="pre">TransformConfig</span></span><a class="headerlink" href="#mera.quantizer.quantizer_config.TransformConfig" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class representing options for transformation of model into quantized MERA model.</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="mera.quantizer.quantizer_config.TransformConfig.fuse_i8_concat_domains">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">fuse_i8_concat_domains</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#mera.quantizer.quantizer_config.TransformConfig.fuse_i8_concat_domains" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="mera.quantizer.quantizer_config.TransformConfig.glu_bf16_outlier_threshold">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">glu_bf16_outlier_threshold</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#mera.quantizer.quantizer_config.TransformConfig.glu_bf16_outlier_threshold" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="mera.quantizer.quantizer_config.TransformConfig.map_silu_to_hswish">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">map_silu_to_hswish</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#mera.quantizer.quantizer_config.TransformConfig.map_silu_to_hswish" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="mera.quantizer.quantizer_config.TransformConfig.use_bf16_for_small_ch_conv">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">use_bf16_for_small_ch_conv</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#mera.quantizer.quantizer_config.TransformConfig.use_bf16_for_small_ch_conv" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<p id="module-mera.quantizer.quality">Wrapper class for quantizer quality objects</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="mera.quantizer.quality.QuantizationQuality">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mera.quantizer.quality.</span></span><span class="sig-name descname"><span class="pre">QuantizationQuality</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_names</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mera.quantizer.quality.QuantizationQuality" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Container class that holds different quality metrics of a quantized tensor.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="mera.quantizer.quality.QuantizationQuality.node_summary">
+<span class="sig-name descname"><span class="pre">node_summary</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mera.quantizer.quality.QuantizationQuality.node_summary" title="Link to this definition"></a></dt>
+<dd><p>Returns a metric summary of the intermediate nodes of the model.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mera.quantizer.quality.QuantizationQuality.out_summary">
+<span class="sig-name descname"><span class="pre">out_summary</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mera.quantizer.quality.QuantizationQuality.out_summary" title="Link to this definition"></a></dt>
+<dd><p>Returns a metric summary of the outputs of the model.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mera.quantizer.quality.QuantizationQuality.to_table">
+<span class="sig-name descname"><span class="pre">to_table</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">extra_debug_info</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mera.quantizer.quality.QuantizationQuality.to_table" title="Link to this definition"></a></dt>
+<dd><p>Returns a tabulated table representation of the data</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="ruhmi_api.html" class="btn btn-neutral float-left" title="ruhmi_api documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Renesas and EdgeCortix.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,15 +1,17 @@
 
 # Installation  
 
-In order to install the software tool, the installation file below shall be used.
+In order to install the software tool, the installation file below shall be used. 
 RUHMI framework[^1] includes MERA IPs supported by EdgeCortix, so you will see the files and some discriptions with the name of MERA included.
-Also, the version number included in the file name like 2.3.2 depens on MERA IP.
+Also, the version number included in the file name like 2.3.2 depens on MERA IP.  
+Download the installation files from [the repository](https://github.com/Masamitsu1025/ruhmi-framework-mcu/tree/main/install), then move on to the installation guide according to your system type;
+[Installation guide for Ubuntu Linux](#installation---Ubuntu-Linux), [Installation guide for Windows](#installation---Windows)
 ```
-\install\mera-2.3.2+pkg.1595-cp310-cp310-manylinux_2_27_x86_64.whl  
-\install\mera-2.3.2-cp310-cp310-win_amd64.whl  
+\install\mera-2.4.0+pkg.1746-cp310-cp310-manylinux_2_27_x86_64.whl  
+\install\mera-2.4.0+pkg.175-cp310-cp310-win_amd64.whl  
 ```
 
-## Installation - Ubuntu Linux  
+# Installation - Ubuntu Linux  
 In order to install RUHMI on supported environment, you will need:
 * A machine with Ubuntu 22.04 installation is recommended as this was the version used for testing.
 * A working installation of PyEnv or other Python virtual environment management system that provides Python
@@ -71,7 +73,7 @@ Your prompt should now show that you are under a virtual environment mera-env:
 Finally install MERA on the virtual environment mera-env:  
 
 ```
-pip install ./mera-2.3.1+pkg.1503-cp310-cp310-manylinux_2_27_x86_64.whl  
+pip install ./mera-2.4.0+pkg.1746-cp310-cp310-manylinux_2_27_x86_64.whl  
 ```
 
 where the versions may vary depending on the MERA release used.  
@@ -81,26 +83,25 @@ At this point MERA should be ready to use. You can confirm with the following ex
 python -c "import mera;print(dir(mera))"  
 ```
 
-## Installation - Windows 11  
-The software stack is also provided as PIP package compatible with Windows 11.  
+# Installation - Windows  
+
+The software stack is also provided as PIP package compatible with Windows 11 or 10.  
 The only requirement needed on Windows are C++ runtime libraries.   
-Please download and install   
-[this package](https://aka.ms/vs/17/release/vc_redist.x64.exe)   
+Please download and install [this package](https://aka.ms/vs/17/release/vc_redist.x64.exe)   
 
-Install Python3.10 from the link.  
-[Python3.10](https://www.python.org/downloads/release/python-3105/)  
+Install Python3.10 from [Python3.10](https://www.python.org/downloads/release/python-3105/)  
 
-Open PowerShell from the windows start menu.
+Open **PowerShell** from the windows start menu.
 Create and move to the working folder. Assuming C:\work is the current folder in the following process.   
 ```
-PS CD C:\work
+PS <current directory>> cd C:\work   
 ```
 
 **Prepare the virtual environment**  
 Biuild the vertual environment for Python  
-``
+```
 PS C:\work> py -3.10 -m venv .venv  
-``
+```
 
 Activate the vurtual environment as following   
 Before activating the vertual environment, you may need to change the execution policy for shell execution.  
@@ -109,14 +110,14 @@ PS C:\work> Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process
 PS C:\work> .venv\Scripts\Activate.ps1  
 ```
 **Install MERA into Windows**  
-Copy the installation file under the install into the current folder.  
+Copy the install directory including the installation file into the current folder.  
 The file name may vary depending on the release version.
 
 Install RUHMI AI Compiler into the virtual environment.
 Also, install required dependencies.
 ```
 (.venv) PS C:\work> cd install
-(.venv) PS C:\work\install> python -m pip install .\mera-2.3.2-cp310-cp310-win_amd64.whl   
+(.venv) PS C:\work\install> python -m pip install .\mera-2.4.0+pkg.175-cp310-cp310-win_amd64.whl   
 (.venv) PS C:\work\install> python -m pip install onnx==1.17.0 tflite==2.18.0
 ```
 
@@ -129,4 +130,4 @@ successfully complete the following commands.
 ['Deployer', 'InputDescription', 'InputDescriptionContainer', 'Layout', 'MERADeployer', 'MeraModel', 'MeraTvmDeployment', 'MeraTvmModelRunner', 'MeraTvmPrjDeployment', 'ModelLoader', 'ModelQuantizer', 'Platform', 'PowerMetrics', 'QuantizationQualityMetrics', 'Quantizer', 'TVMDeployer', 'Target', '__builtins__', '__cached__', '__doc__', '__file__', '__loader__', '__name__', '__package__', '__path__', '__spec__', '__version__', 'calculate_quantization_quality', 'deploy', 'deploy_project', 'get_mera_dna_version', 'get_mera_tvm_version', 'get_mera_version', 'get_versions', 'load_mera_deployment', 'mera_deployment', 'mera_model', 'mera_platform', 'mera_quantizer', 'metrics', 'model', 'quantization_quality', 'quantizer', 'version']  
 ```
 
-[^1]: RUHMI Framework is powered by EdgeCortix© MERA™.
+[^1]: RUHMI Framework is powered by EdgeCortix® MERA™.

@@ -3,7 +3,7 @@
 ## Preparing EK-RA8P1 and the system configuration  
 
 ### Hardware Requirements  
-•	EK-RA8P1 board  
+•	[EK-RA8P1 board](https://www.renesas.com/en/design-resources/boards-kits/ek-ra8p1?srsltid=AfmBOoqu5uHQpXJIfZmN9Pxmy2cGa02Nq_9w-2t3bX80hAutKFUQwCch)  
 •	OV5640 Camera module  
 •	Display  
 •	USB-C cable   
@@ -22,4 +22,20 @@
 4.	Connect the other end of this cable to the USB port of the host PC. When powered, the white LED near the center of the board (the “dash” in the EK-RA8P1 name) will light up.   
 
 ![](../doc/material/EK_RA8P1_buringup.GIF)
+
+## Downloading sample AI Application and run  
+
+### Lauch AI Navigator and Import sample AI Application.  
+
+<div align="center">
+<img src ="launch_import.gif"> 
+
+<div align="left">
+ 
+### Compile the sample application and load artifact to EK-RA8P1
+
+<div align="center">
+<img src ="./build_run.gif">  
+<div align="left">
+
 

@@ -1,3 +1,4 @@
+
 import os
 import sys
 import subprocess
@@ -80,9 +81,10 @@ def build_and_run(model: Model):
         return
 
     added_to_sys_path = False
+    exectutable_dir = str((list(Path(build_dir).rglob("compare.exe")) + list(Path(build_dir).rglob("compare")))[0].parent)
     try:
-        if build_dir not in sys.path:
-            sys.path.insert(0, build_dir)
+        if exectutable_dir not in sys.path:
+            sys.path.insert(0, exectutable_dir)
             added_to_sys_path = True
         if "py_compute" in sys.modules:
             del sys.modules["py_compute"]
@@ -98,8 +100,8 @@ def build_and_run(model: Model):
             import math
             import py_compute as c
 
-            inp = list(np.load("{model.deploy_qtz_path}/ref_qtz/inputs.npy", allow_pickle=True).item().items())[0][1]
-            ref_out = list(np.load("{model.deploy_qtz_path}/ref_qtz/outputs.npy", allow_pickle=True).item().items())[0][1]
+            inp = list(np.load((Path("{model.deploy_qtz_path.resolve().as_posix()}")/Path("ref_qtz")/Path("inputs.npy")).resolve(), allow_pickle=True).item().items())[0][1]
+            ref_out = list(np.load((Path("{model.deploy_qtz_path.resolve().as_posix()}")/Path("ref_qtz")/Path("outputs.npy")).resolve(), allow_pickle=True).item().items())[0][1]
             got_out = c.compute(inp)[0]
             mse = np.mean((ref_out.flatten() - got_out.flatten()) ** 2)
 
@@ -131,8 +133,8 @@ def build_and_run(model: Model):
         model.status = Status.ERROR_DEPLOY
         return
     finally:
-        if added_to_sys_path and build_dir in sys.path:
-            sys.path.remove(build_dir)
+        if added_to_sys_path and exectutable_dir in sys.path:
+            sys.path.remove(exectutable_dir)
 
 
 #
@@ -374,3 +376,4 @@ def main():
 
 if __name__ == '__main__':
   main()
+

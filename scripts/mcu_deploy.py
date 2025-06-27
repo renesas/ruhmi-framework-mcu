@@ -18,7 +18,7 @@ def deploy_mcu(model_path, deploy_dir, with_ethos, with_ospi, with_ref_data):
             # ARM Vela options
             # only effective if Platform.MCU_ETHOS is selected, ignored otherwise
             vela_config = {}
-            vela_config['enable_ospi'] = needs_ospi(model_path, 1.5)
+            vela_config['enable_ospi'] = with_ospi
             vela_config['sys_config'] = 'RA8P1'
             vela_config['memory_mode'] = 'Sram_Only'
             vela_config['accel_config'] = 'ethos-u55-256'
@@ -27,7 +27,7 @@ def deploy_mcu(model_path, deploy_dir, with_ethos, with_ospi, with_ref_data):
 
             # MCU C code generation options
             mcu_config = {}
-            mcu_config['suffix'] = ''
+            mcu_config['suffix'] = '_net1'
             mcu_config['weight_location'] = 'flash' # other option is: 'iram'
 
             # On other scripts we could use True and it will not generate
