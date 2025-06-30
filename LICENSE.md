@@ -1,7 +1,6 @@
 
 # License Summary
 
-## License
 Copyright © 2025 EdgeCortix Inc. — Licensed to Renesas Electronics Corporation, with the right to sublicense under the Apache License 2.0.   
 Copyright © 2025 Renesas Electronics Corporation and its contributors. Licensed under the Apache License, Version 2.0 (the “License”); you may not use this file except in compliance with the License. You may obtain a copy of the License at: [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0)   
 
