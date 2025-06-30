@@ -59,7 +59,7 @@ You can refer to [Guide to the generated C source code](docs/runtime_api.md)
 
 ## AI model compiler API Specification  
 You might want to see the custermised method to quantize and to optimise your model with your good expertise. For your needs, you can refer to the API specification for the model compiler.
-  [AI model compiler API](https://masamitsu1025.github.io/ruhmi-framework-mcu/mera_api.html)
+  [AI model compiler API](https://renesas.github.io/ruhmi-framework-mcu/mera_api.html)
 
 ## Support  
 ### Tips  
@@ -74,7 +74,7 @@ If error occurred at compile/runtime operation, please refer [error list](./docs
 
 ### Enquiries  
 If you have any questions, please contact [Renesas Technical Support](https://www.renesas.com/support).  
-You can also leverage [issues](https://github.com/Masamitsu1025/ruhmi-framework-mcu/issues).
+You can also leverage [issues](https://renesas.github.io/ruhmi-framework-mcu//issues).
 
 
 
