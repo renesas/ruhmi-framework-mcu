@@ -1,3 +1,5 @@
+## Introduction
+
 The section introduces how to execute the model compilation with the sample scripts for each exmple case below.   
 * [Deploy models](# How-to-deploy-models)  
   - Deploy to CPU only   
@@ -5,11 +7,14 @@ The section introduces how to execute the model compilation with the sample scri
 * [Quantize and deploy models](# How-to-quantize-and-deploy-models)
   - Deploy to CPU only   
   - Deploy to CPU with Ethos U55 supported    
-The sample scripts are [here](https://github.com/Masamitsu1025/ruhmi-framework-mcu/tree/main/scripts).
+The sample scripts are [here](../scripts/)
 
 
 # How to deploy models  
 The sample script shows how to use the deployment API to compile an already quantized TFLite model on a board with Ethos-U55 support.  
+
+As an example model,we can download [ad01_int8.tflite](https://github.com/mlcommons/tiny/blob/master/benchmark/training/anomaly_detection/trained_models/ad01_int8.tflite) from [MLCommons](https://github.com/mlcommons)  
+
 
 The directory configuration for the sample scripts to run is below.
 This release introduces some tested models. Also introduces the location you can find those models.
@@ -96,6 +101,9 @@ You can refer to [the runtime API specification](doc/runtime_api.md) to study ho
 
 If the starting point it is a Float32 precision model, it is possible to use the Quantizer to first quantize the model and finally deploy with MCU/Ethos-U55 support.
 The sample script with using the Quantizer can be refered.
+
+For an example model, the same model in FP32 shall be used [ad01_fp32.tflite](https://github.com/mlcommons/tiny/blob/master/benchmark/training/anomaly_detection/trained_models/ad01_fp32.tflite) from  [MLCommons](https://github.com/mlcommons)  
+
 
 ## Deploy to CPU only   
 
