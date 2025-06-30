@@ -1,0 +1,15 @@
+collapse/module.arm.cmsis.dsp.829499797=false
+collapse/module.arm.cmsis.nn.768474157=false
+collapse/module.arm.cmsis5.dsp.1569152071=false
+collapse/module.arm.cmsis5.nn.195650345=false
+collapse/module.arm.ethosu.core.lib.1307301223=false
+collapse/module.driver.display_on_glcdc.728370718=false
+collapse/module.driver.drw.994329534=false
+collapse/module.driver.i2c_on_iic_master.591990319=false
+collapse/module.driver.ospi_on_ospi_b.840604774=false
+collapse/module.driver.uart_on_sci_b_uart.1204411203=false
+collapse/module.google.tflm.core.lib.111811541=false
+collapse/module.google.tflm.kernel.cmsis.nn.464347037=false
+collapse/module.middleware.rm_ethosu.1633038300=false
+collapse/module.middleware.rm_ethosu.2022832829=false
+eclipse.preferences.version=1
