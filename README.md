@@ -78,7 +78,7 @@ If error occurred at compile/runtime operation, please refer [error list](./docs
 
 ### Enquiries  
 If you have any questions, please contact [Renesas Technical Support](https://www.renesas.com/support).  
-You can also leverage [issues](https://renesas.github.io/ruhmi-framework-mcu//issues).
+You can also leverage [issues](https://github.com/renesas/ruhmi-framework-mcu/issues).
 
 
 
