@@ -2,9 +2,9 @@
 
 Currently, RUHMI framework is backed by MERA compiler powered by EdgeCortix. 
 
-The compilers accepts models from various frameworks such as Executorch (.pte), Tensorflow lite (.tflite) and ONNX (.onnx). Which are then lowered down to TFlite dialect that c-code gen is built upon. The tables below represent what operators are supported from each framework and finally to what operator it would be lowered down to.
+The compiler accepts models from various frameworks such as Executorch (.pte), Tensorflow lite (.tflite) and ONNX (.onnx). Which are then lowered down to TFlite dialect that c-code gen is built upon. The tables below represent what operators are supported from each framework and finally to what operator it would be lowered down to.
 
-> **Note:** Mera AI compiler processes inputted model differently according to selected platform and target and not every combination of support should be expected for every operator in the list.
+> **Note:** The compiler processes inputted model differently according to selected platform and target and not every combination of support should be expected for every operator in the list.
 
 ## TensorFlow lite front-end operator support
 
