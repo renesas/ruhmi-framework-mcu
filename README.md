@@ -1,6 +1,6 @@
 
 
-# RUHMI, Robust Unified Heterogeneous Model Integration, Framework supports AI model optimization and deployment with powered by EdgeCortix® MERA™.
+# RUHMI (Robust Unified Heterogeneous Model Integration) is a framework for AI model optimization and deployment, powered by EdgeCortix® MERA.
 
 ## Introduction
 RUHMI Framework[^1] povide a compiler and the necessary tools to convert machine learning models into C source code compatible with range of Renesas MCUs powered by Arm Ethos-U NPUs.
