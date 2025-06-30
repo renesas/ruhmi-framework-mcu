@@ -52,7 +52,7 @@ Example case:
 
 ## Guide to the generated C source code
 After processing a model, you will find several files on your deployment directory. This include some deploying artifacts generated during compilation that are worth to be kept around for debugging purposes.
-The most important output is found under the directory **<deployment_directory>build/MCU/compilation/src**. 
+The most important output is found under the directory `<deployment_directory>build/MCU/compilation/src`. 
 This directory contains the model converted into a set of C99 source code files.
 You can refer to [Guide to the generated C source code](docs/runtime_api.md)
 
@@ -61,7 +61,11 @@ You can refer to [Guide to the generated C source code](docs/runtime_api.md)
 You might want to see the custermised method to quantize and to optimise your model with your good expertise. For your needs, you can refer to the API specification for the model compiler.
   [AI model compiler API](https://masamitsu1025.github.io/ruhmi-framework-mcu/mera_api.html)
 
-## Support  
+## Support 
+
+### Operator support 
+Please refer to the following [operators directory](/docs/operator_support.md) to understand what operators are supported by the framework.
+
 ### Tips  
 If you see any warnings in the process of installation and running the sample scripts, you can refer [Tips](./docs/tips.md)  
 
