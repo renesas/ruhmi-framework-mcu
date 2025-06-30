@@ -2,12 +2,6 @@
 
 # RUHMI, Robust Unified Heterogeneous Model Integration, Framework supports AI model optimization and deployment with powered by EdgeCortix® MERA™.
 
-## License
-Copyright © 2025 EdgeCortix Inc. — Licensed to Renesas Electronics Corporation, with the right to sublicense under the Apache License 2.0.   
-Copyright © 2025 Renesas Electronics Corporation and its contributors. Licensed under the Apache License, Version 2.0 (the “License”); you may not use this file except in compliance with the License. You may obtain a copy of the License at: [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0)   
-
-The framework shall use some external components to be installed in the installation process. Please refer the detail of [the license summary](LICENSE.md).  
-
 ## Introduction
 RUHMI Framework[^1] povide a compiler and the necessary tools to convert machine learning models into C source code compatible with range of Renesas MCUs powered by Arm Ethos-U NPUs.
 The software stack generates C source code while ensuring compatibility and tight integration the with Renesas e2 studio.
