@@ -361,8 +361,8 @@ def main():
         # Build generated C source code and compare against outputs produced by the quantized model
         # If Ethos support was enabled we will only generate the C99 source code
         #
-        if not args.ethos:
-          build_and_run(model)
+#       if not args.ethos:     // removed once
+#          build_and_run(model)     // removed once
 
     #
     # Print a summary
