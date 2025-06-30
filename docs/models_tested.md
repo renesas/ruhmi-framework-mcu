@@ -1,6 +1,6 @@
 ## Tested models
 
-The following readme provides model that have been tested and verified to run effectively on RA8P1 with Ethos U55 and Cortex-M85. Do note that model support is **not** limited to the following models but rather a provision of examples and how they run.
+The following readme provides models that have been tested and verified to run effectively on RA8P1 with Ethos U55 and Cortex-M85. Do note that model support is **not** limited to the following models but rather a provision of examples and how they run.
 
 
 | #  | Model                          | Framework | Data Format Pre-Input |
