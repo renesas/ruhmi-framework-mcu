@@ -21,11 +21,11 @@ The directory configuration for the sample scripts to run is below.
   ├── scripts
   |     ├── mcu_deploy.py  // sample script for deploy
   |     └── mcu_quantize.py  // sample script for quantize and deploy
-  ├── [models_int8]
+  ├── models_int8                                                                        // To be prepared
   |     └── ad01_int8.tflite  // sample model to iput to deployer from MLCommons
-  ├── [models_fp32]
+  ├── models_fp32                                                                        // To be prepared
   |     └── ad01_fp32.tflite  // sample model to input to Quantizer from MLCommons
-  ├── [models_fp32_ethos]   
+  ├── models_fp32_ethos                                                                  // To be prepared
   |     └── ad01_fp32.tflite  // sample model to input to Quantizer from MLCommons
 ```
 
