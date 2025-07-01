@@ -21,12 +21,12 @@ The directory configuration for the sample scripts to run is below.
   ├── scripts
   |     ├── mcu_deploy.py  // sample script for deploy
   |     └── mcu_quantize.py  // sample script for quantize and deploy
-  ├── [models_int8](https://github.com/Masamitsu1025/ruhmi-framework-mcu/tree/main/models_int8)  
-  |     └── **ad01_int8.tflite**  // sample model to iput to deployer from MLCommons
-  ├── [models_fp32](https://github.com/Masamitsu1025/ruhmi-framework-mcu/tree/main/models_fp32)  
-  |     └── **ad01_fp32.tflite**  // sample model to input to Quantizer from MLCommons
-  ├── [models_fp32_ethos](https://github.com/Masamitsu1025/ruhmi-framework-mcu/tree/main/models_fp32_ethos)    
-  |     └── **ad01_fp32.tflite**  // sample model to input to Quantizer from MLCommons
+  ├── [models_int8]
+  |     └── ad01_int8.tflite  // sample model to iput to deployer from MLCommons
+  ├── [models_fp32]
+  |     └── ad01_fp32.tflite  // sample model to input to Quantizer from MLCommons
+  ├── [models_fp32_ethos]   
+  |     └── ad01_fp32.tflite  // sample model to input to Quantizer from MLCommons
 ```
 
 **If you see any warnings in the process below, you can refer [Tips](../doc/tips.md)**
