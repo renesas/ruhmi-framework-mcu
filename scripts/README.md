@@ -13,11 +13,10 @@ The sample scripts are [here](../scripts/)
 # How to deploy models  
 The sample script shows how to use the deployment API to compile an already quantized TFLite model on a board with Ethos-U55 support.  
 
-As an example model,we can download [ad01_int8.tflite](https://github.com/mlcommons/tiny/blob/master/benchmark/training/anomaly_detection/trained_models/ad01_int8.tflite) from [MLCommons](https://github.com/mlcommons)  
-
+This release introduces some tested models. As the example model,we can download [ad01_int8.tflite](https://github.com/mlcommons/tiny/blob/master/benchmark/training/anomaly_detection/trained_models/ad01_int8.tflite) and [ad01_fp32.tflite](https://github.com/mlcommons/tiny/blob/master/benchmark/training/anomaly_detection/trained_models/ad01_fp32.tflite) from [MLCommons](https://github.com/mlcommons)    
+When runing the scripts provided in the repository, you shall build the folder configuration including each model.  
 
 The directory configuration for the sample scripts to run is below.
-This release introduces some tested models. Also introduces the location you can find those models.
 ```
   ├── scripts
   |     ├── mcu_deploy.py  // sample script for deploy
