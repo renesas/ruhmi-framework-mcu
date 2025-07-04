@@ -7,8 +7,8 @@ Also, the version number included in the file name like 2.3.2 depens on MERA IP.
 Download the installation files from [the repository](https://github.com/Masamitsu1025/ruhmi-framework-mcu/tree/main/install), then move on to the installation guide according to your system type;
 [Installation guide for Ubuntu Linux](#installation---Ubuntu-Linux), [Installation guide for Windows](#installation---Windows)
 ```
-\install\mera-2.4.0+pkg.1746-cp310-cp310-manylinux_2_27_x86_64.whl  
-\install\mera-2.4.0+pkg.175-cp310-cp310-win_amd64.whl  
+\install\mera-2.4.0+pkg.1756-cp310-cp310-manylinux_2_27_x86_64.whl  
+\install\mera-2.4.0+pkg.179-cp310-cp310-win_amd64.whl  
 ```
 
 # Installation - Ubuntu Linux  
@@ -73,7 +73,7 @@ Your prompt should now show that you are under a virtual environment mera-env:
 Finally install MERA on the virtual environment mera-env:  
 
 ```
-pip install ./mera-2.4.0+pkg.1746-cp310-cp310-manylinux_2_27_x86_64.whl  
+pip install ./mera-2.4.0+pkg.1756-cp310-cp310-manylinux_2_27_x86_64.whl  
 ```
 
 where the versions may vary depending on the MERA release used.  
@@ -117,7 +117,7 @@ Install RUHMI AI Compiler into the virtual environment.
 Also, install required dependencies.
 ```
 (.venv) PS C:\work> cd install
-(.venv) PS C:\work\install> python -m pip install .\mera-2.4.0+pkg.175-cp310-cp310-win_amd64.whl   
+(.venv) PS C:\work\install> python -m pip install .\mera-2.4.0+pkg.179-cp310-cp310-win_amd64.whl   
 (.venv) PS C:\work\install> python -m pip install onnx==1.17.0 tflite==2.18.0
 ```
 
