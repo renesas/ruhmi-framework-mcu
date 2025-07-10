@@ -93,7 +93,8 @@ Retrieves the pointer to the output buffer, they contain the model's results for
 | Ethos-U disabled |    74ms   | Software fallback only        |
 
 
-
+## Model reference
+Model used for this project is YOLO_fastest_192 and can be downloaded from [here](https://github.com/emza-vs/ModelZoo/tree/master/object_detection) 
 
 
 
