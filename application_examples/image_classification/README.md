@@ -106,6 +106,9 @@ The demo displays:
 | Ethos-U disabled |      50ms      | Software fallback only        |
 
 
+## Model reference
+
+Model used for this project is Mobilenetv1 with an alpha of 0.24 and resolution of 224x224 and can be downloaded from [here](https://github.com/tensorflow/models/blob/master/research/slim/nets/mobilenet_v1.md) 
 
 
 
