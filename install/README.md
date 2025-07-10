@@ -4,7 +4,7 @@
 In order to install the software tool, the installation file below shall be used. 
 RUHMI framework[^1] includes MERA IPs supported by EdgeCortix, so you will see the files and some discriptions with the name of MERA included.
 Also, the version number included in the file name like 2.3.2 depens on MERA IP.  
-Download the installation files the repository, then move on to the installation guide according to your system type;
+Download the installation files from the repository, then move on to the installation guide according to your system type;
 [Installation guide for Ubuntu Linux](#installation---Ubuntu-Linux), [Installation guide for Windows](#installation---Windows)
 ```
 \install\mera-2.4.0+pkg.1756-cp310-cp310-manylinux_2_27_x86_64.whl  
