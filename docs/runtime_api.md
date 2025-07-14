@@ -33,6 +33,10 @@ The most important output that RHUMI framework generates is found under the dire
                       ├──  ...  
 ```
 
+  [Tips]    
+  hal_entry.c: Auto-generated example of a possible entry point on Renesas e2 studio project to get the user a starting point on how to run the model. This generated code intended to be used as a reference by the user.  
+  It should be helpfull to understand how to use the output source code with refering the following discription.  
+
 ## Runtime API - CPU only deployment
 When a model is converted into source code with RUHMI[^1] compiler without Ethos-U support, all the operators in the model being deployed will be prepared to be run on CPU only.   
 In this case, the generated code will refer to a single subgraph **compute_sub_0000<suffix>**, by default, when no suffix is provided, the name of the header that need to included on your application entry point is **compute_sub_0000.h**.  
