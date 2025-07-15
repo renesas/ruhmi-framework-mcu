@@ -65,7 +65,7 @@ If you see any warnings in the process of installation and running the sample sc
 
 ### Limitation  
 There are some known constraints of the functions, Quatizer and C-Codegen.
-Please see [LIMITATIONS](LIMITATIONS.md).
+Please see [LIMITATIONS](./docs/LIMITATIONS.md).
 
 ### Error List  
 If error occurred at compile/runtime operation, please refer [error list](./docs/error_list.md).  
