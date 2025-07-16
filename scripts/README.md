@@ -94,7 +94,7 @@ When Ethos-U support is enabled, each of the directories contain a deployment of
 ```
   
 The generated C code under **"build/MCU/compilation/src"** can be incorporated into a e2studio project.  
-You can refer to [the runtime API specification](doc/runtime_api.md) to study how to use the output file from RUHMI Framework.  
+You can refer to [Guide to the generated C source code](/docs/runtime_api.md) to study how to use the output file from RUHMI Framework.  
 
 # How to quantize and deploy models 
 
