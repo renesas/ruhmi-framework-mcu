@@ -61,9 +61,10 @@ The compiler accepts models from various frameworks such as Executorch (.pte), T
 | tfl.prelu                     | TFL::PReluOp                  |
 
 As a note:  
-**TFL Operation**: This is the name of the operation as it appears in TensorFlow Lite models. It’s what you’ll see in model files or when inspecting the graph structure. Think of it as the external label used in the model.  
+**TFL Operation**: This is the name of the operation as it appears in TensorFlow Lite models. It’s what you’ll see in model files or when inspecting the graph structure.  
 **TFL Op Class**: This is the internal class name used in the TensorFlow Lite codebase (specifically in MLIR). It defines how the operation is implemented and processed during model conversion or optimization. Think of it as the backend implementation of the operation.
-**tfl.concatenation (TFL::ConcatenationOp):** Only supports up to 4 dimensional inputs.
+
+> **Limitation:** **tfl.concatenation (TFL::ConcatenationOp):** Only supports up to 4 dimensional inputs.
 
 
 
