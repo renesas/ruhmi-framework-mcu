@@ -64,7 +64,7 @@ As a note:
 **TFL Operation**: This is the name of the operation as it appears in TensorFlow Lite models. It’s what you’ll see in model files or when inspecting the graph structure.  
 **TFL Op Class**: This is the internal class name used in the TensorFlow Lite codebase (specifically in MLIR). It defines how the operation is implemented and processed during model conversion or optimization. Think of it as the backend implementation of the operation.
 
-> **Limitation:** **tfl.concatenation (TFL::ConcatenationOp):** Only supports up to 4 dimensional inputs.
+> **Limitation:** **tfl.concatenation (TFL::ConcatenationOp)** only supports up to 4 dimensional inputs.
 
 
 
