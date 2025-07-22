@@ -108,7 +108,8 @@ The demo displays:
 
 ## Model reference
 
-Model used for this project is Mobilenetv1 with an alpha of 0.24 and resolution of 224x224 and can be downloaded from [here](https://github.com/tensorflow/models/blob/master/research/slim/nets/mobilenet_v1.md) 
+You can generate the model using the pre-provided python script `generate_IC_model_tflite.py` and running it in the same enviroment as the compiler `python3 -m venv mera-env`, refer to `venv` installation [here](../../install/README.md).  
+The model is referenced from the following [Github](https://github.com/tensorflow/models/blob/master/research/slim/nets/mobilenet_v1.md) .
 
 
 
