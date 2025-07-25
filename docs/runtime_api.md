@@ -4,6 +4,7 @@ After compiling the model with the provided Python code, several files will be g
 ```<deployment_directory>/build/MCU/compilation/src```.  
 This directory contains the model converted into C99 source code files, ready to be integrated into your MCU project.
 
+> The generated code only supports [FSP6.0.0](https://github.com/renesas/fsp/releases/tag/v6.0.0) with [CMSIS-NN 7.0.0](https://github.com/ARM-software/CMSIS-NN/releases).  
 
 ## Reference example of the folder structure
 ```
