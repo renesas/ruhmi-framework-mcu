@@ -5,15 +5,15 @@
 
 ### **[Linux]** `GLIBCXX_3.4.32' not found` occered at running the script like "python mcu_deploy.py --ethos --ref_data ../models_int8 deploy_qtzed_ethos"
 
-Basically, just do the following commands: Firstly, install:
+Run the following commands for upgrading the stdc library to an actual version:
 ```
-sudo apt-get install libstdc++6
+sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+sudo apt-get update
+sudo apt-get install libstdc++6 libgcc-s1
 ```
 
-This should already be installed by default, but try it anyway. If it doesn't solve it, just do the following:
+For installation clean up run the following after the above step is finished:
 ```
-sudo add-apt-repository ppa:ubuntu-toolchain-r/test 
-sudo apt-get update
 sudo apt-get upgrade
 sudo apt-get dist-upgrade
 ```
