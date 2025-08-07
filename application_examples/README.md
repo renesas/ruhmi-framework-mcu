@@ -1,25 +1,13 @@
-# Introduction of the applications  
-
-<div style="display: flex; justify-content: center; gap: 20px;">
-  <div style="text-align: center;">
-    <h3>[Demo movie 1] Face detection</h3>
-    <img src="https://raw.github.com/wiki/renesas/ruhmi-framework-mcu/images/Face_detection_RA8P1.gif?raw=true" width="300">
-  </div>
-
-  <div style="text-align: center;">
-    <h3>[Demo movie 2] Image classification</h3>
-    <img src="https://raw.github.com/wiki/renesas/ruhmi-framework-mcu/images/image_classification.gif?raw=true" width="300">
-  </div>
-</div>
+# Demo movies  
 
 <table>
   <tr>
     <td align="center">
-      <h3>[Demo movie 1] Face detection</h3>
+      <h3>[1] Face detection</h3>
       <img src="https://raw.github.com/wiki/renesas/ruhmi-framework-mcu/images/Face_detection_RA8P1.gif?raw=true" width="300">
     </td>
     <td align="center">
-      <h3>[Demo movie 2] Image classification</h3>
+      <h3>[2] Image classification</h3>
       <img src="https://raw.github.com/wiki/renesas/ruhmi-framework-mcu/images/image_classification.gif?raw=true" width="300">
     </td>
   </tr>
