@@ -3,12 +3,12 @@
 ![Face detection](https://raw.github.com/wiki/renesas/ruhmi-framework-mcu/images/Face_detection_RA8P1.gif)  
 
 ### Image classification  
-![Image classification](https://raw.github.com/wiki/renesas/ruhmi-framework-mcu/images/image classification-coffee mug.gif)   
+![Image classification](https://raw.github.com/wiki/renesas/ruhmi-framework-mcu/images/image_classification_coffee_mug.gif)   
 
 
 <p align="center">
   <img src="https://raw.github.com/wiki/renesas/ruhmi-framework-mcu/images/Face_detection_RA8P1.gif?raw=true" width="30%">
-  <img src="https://raw.github.com/wiki/renesas/ruhmi-framework-mcu/images/image classification-coffee mug.gif?raw=true" width="30%">
+  <img src="https://raw.github.com/wiki/renesas/ruhmi-framework-mcu/images/image_classification_coffee_mug.gif?raw=true" width="30%">
 </p>
 
 # EK-RA8P1 Quick Setup Overview  
