@@ -12,6 +12,11 @@
   </div>
 </div>
 
+| [Demo movie 1] Face detection | [Demo movie 2] Image classification |
+|:-----------------------------:|:-----------------------------------:|
+| ![Face detection](https://raw.github.com/wiki/renesas/ruhmi-framework-mcu/images/Face_detection_RA8P1.gif?raw=true) | ![Image classification](https://raw.github.com/wiki/renesas/ruhmi-framework-mcu/images/image_classification.gif?raw=true) |
+
+
 # EK-RA8P1 Quick Setup Overview  
 
 ## Preparing EK-RA8P1 and the system configuration  
