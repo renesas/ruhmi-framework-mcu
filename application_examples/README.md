@@ -1,16 +1,15 @@
 # Introduction of the applications  
-### Image classification  
-![Image classification](https://raw.github.com/wiki/renesas/ruhmi-framework-mcu/images/image_classification.gif)   
 
-### Face detection  
-![Face detection](https://raw.github.com/wiki/renesas/ruhmi-framework-mcu/images/Face_detection_RA8P1.gif)  
-
-
-
-<p align="center">
-  <img src="https://raw.github.com/wiki/renesas/ruhmi-framework-mcu/images/Face_detection_RA8P1.gif?raw=true" width="30%">
-  <img src="https://raw.github.com/wiki/renesas/ruhmi-framework-mcu/images/image_classification.gif?raw=true" width="30%">
-</p>
+<div style="display: flex; justify-content: center; gap: 20px;">
+  <div style="text-align: center;">
+    <h3>Image classification</h3>
+    <img src="https://raw.github.com/wiki/renesas/ruhmi-framework-mcu/images/image_classification.gif?raw=true" width="300">
+  </div>
+  <div style="text-align: center;">
+    <h3>Face detection</h3>
+    <img src="https://raw.github.com/wiki/renesas/ruhmi-framework-mcu/images/Face_detection_RA8P1.gif?raw=true" width="300">
+  </div>
+</div>
 
 # EK-RA8P1 Quick Setup Overview  
 
