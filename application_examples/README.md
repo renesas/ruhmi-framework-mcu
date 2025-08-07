@@ -1,3 +1,8 @@
+# Application movies
+| Face detection  | image classification |
+| -------------   | ------------- |
+| (/demo_movies/Face_detection_RA8P1.gif)  | (/demo_movies/image_classification_coffee_mug.gif) |
+
 # EK-RA8P1 Quick Setup Overview  
 
 ## Preparing EK-RA8P1 and the system configuration  
