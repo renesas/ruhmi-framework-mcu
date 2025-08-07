@@ -2,7 +2,7 @@
 ### Face detection  
 ![Face detection](https://raw.github.com/wiki/renesas/ruhmi-framework-mcu/images/Face_detection_RA8P1.gif)  
 
-### Image classification
+### Image classification  
 ![Image classification](https://raw.github.com/wiki/renesas/ruhmi-framework-mcu/images/image_classification.gif)   
 
 
