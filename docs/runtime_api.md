@@ -4,7 +4,7 @@ After compiling the model with the provided Python code, several files will be g
 ```<deployment_directory>/build/MCU/compilation/src```.  
 This directory contains the model converted into C99 source code files, ready to be integrated into your MCU project.
 
-> NOTE:
+> [!NOTE]
 > The generated code only supports [FSP6.0.0](https://github.com/renesas/fsp/releases/tag/v6.0.0) with [CMSIS-NN 7.0.0](https://github.com/ARM-software/CMSIS-NN/releases).  
 
 ## Reference example of the folder structure
@@ -40,6 +40,7 @@ This directory contains the model converted into C99 source code files, ready to
 >[!TIP]    
 >hal_entry.c: Auto-generated example of a possible entry point on Renesas e2 studio project to get the user a starting point on how to run the model. This generated code intended to be used as a reference by the user.  
 It should be helpfull to understand how to use the output source code with refering the following discription.  
+
 
 ## Runtime API - CPU only deployment
 When a model is converted into source code with RUHMI[^1] framework without Ethos-U support, all the operators in the model be mapped to run on CPU only.   
