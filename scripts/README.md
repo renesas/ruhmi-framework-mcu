@@ -1,10 +1,10 @@
 ## Introduction
 
 The section introduces how to execute the model compilation with the sample scripts for each exmple case below.   
-* [Deploy models](# How-to-deploy-models)  
+* [Deploy models](#How-to-deploy-models)  
   - Deploy to CPU only   
   - Deploy to CPU with Ethos U55 supported    
-* [Quantize and deploy models](# How-to-quantize-and-deploy-models)
+* [Quantize and deploy models](#How-to-quantize-and-deploy-models)
   - Deploy to CPU only   
   - Deploy to CPU with Ethos U55 supported    
 The sample scripts are [here](../scripts/)
