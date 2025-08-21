@@ -2,7 +2,7 @@
 ## Documets list  
 
 
-### [Guide to the generated C source code](docs/runtime_api.md)
+### [Guide to the generated C source code](runtime_api.md)
 You can see the reference to use the functions from the output source.  
 
 ### [AI model compile API Specification](https://renesas.github.io/ruhmi-framework-mcu/mera_api.html) 
