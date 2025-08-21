@@ -28,24 +28,24 @@ The directory configuration for the sample scripts to run is below.
   ├── models_fp32_ethos                                                                  // To be prepared
   |     └── ad01_fp32.tflite  // sample model to input to Quantizer from MLCommons
 ```
+[!TIP]
+If you see any warnings in the process below, you can refer [Tips](../doc/tips.md)
 
-**If you see any warnings in the process below, you can refer [Tips](../doc/tips.md)**
-
-## Deploy to CPU only   
+### Deploy to CPU only   
 By running the provided script **scripts/mcu_deploy.py**. we can compile the model for MCU only:  
 ```
 (.venv) PS C:\work> cd scripts/  
 (.venv) PS C:\work> python mcu_deploy.py --ref_data ../models_int8 deploy_qtzed  
 ```
 
-## Deploy to CPU with Ethos U55 supported    
+### Deploy to CPU with Ethos U55 supported    
 When enabling Ethos-U support:  
 ```
 (.venv) PS C:\work> cd scripts  
 (.venv) PS C:\work> python mcu_deploy.py --ethos --ref_data ../models_int8 deploy_qtzed_ethos  
  ```
 
-## Check the deploy result
+### Check the deploy result
 
 you will get the following results:
 ```
@@ -104,7 +104,7 @@ The sample script with using the Quantizer can be refered.
 For an example model, the same model in FP32 shall be used [ad01_fp32.tflite](https://github.com/mlcommons/tiny/blob/master/benchmark/training/anomaly_detection/trained_models/ad01_fp32.tflite) from  [MLCommons](https://github.com/mlcommons)  
 
 
-## Deploy to CPU only   
+### Deploy to CPU only   
 
 To run the script:
 ```
@@ -112,13 +112,13 @@ To run the script:
 (.venv) PS C:\work> python mcu_quantize.py ../models_fp32 deploy_mcu   
 ```
 
-## Deploy to CPU with Ethos U55 supported   
+### Deploy to CPU with Ethos U55 supported   
 ```
 (.venv) PS C:\work> cd scripts/  
 (.venv) PS C:\work> python mcu_quantize.py -e ../models_fp32_ethos deploy_ethos  
 ```
 
-## Check the quantize and deploy result   
+### Check the quantize and deploy result   
 
 When Ethos-U support is enabled, each of the directories contain a deployment of the corresponding model for MCU + Ethos-U55 platform:  
 ```
