@@ -28,8 +28,8 @@ The directory configuration for the sample scripts to run is below.
   ├── models_fp32_ethos                                                                  // To be prepared
   |     └── ad01_fp32.tflite  // sample model to input to Quantizer from MLCommons
 ```
-[!TIP]
-If you see any warnings in the process below, you can refer [Tips](../doc/tips.md)
+>[!TIP]
+>If you see any warnings in the process below, you can refer [Tips](../doc/tips.md)
 
 ### Deploy to CPU only   
 By running the provided script **scripts/mcu_deploy.py**. we can compile the model for MCU only:  
