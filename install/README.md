@@ -98,14 +98,15 @@ PS <current directory>> cd C:\work
 ```
 
 **Prepare the virtual environment**  
-Biuild the vertual environment for Python  
+Build the vertual environment for Python  
 ```
 PS C:\work> py -3.10 -m venv .venv  
 ```
 
-Activate the vurtual environment as following   
+Activate the virtual environment as following   
 Before activating the vertual environment, you may need to change the execution policy for shell execution.  
 ```
+PS C:\work> [Environment]::SetEnvironmentVariable('CONVERSION_TOOL_E2STUDIO_PLUGIN_PYTHON_VENV_LOC', "$(Get-Location)", 'User') 
 PS C:\work> Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process  
 PS C:\work> .venv\Scripts\Activate.ps1  
 ```
