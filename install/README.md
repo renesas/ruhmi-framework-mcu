@@ -100,16 +100,18 @@ PS <current directory>> cd C:\work
 **Prepare the virtual environment**  
 Build the vertual environment for Python  
 ```
-PS C:\work> py -3.10 -m venv .venv  
+py -3.10 -m venv .venv  
 ```
 
 Activate the virtual environment as following   
 Before activating the vertual environment, you may need to change the execution policy for shell execution.  
 ```
-PS C:\work> [Environment]::SetEnvironmentVariable('CONVERSION_TOOL_E2STUDIO_PLUGIN_PYTHON_VENV_LOC', "$(Get-Location)", 'User') 
-PS C:\work> Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process  
-PS C:\work> .venv\Scripts\Activate.ps1  
+[Environment]::SetEnvironmentVariable('CONVERSION_TOOL_E2STUDIO_PLUGIN_PYTHON_VENV_LOC', "$(Get-Location)", 'User') 
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process  
+.venv\Scripts\Activate.ps1  
 ```
+You will see the prompt as "(.venv) PS C:\work>"
+
 **Install MERA into Windows**  
 Copy the install directory including the installation file into the current folder.  
 The file name may vary depending on the release version.
@@ -117,17 +119,17 @@ The file name may vary depending on the release version.
 Install RUHMI AI Compiler into the virtual environment.
 Also, install required dependencies.
 ```
-(.venv) PS C:\work> cd install
-(.venv) PS C:\work\install> python -m pip install .\mera-2.4.0+pkg.179-cp310-cp310-win_amd64.whl   
-(.venv) PS C:\work\install> python -m pip install onnx==1.17.0 tflite==2.18.0
+cd install
+python -m pip install .\mera-2.4.0+pkg.179-cp310-cp310-win_amd64.whl   
+python -m pip install onnx==1.17.0 tflite==2.18.0
 ```
 
 Please check that all your path settings of your environment are correct. After installation you should be able to
 successfully complete the following commands.
 ```
-(.venv) PS C:\work\install> vela --version
+vela --version
 4.2.0
-(.venv) PS C:\work\install> python -c "import mera;print(dir(mera))"
+python -c "import mera;print(dir(mera))"
 ['Deployer', 'InputDescription', 'InputDescriptionContainer', 'Layout', 'MERADeployer', 'MeraModel', 'MeraTvmDeployment', 'MeraTvmModelRunner', 'MeraTvmPrjDeployment', 'ModelLoader', 'ModelQuantizer', 'Platform', 'PowerMetrics', 'QuantizationQualityMetrics', 'Quantizer', 'TVMDeployer', 'Target', '__builtins__', '__cached__', '__doc__', '__file__', '__loader__', '__name__', '__package__', '__path__', '__spec__', '__version__', 'calculate_quantization_quality', 'deploy', 'deploy_project', 'get_mera_dna_version', 'get_mera_tvm_version', 'get_mera_version', 'get_versions', 'load_mera_deployment', 'mera_deployment', 'mera_model', 'mera_platform', 'mera_quantizer', 'metrics', 'model', 'quantization_quality', 'quantizer', 'version']  
 ```
 
