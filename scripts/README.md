@@ -13,7 +13,7 @@ You can run each script under the virtual environment showing the prompt like "(
 
 ## Conversion options
 The introduced scripts here supports each option. You can use the script depending on the case below.
-![](../docs/material/conversion_options.bmp)
+![](../docs/material/conversion_options.gif)
 
 [NOTICE]
 Some options has NOT been supported yet. If you have seen the message like below after runingn the script, please understand it's not ready yet.
