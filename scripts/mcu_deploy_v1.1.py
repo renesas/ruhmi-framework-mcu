@@ -4,11 +4,14 @@ import mera
 from mera import Platform, Target
 from argparse import ArgumentParser
 from pathlib import Path
+import sys
+
 
 def needs_ospi(file, size_mb):
     return os.path.getsize(file) / (1024 * 1024) > size_mb
 
 def deploy_mcu(model_path, deploy_dir, with_ethos, with_ospi, with_ref_data):
+
     try:
         with mera.Deployer(deploy_dir, overwrite=True) as deployer:
             model = mera.ModelLoader(deployer).from_tflite(model_path)
@@ -48,8 +51,33 @@ def deploy_mcu(model_path, deploy_dir, with_ethos, with_ospi, with_ref_data):
     except Exception as e:
         print(str(e))
 
+UNSUPPORTED_EXTS = {".onnx", ".pte"}
+EXIT_UNAVAILABLE = getattr(os, "EX_UNAVAILABLE", 69)  # portable fallback
+
+
+def exit_unavailable(msg: str, code: int = EXIT_UNAVAILABLE):
+
+    red, reset = "\033[1;31m", "\033[0m"
+    label = f"{red}UNAVAILABLE{reset}" if sys.stderr.isatty() else "UNAVAILABLE"
+    print(f"\n{label}: {msg}\n", file=sys.stderr)
+    sys.exit(code)
+
+def abort_if_unsupported_present(models_dir: Path):
+
+    bad = sorted(p for p in models_dir.rglob("*")
+                 if p.is_file() and p.suffix.lower() in UNSUPPORTED_EXTS)
+    if bad:
+        print("Found unsupported model files:", file=sys.stderr)
+        for p in bad:
+            print(f"  - {p}", file=sys.stderr)
+        exit_unavailable(
+            "Feature not available yet. Direct deployment supports only FP32/INT8 .tflite.\n"
+            "For .onnx or .pte, quantize with mcu_quantize.py first."
+        )
 
 def main():
+   # Abort early if any .onnx or .pte are present
+
   arg_p = ArgumentParser('mcu_run')
   arg_p.add_argument('models_dir', type=str, help='Path to directory with TFLite models')
   arg_p.add_argument('deploy_dir', type=str, help='Directory for CCodegen deployment')
@@ -57,11 +85,12 @@ def main():
   arg_p.add_argument('--ospi', action='store_true', help='Use SPI memory')
   arg_p.add_argument('--ref_data', action='store_true', help='Generate reference data for testing')
   args = arg_p.parse_args()
-
   models_dir = Path(args.models_dir).resolve()
   deploy_dir = Path(args.deploy_dir).resolve()
+  abort_if_unsupported_present(models_dir)
 
   models = models_dir.rglob("*.tflite")
+
   for model in models:
       deploy_name = model.stem
       enable_ospi = args.ospi or needs_ospi(model, 1.5)

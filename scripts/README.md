@@ -9,6 +9,25 @@ The section introduces how to execute the model compilation with the sample scri
   - Deploy to CPU with Ethos U55 supported    
 The sample scripts are [here](../scripts/)
 
+You can run each script under the virtual environment showing the prompt like "(.venv) PS C:\work>".
+
+## Conversion options
+The introduced scripts here supports each option. You can use the script depending on the case below.
+![](../docs/material/conversion_options.bmp)
+
+[NOTICE]
+Some options has NOT been supported yet. If you have seen the message like below after runingn the script, please understand it's not ready yet.
+
+```
+If you input the onnx model with the script, mcu_deploy.py, you will receive the message like below.
+Quantization to be needed at first.
+
+Found unsupported model files:
+  - C:\[working folder]\models_int8\*.onnx
+
+UNAVAILABLE: Feature not available yet. Direct deployment supports only FP32/INT8 .tflite.
+For .onnx or .pte, quantize with mcu_quantize.py first.
+```
 
 # How to deploy models  
 The sample script shows how to use the deployment API to compile an already quantized TFLite model on a board with Ethos-U55 support.  
@@ -19,7 +38,7 @@ When runing the scripts provided in the repository, you shall build the folder c
 The directory configuration for the sample scripts to run is below.
 ```
   ├── scripts
-  |     ├── mcu_deploy.py  // sample script for deploy
+  |     ├── mcu_deploy_v1.1.py  // sample script for deploy
   |     └── mcu_quantize.py  // sample script for quantize and deploy
   ├── models_int8                                                                        // To be prepared
   |     └── ad01_int8.tflite  // sample model to iput to deployer from MLCommons
@@ -34,15 +53,15 @@ The directory configuration for the sample scripts to run is below.
 ### Deploy to CPU only   
 By running the provided script **scripts/mcu_deploy.py**. we can compile the model for MCU only:  
 ```
-(.venv) PS C:\work> cd scripts/  
-(.venv) PS C:\work> python mcu_deploy.py --ref_data ../models_int8 deploy_qtzed  
+cd scripts/  
+python mcu_deploy_v1.1.py --ref_data ../models_int8 deploy_qtzed  
 ```
 
 ### Deploy to CPU with Ethos U55 supported    
 When enabling Ethos-U support:  
 ```
-(.venv) PS C:\work> cd scripts  
-(.venv) PS C:\work> python mcu_deploy.py --ethos --ref_data ../models_int8 deploy_qtzed_ethos  
+cd scripts  
+python mcu_deploy_v1.1.py --ethos --ref_data ../models_int8 deploy_qtzed_ethos  
  ```
 
 ### Check the deploy result
@@ -108,14 +127,14 @@ For an example model, the same model in FP32 shall be used [ad01_fp32.tflite](ht
 
 To run the script:
 ```
-(.venv) PS C:\work> cd scripts/  
-(.venv) PS C:\work> python mcu_quantize.py ../models_fp32 deploy_mcu   
+cd scripts/  
+python mcu_quantize.py ../models_fp32 deploy_mcu   
 ```
 
 ### Deploy to CPU with Ethos U55 supported   
 ```
-(.venv) PS C:\work> cd scripts/  
-(.venv) PS C:\work> python mcu_quantize.py -e ../models_fp32_ethos deploy_ethos  
+cd scripts/  
+python mcu_quantize.py -e ../models_fp32_ethos deploy_ethos  
 ```
 
 ### Check the quantize and deploy result   
