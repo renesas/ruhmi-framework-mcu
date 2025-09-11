@@ -21,7 +21,7 @@
 
 extern "C" {
 #include "time_counter.h"
-#include "wrapper.h"
+#include "mera/wrapper.h"
 void update_detection_result(uint16_t index, signed short  x, signed short  y, signed short  w, signed short  h);
 }
 
@@ -104,7 +104,7 @@ static bool PresentInferenceResult(const std::vector<arm::app::object_detection:
 ***********************************************************************************************************************/
 bool main_loop_face_detection()
 {
-    memcpy(mera_input_ptr(), model_buffer_int8, IMAGE_DATA_SIZE);
+    memcpy(mera_input_ptr(), model_buffer_int8, model_image_input_SIZE);
     /* Run inference over this image. */
     volatile uint32_t old_counter =  TimeCounter_CurrentCountGet();
     mera_invoke();

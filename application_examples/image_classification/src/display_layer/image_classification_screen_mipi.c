@@ -110,7 +110,7 @@ static void print_inf_time(void)
     uint32_t time = (uint32_t)(application_processing_time.ai_inference_time_ms); // ms
 
     // Clear last draw
-    print_bg_font_18(d2_handle, 820, 280, DISPLAY_FONT_SCALING,  "             ");
+    //print_bg_font_18(d2_handle, 820, 280, DISPLAY_FONT_SCALING,  "             ");
     //print_bg_font_18(d2_handle, 820, 430, DISPLAY_FONT_SCALING,  "       ");
 
     // update string on display

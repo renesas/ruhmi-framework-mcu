@@ -1,0 +1,15 @@
+#ifndef SUB_0000_MODEL_DATA_H
+#define SUB_0000_MODEL_DATA_H
+
+#include <stdint.h>
+
+extern int8_t sub_0000_serving_default_input_1_0[];
+#define sub_0000_serving_default_input_1_0_SIZE (150528)
+#define sub_0000_serving_default_input_1_0_COUNT (150528)
+
+extern int8_t sub_0000_mobilenet_0_25_224_conv_pw_13_relu_Relu6_mobilenet_0_25_224_conv_pw_13_bn_FusedBatchNormV3_mobilenet_0_25_224_conv_pw_13_Conv2D_70091[];
+#define sub_0000_mobilenet_0_25_224_conv_pw_13_relu_Relu6_mobilenet_0_25_224_conv_pw_13_bn_FusedBatchNormV3_mobilenet_0_25_224_conv_pw_13_Conv2D_70091_SIZE (12544)
+#define sub_0000_mobilenet_0_25_224_conv_pw_13_relu_Relu6_mobilenet_0_25_224_conv_pw_13_bn_FusedBatchNormV3_mobilenet_0_25_224_conv_pw_13_Conv2D_70091_COUNT (12544)
+
+
+#endif // SUB_0000_MODEL_DATA_H

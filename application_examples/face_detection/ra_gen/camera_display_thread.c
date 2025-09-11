@@ -86,12 +86,14 @@ const gpt_extended_cfg_t g_cam_clk_extend =
 #else
           .gtior_setting.gtior = 0U,
 #endif
-        };
+
+          .gtioca_polarity = GPT_GTIOC_POLARITY_NORMAL,
+          .gtiocb_polarity = GPT_GTIOC_POLARITY_NORMAL, };
 
 const timer_cfg_t g_cam_clk_cfg =
 { .mode = TIMER_MODE_PERIODIC,
-/* Actual period: 4e-8 seconds. Actual duty: 50%. */.period_counts = (uint32_t) 0xa,
-  .duty_cycle_counts = 0x5, .source_div = (timer_source_div_t) 0, .channel = 12, .p_callback = NULL,
+/* Actual period: 3.75e-8 seconds. Actual duty: 50%. */.period_counts = (uint32_t) 0x6,
+  .duty_cycle_counts = 0x3, .source_div = (timer_source_div_t) 0, .channel = 12, .p_callback = NULL,
   /** If NULL then do not add & */
 #if defined(NULL)
     .p_context           = NULL,

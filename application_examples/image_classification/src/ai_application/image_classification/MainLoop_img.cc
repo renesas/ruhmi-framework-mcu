@@ -22,7 +22,7 @@
 
 extern "C" {
 #include "time_counter.h"
-#include "wrapper.h"
+#include <image_classification/mera/wrapper.h>
 void update_classification_result(unsigned index, unsigned short category, float probability);
 }
 
@@ -98,7 +98,8 @@ void copy_data_to_mera(int8_t* ptr, uint8_t* src, uint32_t size) {
 
 bool main_loop_image_classification()
 {
-    copy_data_to_mera((int8_t*)mera_input_ptr(), (uint8_t*)model_buffer_int8, (uint32_t)IMAGE_DATA_SIZE);
+    copy_data_to_mera((int8_t*)mera_input_ptr(), (uint8_t*)model_buffer_int8, (uint32_t)mera_input_size());
+    //memcpy(mera_input_ptr(), model_buffer_int8, mera_input_size());
     /* Run inference over this image. */
     volatile uint32_t old_counter =  TimeCounter_CurrentCountGet();
     mera_invoke();
@@ -126,6 +127,34 @@ bool main_loop_image_classification()
     if (!PresentInferenceResult(results)) {
         return false;
     }
+//    std::vector<arm::app::object_detection::DetectionResult> results;
+//    arm::app::object_detection::PostProcessParams postProcessParams {
+//        AI_INPUT_IMAGE_HEIGHT, AI_INPUT_IMAGE_WIDTH, AI_INPUT_IMAGE_WIDTH, anchor1, anchor2
+//    };
+//    results.clear();
+//
+//    TfLiteTensor outputTensor0;
+//    TfLiteTensor outputTensor1;
+//
+//    // Need to read quatization params from tflite model (netron)
+//    create_int8_tensor(&outputTensor0, output0, 0.13408391177654266, 47);
+//    create_int8_tensor(&outputTensor1, output1, 0.18535925447940826, 10);
+//
+//
+//    arm::app::DetectorPostProcess postProcess = arm::app::DetectorPostProcess(&outputTensor0, &outputTensor1,
+//            results, postProcessParams);
+//
+//    if (!postProcess.DoPostProcess()) {
+//        error("Post-processing failed.");
+//        return false;
+//    }
+//
+//    if (!PresentInferenceResult(results)) {
+//        return false;
+//    }
+
+//    volatile int misses = CompareOutput((const uint8_t*)model_Identity, output1, model_Identity_COUNT, 1.0f);
+//    misses = CompareOutput((const uint8_t*)model_Identity_1, output2, model_Identity_1_COUNT, 1.0f);
 
     return true;
 }

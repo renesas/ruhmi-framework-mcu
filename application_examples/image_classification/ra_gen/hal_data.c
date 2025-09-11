@@ -73,12 +73,14 @@ const gpt_extended_cfg_t g_time_counter_extend =
 #else
           .gtior_setting.gtior = 0U,
 #endif
-        };
+
+          .gtioca_polarity = GPT_GTIOC_POLARITY_NORMAL,
+          .gtiocb_polarity = GPT_GTIOC_POLARITY_NORMAL, };
 
 const timer_cfg_t g_time_counter_cfg =
 { .mode = TIMER_MODE_PERIODIC,
-/* Actual period: 0.0001 seconds. Actual duty: 50%. */.period_counts = (uint32_t) 0x61a8,
-  .duty_cycle_counts = 0x30d4, .source_div = (timer_source_div_t) 0, .channel = 0, .p_callback = time_counter_callback,
+/* Actual period: 0.0001 seconds. Actual duty: 50%. */.period_counts = (uint32_t) 0x5dc0,
+  .duty_cycle_counts = 0x2ee0, .source_div = (timer_source_div_t) 0, .channel = 0, .p_callback = time_counter_callback,
   /** If NULL then do not add & */
 #if defined(NULL)
     .p_context           = NULL,

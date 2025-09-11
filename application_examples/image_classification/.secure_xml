@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<raConfiguration version="11">
+<raConfiguration version="12">
   <generalSettings>
     <option key="#Board#" value="board.ra8p1ek"/>
     <option key="CPU" value="RA8P1"/>
@@ -9,7 +9,7 @@
     <option key="#DeviceCommand#" value="R7KA8P1KF"/>
     <option key="#RTOS#" value="rtos.awsfreertos"/>
     <option key="#pinconfiguration#" value="R7KA8P1KFLCAC.pincfg"/>
-    <option key="#FSPVersion#" value="6.0.0"/>
+    <option key="#FSPVersion#" value="6.1.0"/>
     <option key="#ConfigurationFragments#" value="Renesas##BSP##Board##ra8p1_ek##"/>
     <option key="#SELECTED_TOOLCHAIN#" value="clang_arm"/>
     <option key="#ToolchainVersion#" value="18.1.3"/>
@@ -118,7 +118,7 @@
     <node id="board.clock.gptclk.source" option="board.clock.gptclk.source.pll2p"/>
     <node id="board.clock.gptclk.div" option="board.clock.gptclk.div.2"/>
     <node id="board.clock.gptclk.display" option="board.clock.gptclk.display.value"/>
-    <node id="board.clock.gtclk.source" option="board.clock.gtclk.source.pclkd"/>
+    <node id="board.clock.gtclk.source" option="board.clock.gtclk.source.gptclk"/>
     <node id="board.clock.gtclk.display" option="board.clock.gtclk.display.value"/>
     <node id="board.clock.lcdclk.source" option="board.clock.lcdclk.source.pll2p"/>
     <node id="board.clock.lcdclk.div" option="board.clock.lcdclk.div.4"/>
@@ -190,19 +190,19 @@
       <configSetting altId="jtag_fslash_swd.swclk.p211" configurationId="jtag_fslash_swd.swclk" peripheral="JTAG/SWD"/>
       <configSetting altId="jtag_fslash_swd.swdio.p210" configurationId="jtag_fslash_swd.swdio" peripheral="JTAG/SWD"/>
       <configSetting altId="mipi.dsi_te.p411" configurationId="mipi.dsi_te" peripheral="MIPI"/>
-      <configSetting altId="ospi0.om_0_cs1.p104" configurationId="ospi0.om_0_cs1" peripheral="OSPI0"/>
-      <configSetting altId="ospi0.om_0_dqs.p801" configurationId="ospi0.om_0_dqs" peripheral="OSPI0"/>
-      <configSetting altId="ospi0.om_0_ecsint1.p105" configurationId="ospi0.om_0_ecsint1" peripheral="OSPI0"/>
-      <configSetting altId="ospi0.om_0_reset.p106" configurationId="ospi0.om_0_reset" peripheral="OSPI0"/>
-      <configSetting altId="ospi0.om_0_sclk.p808" configurationId="ospi0.om_0_sclk" peripheral="OSPI0"/>
-      <configSetting altId="ospi0.om_0_sio0.p100" configurationId="ospi0.om_0_sio0" peripheral="OSPI0"/>
-      <configSetting altId="ospi0.om_0_sio1.p803" configurationId="ospi0.om_0_sio1" peripheral="OSPI0"/>
-      <configSetting altId="ospi0.om_0_sio2.p103" configurationId="ospi0.om_0_sio2" peripheral="OSPI0"/>
-      <configSetting altId="ospi0.om_0_sio3.p101" configurationId="ospi0.om_0_sio3" peripheral="OSPI0"/>
-      <configSetting altId="ospi0.om_0_sio4.p102" configurationId="ospi0.om_0_sio4" peripheral="OSPI0"/>
-      <configSetting altId="ospi0.om_0_sio5.p800" configurationId="ospi0.om_0_sio5" peripheral="OSPI0"/>
-      <configSetting altId="ospi0.om_0_sio6.p802" configurationId="ospi0.om_0_sio6" peripheral="OSPI0"/>
-      <configSetting altId="ospi0.om_0_sio7.p804" configurationId="ospi0.om_0_sio7" peripheral="OSPI0"/>
+      <configSetting altId="ospi0.om_0_cs1.p104" configurationId="ospi0.om_0_cs1" isUsedByDriver="true" peripheral="OSPI0"/>
+      <configSetting altId="ospi0.om_0_dqs.p801" configurationId="ospi0.om_0_dqs" isUsedByDriver="true" peripheral="OSPI0"/>
+      <configSetting altId="ospi0.om_0_ecsint1.p105" configurationId="ospi0.om_0_ecsint1" isUsedByDriver="true" peripheral="OSPI0"/>
+      <configSetting altId="ospi0.om_0_reset.p106" configurationId="ospi0.om_0_reset" isUsedByDriver="true" peripheral="OSPI0"/>
+      <configSetting altId="ospi0.om_0_sclk.p808" configurationId="ospi0.om_0_sclk" isUsedByDriver="true" peripheral="OSPI0"/>
+      <configSetting altId="ospi0.om_0_sio0.p100" configurationId="ospi0.om_0_sio0" isUsedByDriver="true" peripheral="OSPI0"/>
+      <configSetting altId="ospi0.om_0_sio1.p803" configurationId="ospi0.om_0_sio1" isUsedByDriver="true" peripheral="OSPI0"/>
+      <configSetting altId="ospi0.om_0_sio2.p103" configurationId="ospi0.om_0_sio2" isUsedByDriver="true" peripheral="OSPI0"/>
+      <configSetting altId="ospi0.om_0_sio3.p101" configurationId="ospi0.om_0_sio3" isUsedByDriver="true" peripheral="OSPI0"/>
+      <configSetting altId="ospi0.om_0_sio4.p102" configurationId="ospi0.om_0_sio4" isUsedByDriver="true" peripheral="OSPI0"/>
+      <configSetting altId="ospi0.om_0_sio5.p800" configurationId="ospi0.om_0_sio5" isUsedByDriver="true" peripheral="OSPI0"/>
+      <configSetting altId="ospi0.om_0_sio6.p802" configurationId="ospi0.om_0_sio6" isUsedByDriver="true" peripheral="OSPI0"/>
+      <configSetting altId="ospi0.om_0_sio7.p804" configurationId="ospi0.om_0_sio7" isUsedByDriver="true" peripheral="OSPI0"/>
       <configSetting altId="p107.output.low" configurationId="p107"/>
       <configSetting altId="p108.output.high" configurationId="p108"/>
       <configSetting altId="p303.output.low" configurationId="p303"/>
