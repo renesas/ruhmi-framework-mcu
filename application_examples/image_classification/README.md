@@ -103,7 +103,6 @@ The demo displays:
 | Mode             | Inference Time |            Notes              |
 |------------------|----------------|-------------------------------|
 | Ethos-U enabled  |      2ms       | NPU accelerated inference     |
-| Ethos-U disabled |      50ms      | Software fallback only        |
 
 
 ## Model reference

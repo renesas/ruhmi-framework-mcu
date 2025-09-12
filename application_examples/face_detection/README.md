@@ -89,7 +89,6 @@ Retrieves the pointer to the output buffer, they contain the model's results for
 | Mode             | Inference Time |          Notes           |
 |------------------|-----------|-------------------------------|
 | Ethos-U enabled  |    4ms    | NPU accelerated inference     |
-| Ethos-U disabled |    74ms   | Software fallback only        |
 
 
 ## Model reference
