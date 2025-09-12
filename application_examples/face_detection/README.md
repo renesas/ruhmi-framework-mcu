@@ -33,9 +33,8 @@ The Image Classification operation is demonstrated in renesas.com/EK-RA8P1
 
 ## Software Setup
 
-- **e² studio version**: 2025-04.1  
-- **Flexible Software Package (FSP)**: 6.0.0  
-  > FSP 6.0.0 is bundled with e² studio 2025-04.1 and installed by default.
+- **e² studio version**: 2025-07.1  
+- **Flexible Software Package (FSP)**: 6.1.0  
 - **mera framework**: Included in this repository
 
 ## How to Compile and Flash
