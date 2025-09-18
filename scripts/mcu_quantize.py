@@ -182,7 +182,7 @@ def deploy_mcu(model, model_path, result_path, with_ethos, with_ref_data=False):
             # x86 related source code (python bindings for example),
             # but the current script relies on this option to be able to test
             # the generated C code outputs against the MERA Interpreter results
-            mcu_config['use_x86'] = True
+            mcu_config['use_x86'] = False
 
             # generation of reference data from original model format
             # using the original runtime is only supported for TFLite models
