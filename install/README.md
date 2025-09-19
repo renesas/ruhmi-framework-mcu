@@ -31,7 +31,7 @@ we can create a virtual environment as follows:
 ```
 sudo add-apt-repository -yu ppa:ubuntu-toolchain-r/test
 sudo add-apt-repository ppa:deadsnakes/ppa
-sudo apt update && sudo apt-upgrade
+sudo apt update && sudo apt upgrade
 sudo apt-get install -q -y --only-upgrade libstdc++6 libgcc-s1
 sudo apt-get install python3.10 python3.10-venv python3.10-dev python3.10-pip
 python3.10 -m venv mera-env
