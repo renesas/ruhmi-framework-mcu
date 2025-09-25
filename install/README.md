@@ -29,9 +29,16 @@ Because MERA software stack is compatible by default with the base system Python
 we can create a virtual environment as follows:
 
 ```
-python3 -m venv mera-env
+sudo add-apt-repository -yu ppa:ubuntu-toolchain-r/test
+sudo add-apt-repository ppa:deadsnakes/ppa
+sudo apt update && sudo apt upgrade
+sudo apt-get install -q -y --only-upgrade libstdc++6 libgcc-s1
+sudo apt update && sudo apt upgrade
+sudo apt build-essential gcc-13 g++-13
+sudo apt-get install python3.10 python3.10-venv python3.10-dev python3-pip
+python3.10 -m venv mera-env
 source mera-env/bin/activate
-pip install --upgrade pip && pip install decorator typing_extensions psutil attrs pybind11
+pip install --upgrade pip && pip install decorator typing_extensions psutil attrs pybind11 cmake
 ```
 
 Your prompt should now show that you are under a virtual environment mera-env:
