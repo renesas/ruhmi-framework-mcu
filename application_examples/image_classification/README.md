@@ -47,7 +47,7 @@ No external dependencies are needed beyond what’s bundled in this repo and FSP
 
 ## How to Compile and Flash
 
-1. **Install e² studio 2025-04.1**
+1. **Install e² studio 2025-07.1**
 2. **Connect your EK-RA8P1 board** via USB Type-C
 3. **Download this repository and extract**
 3. **Open e² studio** and import this project: `File` -> `Import` -> `Existing Projects into Workspace`

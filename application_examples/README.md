@@ -26,10 +26,9 @@
 •	A PC with at least 1 USB port  
 
 ### Software Requirements  
-•	Windows® 10 operating system  
-•	e2 studio 2025.04.01 or later  
-•	FSP 6.0 or later  
-
+- Windows® 10 operating system  
+- e² studio version: 2025-07.1  
+- Flexible Software Package (FSP): 6.1.0  
 
 ### Connecting and Powering Up the EK-RA8P1 Board  
 1.	Attach the Camera module   
