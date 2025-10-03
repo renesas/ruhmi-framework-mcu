@@ -31,7 +31,7 @@ def get_image_paths_from_folder(folder_path, num_images=100):
                 return image_paths
     return image_paths
 
-folder = "./image_data/train"  # Calibration data, you can download from https://s3.amazonaws.com/fast-ai-imageclas/imagenette2-160.tgz
+folder = "./imagenette2-160/imagenette2-160/val"  # Calibration data, you can download from https://s3.amazonaws.com/fast-ai-imageclas/imagenette2-160.tgz
 calibration_images = get_image_paths_from_folder(folder, num_images=300)
 
 def representative_data_gen():
@@ -39,14 +39,17 @@ def representative_data_gen():
         img_np = preprocess_image(image_path)
         yield [img_np]
 
+inputs = keras.Input(shape=(224,224,3), batch_size=1)
+outputs = model(inputs)
+model = keras.Model(inputs, outputs)
+
 
 converter = tf.lite.TFLiteConverter.from_keras_model(model)
-converter.optimizations = [tf.lite.Optimize.DEFAULT]
-converter.target_spec.supported_ops = [tf.lite.OpsSet.TFLITE_BUILTINS_INT8]
-converter.inference_input_type = tf.int8
-converter.inference_output_type = tf.int8
-
-converter.representative_dataset = representative_data_gen
+converter.optimizations = [tf.lite.Optimize.DEFAULT]                         #Comment out for FP32 
+converter.target_spec.supported_ops = [tf.lite.OpsSet.TFLITE_BUILTINS_INT8]  #Comment out for FP32
+converter.inference_input_type = tf.int8                                     #Comment out for FP32
+converter.inference_output_type = tf.int8                                    #Comment out for FP32
+converter.representative_dataset = representative_data_gen                   #Comment out for FP32
 
 tflite_model = converter.convert()
 

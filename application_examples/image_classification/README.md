@@ -107,8 +107,29 @@ The demo displays:
 
 ## Model reference
 
-You can generate the model using the provided python script `generate_IC_model_tflite.py` and running it in the same enviroment as the compiler `python3 -m venv mera-env`, refer to `venv` installation [here](../../install/README.md).  
-The model is referenced from the following [Github](https://github.com/tensorflow/models/blob/master/research/slim/nets/mobilenet_v1.md) .
+You can generate the FP32/INT8 model using the provided python script `generate_IC_model_tflite.py` and running it in the same enviroment as the compiler `python3 -m venv mera-env`, refer to `venv` installation [here](../../install/README.md).  
+
+The model is referenced from the following [Github](https://github.com/tensorflow/models/blob/master/research/slim/nets/mobilenet_v1.md).
+
+**Library version for testing:**
+- WSL Ubuntu 22.04 
+- Tensorflow 2.13.1
+- Numpy 1.24.3
+
+
+**FP32 Mobilenetv1 Model:**
+- Open the python script 
+- Comment out the 5 lines after .from_keras (lines 48-52)
+- Run the python script 
+- It will generated a model named "mobilenet_v1.tflite" in the same directory.
+- You can choose a different name by modifying the script on line 56.
+
+
+**INT8 Mobilenetv1 Model:**
+- Download the calibration Data from here https://s3.amazonaws.com/fast-ai-imageclas/imagenette2-160.tgz
+- UNzip the file in the same directory as python file, as follows `"./imagenette2-160/imagenette2-160"`
+- Run the python script, your INT8 generated model "mobilenet_v1.tflite" in the same directory.
+- You can choose a different name by modifying the script on line 56.
 
 
 
