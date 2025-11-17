@@ -26,7 +26,7 @@
 •	A PC with at least 1 USB port  
 
 ### Software Requirements  
-- Windows® 10 operating system  
+- Windows® 10 or 11 operating system 
 - **e² studio version**: 2025-10    
 - **Flexible Software Package (FSP)**: 6.2.0  
 
