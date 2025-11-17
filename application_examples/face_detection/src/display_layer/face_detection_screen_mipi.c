@@ -72,6 +72,7 @@ static void display_camera_image(void);
 ***********************************************************************************************************************/
 static void display_camera_image(void)
 {
+    SCB_CleanDCache_by_Addr(&camera_capture_image_rgb565[0], (int32_t)camera_capture_image_rgb565_size);
 	/* Specify camera input. */
     /* Note: The MIPI-DSI display panel of EK-RA8D1 prefers 90-degrees counter-clock-wised rotated image. Therefore input raw data of camera capture image. */
 	d2_setblitsrc(d2_handle, (void *)&camera_capture_image_rgb565[0], CAMERA_CAPTURE_IMAGE_WIDTH, CAMERA_CAPTURE_IMAGE_WIDTH, CAMERA_CAPTURE_IMAGE_HEIGHT, d2_mode_rgb565);

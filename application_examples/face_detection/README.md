@@ -33,13 +33,13 @@ The Image Classification operation is demonstrated in renesas.com/EK-RA8P1
 
 ## Software Setup
 
-- **e² studio version**: 2025-07.1  
-- **Flexible Software Package (FSP)**: 6.1.0  
+- **e² studio version**: 2025-10    
+- **Flexible Software Package (FSP)**: 6.2.0  
 - **mera framework**: Included in this repository
 
 ## How to Compile and Flash
 
-1. **Install e² studio 2025-07.1**
+1. **Install e² studio 2025-04.1**
 2. **Connect your EK-RA8P1 board** via USB Type-C
 3. **Download this repository and extract**
 3. **Open e² studio** and import this project: `File` -> `Import` -> `Existing Projects into Workspace`

@@ -98,6 +98,7 @@ const timer_cfg_t g_time_counter_cfg =
 /* Instance structure to use this module. */
 const timer_instance_t g_time_counter =
 { .p_ctrl = &g_time_counter_ctrl, .p_cfg = &g_time_counter_cfg, .p_api = &g_timer_on_gpt };
+
 dmac_instance_ctrl_t g_transfer0_ctrl;
 transfer_info_t g_transfer0_info =
 { .transfer_settings_word_b.dest_addr_mode = TRANSFER_ADDR_MODE_INCREMENTED,
@@ -125,6 +126,7 @@ const transfer_cfg_t g_transfer0_cfg =
 /* Instance structure to use this module. */
 const transfer_instance_t g_transfer0 =
 { .p_ctrl = &g_transfer0_ctrl, .p_cfg = &g_transfer0_cfg, .p_api = &g_transfer_on_dmac };
+
 ospi_b_instance_ctrl_t g_ospi_b_ctrl;
 
 static ospi_b_timing_setting_t g_ospi_b_timing_settings =
@@ -145,6 +147,7 @@ static const ospi_b_table_t g_ospi_b_command_set_initial_erase_table =
         { .p_table = (void*) g_ospi_b_command_set_initial_erase_commands, .length =
                   sizeof(g_ospi_b_command_set_initial_erase_commands)
                           / sizeof(g_ospi_b_command_set_initial_erase_commands[0]), };
+
 static const spi_flash_erase_command_t g_ospi_b_command_set_high_speed_erase_commands[] =
 {
 { .command = 0x21DE, .size = 4096 },
@@ -232,7 +235,7 @@ static const ospi_b_extended_cfg_t g_ospi_b_extended_cfg =
     .p_dotf_cfg                              = &g_ospi_dotf_cfg,
 #endif
 #if OSPI_B_CFG_ROW_ADDRESSING_SUPPORT_ENABLE
-    .row_index_bytes                         = 0xFF
+    .row_index_bytes                         = 0xFF,
 #endif
         };
 const spi_flash_cfg_t g_ospi_b_cfg =

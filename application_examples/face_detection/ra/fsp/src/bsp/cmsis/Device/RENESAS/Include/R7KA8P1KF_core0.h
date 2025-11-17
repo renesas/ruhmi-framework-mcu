@@ -72523,8 +72523,10 @@ typedef struct                         /*!< (@ 0x4001C800) R_TCM Structure      
  #define R_SYSTEM_SVSCR_SVSCM_Pos                (0UL)          /*!< SVSCM (Bit 0)                                         */
  #define R_SYSTEM_SVSCR_SVSCM_Msk                (0x7UL)        /*!< SVSCM (Bitfield-Mask: 0x07)                           */
 /* =========================================================  LVOCR  ========================================================= */
- #define R_SYSTEM_LVOCR_LVOE_Pos                 (0UL)          /*!< LVOE (Bit 0)                                          */
- #define R_SYSTEM_LVOCR_LVOE_Msk                 (0x1UL)        /*!< LVOE (Bitfield-Mask: 0x01)                            */
+ #define R_SYSTEM_LVOCR_LVO0E_Pos                (0UL)          /*!< LVO0E (Bit 0)                                         */
+ #define R_SYSTEM_LVOCR_LVO0E_Msk                (0x1UL)        /*!< LVO0E (Bitfield-Mask: 0x01)                           */
+ #define R_SYSTEM_LVOCR_LVO1E_Pos                (1UL)          /*!< LVO1E (Bit 1)                                         */
+ #define R_SYSTEM_LVOCR_LVO1E_Msk                (0x2UL)        /*!< LVO1E (Bitfield-Mask: 0x01)                           */
 /* =========================================================  MWMCR  ========================================================= */
  #define R_SYSTEM_MWMCR_MWM_Pos                  (0UL)          /*!< MWM (Bit 0)                                           */
  #define R_SYSTEM_MWMCR_MWM_Msk                  (0x3UL)        /*!< MWM (Bitfield-Mask: 0x03)                             */

@@ -306,6 +306,8 @@ d1_int_t d1_cacheflush (d1_device * handle, d1_int_t memtype)
     FSP_PARAMETER_NOT_USED(handle);
     FSP_PARAMETER_NOT_USED(memtype);
 
+    SCB_CleanDCache();
+
     return 1;
 }
 
@@ -324,6 +326,8 @@ d1_int_t d1_cacheblockflush (d1_device * handle, d1_int_t memtype, const void * 
     FSP_PARAMETER_NOT_USED(memtype);
     FSP_PARAMETER_NOT_USED(ptr);
     FSP_PARAMETER_NOT_USED(size);
+
+    SCB_CleanDCache_by_Addr((void *)ptr, (int32_t)size);
 
     return 1;
 }

@@ -441,6 +441,14 @@
  #endif
 #endif
 
+#ifndef BSP_CFG_IOPORT_VOLTAGE_MODE_VCC
+#define BSP_CFG_IOPORT_VOLTAGE_MODE_VCC (0)
+#endif
+
+#ifndef BSP_CFG_IOPORT_VOLTAGE_MODE_VCC2
+#define BSP_CFG_IOPORT_VOLTAGE_MODE_VCC2 (0)
+#endif
+
 #ifndef BSP_CFG_SDRAM_ENABLED
 #define BSP_CFG_SDRAM_ENABLED  (1)
 #endif
@@ -499,5 +507,9 @@
 
 #ifndef BSP_CFG_SDRAM_BUS_WIDTH
 #define BSP_CFG_SDRAM_BUS_WIDTH  (1)
+#endif
+
+#ifndef BSP_CFG_OSPI_B_STARTUP_ENABLED
+#define BSP_CFG_OSPI_B_STARTUP_ENABLED  (0)
 #endif
 #endif /* BSP_MCU_FAMILY_CFG_H_ */

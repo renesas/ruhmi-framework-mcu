@@ -28,6 +28,7 @@ typedef enum e_bsp_init_mem
     INIT_MEM_OSPI1_CS1,
     INIT_MEM_QSPI_FLASH,
     INIT_MEM_SDRAM,
+    INIT_MEM_SIP_FLASH,
 } bsp_init_mem_t;
 
 typedef struct st_bsp_init_type
