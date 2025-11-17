@@ -39,7 +39,7 @@ The Image Classification operation is demonstrated in renesas.com/EK-RA8P1
 
 ## How to Compile and Flash
 
-1. **Install e² studio 2025-04.1**
+1. **Install e² studio**
 2. **Connect your EK-RA8P1 board** via USB Type-C
 3. **Download this repository and extract**
 3. **Open e² studio** and import this project: `File` -> `Import` -> `Existing Projects into Workspace`
