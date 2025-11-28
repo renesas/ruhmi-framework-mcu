@@ -16,8 +16,12 @@ The latest installation file for the visualizer is **mera_visualizer-2.5.0-py3-n
 Navigate to working directory and ensure the same virtual environment that was used for [Mera setup](../../install/README.md) is activated and run the installation command.
 
 ```
-# For the reference with the installation file named as mera_visualizer-2.5.0-py3-none-any.whl
+# For the reference, assuming the installation file named as mera_visualizer-2.5.0-py3-none-any.whl
+# in the virtual environment on Linux  
 pip install mera_visualizer-2.5.0-py3-none-any.whl
+
+# in the virtual environment on Windows
+python -m pip install .\mera_visualizer-2.5.0-py3-none-any.whl
 ```
 
 ## Usage  
