@@ -10,10 +10,10 @@ A model graph visualization tool with interactive web interface for visualizing 
 ## Installation
 
 
-Download the installation file from the [directory](https://github.com/renesas/ruhmi-framework-mcu/docs/vizualizer).  
+Download the installation file from the [directory](../../install/).  
 The latest installation file for the visualizer is **mera_visualizer-2.5.0-py3-none-any.whl**
 
-Navigate to working directory and ensure the same virtual environment that was used for Mera [setup](../install) is activated and run the installation command.
+Navigate to working directory and ensure the same virtual environment that was used for [Mera setup](../install/README.md) is activated and run the installation command.
 
 ```
 # For the reference with the installation file named as mera_visualizer-2.5.0-py3-none-any.whl
