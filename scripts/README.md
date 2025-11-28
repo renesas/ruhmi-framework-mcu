@@ -1,15 +1,17 @@
 ## Introduction
 
 The section introduces how to execute the model compilation with the sample scripts for each exmple case below.   
+
+The sample scripts are [here](../scripts/). You can run each script under the virtual environment showing the prompt like *"(.venv) PS C:\work>"*.
+  
+
 * [Deploy models](#How-to-deploy-models)  
   - Deploy to CPU only   
   - Deploy to CPU with NPU/Ethos U55 supported    
 * [Quantize and deploy models](#How-to-quantize-and-deploy-models)
   - Deploy to CPU only   
-  - Deploy to CPU with NPU/Ethos U55 supported    
-The sample scripts are [here](../scripts/)
-
-You can run each script under the virtual environment showing the prompt like "(.venv) PS C:\work>".
+  - Deploy to CPU with NPU/Ethos U55 supported
+* [How to handle multiple models](#How-to-handle-multiple-models)   
 
 ## Conversion options
 The introduced scripts here supports each option. You can use the script depending on the case below.
@@ -29,7 +31,7 @@ UNAVAILABLE: Feature not available yet. Direct deployment supports only FP32/INT
 For .onnx or .pte, quantize with mcu_quantize.py first.
 ```
 
-# How to deploy models  
+# How to deploy quantized models  
 The sample script shows how to use the deployment API to compile an already quantized TFLite model on a board with Ethos-U55 support.  
 
 This release introduces some tested models. As the example model,we can download [ad01_int8.tflite](https://raw.githubusercontent.com/mlcommons/tiny/master/benchmark/training/anomaly_detection/trained_models/ad01_int8.tflite) and [ad01_fp32.tflite](https://raw.githubusercontent.com/mlcommons/tiny/master/benchmark/training/anomaly_detection/trained_models/ad01_fp32.tflite) from [MLCommons](https://github.com/mlcommons)    
@@ -175,5 +177,25 @@ C:\work\scripts\deploy_ethos\model_000_ad01_fp32\deploy_mcu\build\MCU\compilatio
 
 The generated C code under **"build/MCU/compilation/src"** can be incorporated into a e2studio project.  
 You can refer to [Guide to the generated C source code](/docs/runtime_api.md) to study how to use the output file from RUHMI Framework.  
+
+# How to handle multiple models
+Even the case of multiple models to be ported in the application, you will convert each model one by one by the same procedure for single model. The output functions should be identified by each model to be converted. You can use the option adding "--suffix"
+
+The example below.
+```
+# to deploy to CPU only
+python mcu_deploy.py --suffix _func1 ../models_int8 deploy_qtzed  
+
+#to deploy to CPU with Ethos enabled  
+python mcu_deploy.py --ethos --suffix _func1 ../models_int8 deploy_qtzed_ethos  
+
+# to deploy to CPU only after the quantization
+python mcu_quantize.py --suffix _func1 ../models_fp32 deploy_mcu
+
+#to deploy to CPU with Ethos enabled after the quantization
+python mcu_quantize.py --ethos --suffix _func1 ../models_fp32_ethos deploy_ethos  
+```
+The description of func1 in the example means the name to identified for you.
+You can get the functions which are identified with the suffix you set added. How to port is same as the standard usage.
 
 
