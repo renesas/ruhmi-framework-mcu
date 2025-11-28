@@ -38,7 +38,7 @@ sudo apt install -y build-essential gcc-13 g++-13
 sudo apt-get install python3.10 python3.10-venv python3.10-dev python3-pip
 python3.10 -m venv mera-env
 source mera-env/bin/activate
-pip install --upgrade pip && pip install decorator typing_extensions psutil attrs pybind11 cmake
+pip install --upgrade pip && pip install decorator typing_extensions psutil attrs pybind11 cmake junitparser
 ```
 
 Your prompt should now show that you are under a virtual environment mera-env:
@@ -70,7 +70,7 @@ To create a Python Virtual Environment for MERA named “mera-env” using PyEnv
 ```
 MENV=mera-env; pyenv install 3.10.15 && pyenv virtualenv 3.10.15 $MENV && pyenv activate $MENV && \  
 pip install --upgrade pip && \  
-pip install decorator typing_extensions psutil attrs pybind11  
+pip install decorator typing_extensions psutil attrs pybind11 cmake junitparser 
 ```
 
 Your prompt should now show that you are under a virtual environment mera-env:  
