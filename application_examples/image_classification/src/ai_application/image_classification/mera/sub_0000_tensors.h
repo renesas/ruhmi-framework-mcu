@@ -11,8 +11,8 @@ extern const size_t sub_0000_tensors_count;
 #define kArenaSize_sub_0000 401408
 
 // Addresses for each input and output buffer inside of the arena
-extern const uint32_t sub_0000_address_serving_default_input_1_0;
-extern const uint32_t sub_0000_address_mobilenet_0_25_224_conv_pw_13_relu_Relu6_mobilenet_0_25_224_conv_pw_13_bn_FusedBatchNormV3_mobilenet_0_25_224_conv_pw_13_Conv2D_70091;
+extern const uint32_t sub_0000_address_serving_default_keras_tensor_91_0;
+extern const uint32_t sub_0000_address_StatefulPartitionedCall_1_0_70088;
 
 
 #endif // __SUB_0000_TENSORS_H__

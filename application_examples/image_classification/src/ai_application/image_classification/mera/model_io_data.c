@@ -1,11 +1,61 @@
+/*
+ * This file is developed by EdgeCortix Inc. to be used with certain Renesas Electronics Hardware only.
+ *
+ * Copyright © 2025 EdgeCortix Inc. Licensed to Renesas Electronics Corporation with the
+ * right to sublicense under the Apache License, Version 2.0.
+ *
+ * This file also includes source code originally developed by the Renesas Electronics Corporation.
+ * The Renesas disclaimer below applies to any Renesas-originated portions for usage of the code.
+ *
+ * The Renesas Electronics Corporation
+ * DISCLAIMER
+ * This software is supplied by Renesas Electronics Corporation and is only intended for use with Renesas products. No
+ * other uses are authorized. This software is owned by Renesas Electronics Corporation and is protected under all
+ * applicable laws, including copyright laws.
+ * THIS SOFTWARE IS PROVIDED 'AS IS' AND RENESAS MAKES NO WARRANTIES REGARDING
+ * THIS SOFTWARE, WHETHER EXPRESS, IMPLIED OR STATUTORY, INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. ALL SUCH WARRANTIES ARE EXPRESSLY DISCLAIMED. TO THE MAXIMUM
+ * EXTENT PERMITTED NOT PROHIBITED BY LAW, NEITHER RENESAS ELECTRONICS CORPORATION NOR ANY OF ITS AFFILIATED COMPANIES
+ * SHALL BE LIABLE FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES FOR ANY REASON RELATED TO THIS
+ * SOFTWARE, EVEN IF RENESAS OR ITS AFFILIATES HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+ * Renesas reserves the right, without notice, to make changes to this software and to discontinue the availability of
+ * this software. By using this software, you agree to the additional terms and conditions found by accessing the
+ * following link:
+ * http://www.renesas.com/disclaimer
+ *
+ * Changed from original python code to C source code.
+ * Copyright (C) 2017 Renesas Electronics Corporation. All rights reserved.
+ *
+ * This file also includes source codes originally developed by the TensorFlow Authors which were distributed under the following conditions.
+ *
+ * The TensorFlow Authors
+ * Copyright 2023 The Apache Software Foundation
+ *
+ * This product includes software developed at
+ * The Apache Software Foundation (http://www.apache.org/).
+ *
+ * Licensed under the Apache License, Version 2.0 (the License); you may
+ * not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an AS IS BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
+
 #include "model_io_data.h"
 
-// Input tensor: serving_default_input_1:0
+// Input tensor: serving_default_keras_tensor_91:0
 // Data Type: INT8
 // Shape: [1, 224, 224, 3]
 // Number of elements: 150528
 // Size in bytes: 150528
-int8_t model_serving_default_input_1_0[] = {
+int8_t model_serving_default_keras_tensor_91_0[] = {
   12, 23, 55, 88, 26, 91, 11, 88, -20, 31,
   37, -30, -16, -52, 100, -114, 118, -59, -30, -6,
   74, 79, 7, -6, 17, -28, 108, 86, -110, -42,
@@ -15061,12 +15111,12 @@ int8_t model_serving_default_input_1_0[] = {
   -40, -98, 57, 105, 113, 29, 36, 12,
 };
 
-// Output tensor: StatefulPartitionedCall:0
+// Output tensor: StatefulPartitionedCall_1:0
 // Data Type: INT8
 // Shape: [1, 1000]
 // Number of elements: 1000
 // Size in bytes: 1000
-int8_t model_StatefulPartitionedCall_0[] = {
+int8_t model_StatefulPartitionedCall_1_0[] = {
   -128, -128, -128, -128, -127, -128, -128, -128, -128, -128,
   -128, -128, -128, -128, -128, -127, -128, -128, -128, -128,
   -128, -128, -128, -128, -128, -128, -128, -128, -128, -128,
@@ -15120,7 +15170,7 @@ int8_t model_StatefulPartitionedCall_0[] = {
   -128, -128, -128, -128, -128, -128, -128, -128, -128, -128,
   -128, -128, -128, -128, -128, -128, -128, -128, -128, -128,
   -128, -128, -127, -128, -128, -128, -128, -128, -128, -128,
-  -128, -128, -128, -99, -128, -128, -128, -128, -128, -126,
+  -128, -128, -128, -100, -128, -128, -128, -128, -128, -127,
   -128, -128, -128, -128, -128, -128, -128, -128, -128, -128,
   -128, -128, -128, -128, -128, -128, -127, -128, -128, -128,
   -128, -128, -128, -128, -128, -128, -128, -128, -128, -128,
@@ -15128,7 +15178,7 @@ int8_t model_StatefulPartitionedCall_0[] = {
   -128, -128, -128, -128, -128, -128, -128, -128, -128, -128,
   -128, -125, -128, -128, -128, -128, -128, -128, -128, -126,
   -128, -128, -128, -128, -128, -128, -128, -128, -127, -128,
-  -127, -128, -128, -128, -128, -128, -128, -128, -128, -128,
+  -127, -127, -128, -128, -128, -128, -128, -128, -128, -128,
   -128, -127, -128, -128, -128, -128, -128, -128, -128, -128,
   -128, -128, -128, -128, -128, -128, -128, -128, -128, -128,
   -128, -128, -128, -128, -128, -128, -127, -128, -128, -127,
@@ -15144,27 +15194,27 @@ int8_t model_StatefulPartitionedCall_0[] = {
   -128, -116, -128, -128, -128, -128, -128, -128, -128, -128,
   -127, -128, -128, -128, -128, -128, -128, -128, -128, -128,
   -128, -128, -128, -128, -128, -128, -128, -128, -127, -128,
-  -128, -128, -128, -128, -128, -128, -128, -128, -128, -128,
-  -128, -128, -128, -126, -128, -128, -128, -128, -128, -128,
+  -128, -128, -128, -128, -128, -127, -128, -128, -128, -128,
+  -128, -128, -128, -127, -128, -128, -128, -128, -128, -128,
   -128, -128, -128, -128, -127, -128, -128, -128, -128, -128,
   -128, -128, -128, -128, -128, -127, -128, -128, -128, -128,
   -128, -128, -128, -128, -128, -125, -128, -128, -128, -128,
-  -128, -128, -128, -128, -113, -128, -128, -128, -128, -128,
+  -128, -128, -128, -128, -112, -128, -128, -128, -128, -128,
   -128, -128, -128, -128, -128, -128, -128, -128, -128, -128,
   -128, -127, -127, -128, -128, -128, -128, -128, -128, -128,
   -128, -128, -125, -128, -128, -128, -128, -128, -127, -128,
   -128, -128, -128, -128, -128, -128, -128, -128, -128, -128,
   -128, -128, -128, -128, -128, -128, -128, -128, -128, -128,
-  -128, -128, -128, -128, -128, -102, -128, -128, -128, -128,
+  -128, -128, -128, -128, -128, -100, -128, -128, -128, -128,
   -128, -128, -128, -128, -128, -128, -128, -128, -128, -128,
   -128, -128, -128, -128, -127, -128, -128, -128, -128, -128,
-  -128, -111, -128, -128, -128, -128, -128, -128, -128, -128,
+  -128, -110, -128, -128, -128, -128, -128, -128, -128, -128,
   -128, -128, -128, -128, -128, -128, -128, -128, -128, -128,
   -128, -128, -128, -128, -128, -128, -128, -128, -128, -128,
   -128, -128, -128, -128, -128, -128, -128, -128, -128, -127,
   -128, -128, -128, -128, -128, -128, -128, -128, -122, -128,
   -128, -128, -128, -128, -128, -128, -128, -128, -128, -128,
-  -128, -124, -128, -126, -128, -128, -128, -128, -128, -128,
+  -128, -125, -128, -126, -128, -128, -128, -128, -128, -128,
   -128, -127, -128, -128, -127, -127, -128, -127, -128, -128,
   -128, -128, -128, -128, -128, -128, -128, -128, -127, -128,
 };

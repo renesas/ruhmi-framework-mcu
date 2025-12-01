@@ -32,7 +32,7 @@ int sub_0000_invoke(bool clean_outputs) {
   int cms_size = 0;
 
   // Prepare base_addrs and base_addrs_size arrays
-  // Buffer sub_0000_model with size 248544 and address: 4294967295
+  // Buffer sub_0000_model with size 505776 and address: 4294967295
   base_addrs[0] = (uint64_t)(uintptr_t)sub_0000_model_data;
   base_addrs_size[0] = sub_0000_model_data_size;
   // Buffer sub_0000_arena with size 401408 and address: 0
@@ -47,12 +47,12 @@ int sub_0000_invoke(bool clean_outputs) {
   base_addrs[3] = (uint64_t)(uintptr_t) (sub_0000_arena+200704);
   base_addrs_size[3] = 150528;
 
-  // Buffer output_tensor_0 with size 12544 and address: 0
+  // Buffer output_tensor_0 with size 1000 and address: 0
   if (clean_outputs) {
-    memset(sub_0000_arena + 0, 0, 12544);
+    memset(sub_0000_arena + 0, 0, 1000);
   }
   base_addrs[4] = (uint64_t)(uintptr_t) (sub_0000_arena+0);
-  base_addrs_size[4] = 12544;
+  base_addrs_size[4] = 1000;
 
   // Command stream data
   cms_data = (uint8_t*)sub_0000_command_stream;

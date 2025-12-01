@@ -7,11 +7,11 @@
 #include <stdbool.h>
 
 static inline uint8_t* mera_input_ptr() {
-    return (uint8_t*) GetModelInputPtr_serving_default_input_1_0();
+    return (uint8_t*) GetModelInputPtr_serving_default_keras_tensor_91_0();
 }
 
 static inline uint8_t* mera_output_ptr() {
-    return (uint8_t*) GetModelOutputPtr_StatefulPartitionedCall_0_70098();
+    return (uint8_t*) GetModelOutputPtr_StatefulPartitionedCall_1_0_70088();
 }
 
 static inline uint64_t mera_input_size() {
@@ -23,11 +23,11 @@ static inline uint64_t mera_output_size() {
 }
 
 static inline uint8_t* mera_sample_input_ptr() {
-    return (uint8_t*) model_serving_default_input_1_0;
+    return (uint8_t*) model_serving_default_keras_tensor_91_0;
 }
 
 static inline uint8_t* mera_sample_output_ptr() {
-    return (uint8_t*) model_StatefulPartitionedCall_0;
+    return (uint8_t*) model_StatefulPartitionedCall_1_0;
 }
 
 
