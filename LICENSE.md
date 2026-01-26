@@ -7,12 +7,12 @@ Copyright © 2025 Renesas Electronics Corporation and its contributors. Licensed
 ## RUHMI FRAMEWORK
 |Component|License|
 |---|---|
-|RUHMI FRAMEWORK|Apache, Version 2.0|
+|RUHMI FRAMEWORK AI MCU Compiler|Apache, Version 2.0|
 
 The framework shall use some external components to be installed in the installation process. Please refer the External Licenses below.  
 
 > **Notes**  
-> **For the generated source code by RUHMI framework to import into your project for e2Studio, please refer to the copyright and license notice contained in each source-code file.**  
+> **For the generated source code by the AI MCU compiler to import into your project for e2Studio, please refer to the copyright and license notice contained in each source-code file.**  
 
 ## External Licenses
 In the procedure to install it into your host machine, some software components from the external place will be downloaded and installed automatically. Please refer to the license information for each components listed below.   
