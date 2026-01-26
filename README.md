@@ -1,4 +1,4 @@
-# RUHMI Framework AI MCU Compiler
+# RUHMI Framework AI Compiler for MCU
 
 **Robust Unified Heterogeneous Model Integration** - A framework for AI model optimization and deployment, this GitHub provides the AI MCU Compiler for Renesas embedded platforms powered by EdgeCortix® MERA™.
 
