@@ -1,9 +1,10 @@
+# Model Compilation Scripts
+
 ## Introduction
 
-The section introduces how to execute the model compilation with the sample scripts for each exmple case below.   
+This section introduces how to execute model compilation with the sample scripts for each example case below.
 
-The sample scripts are [here](../scripts/). You can run each script under the virtual environment showing the prompt like *"(.venv) PS C:\work>"*.
-  
+The sample scripts are located [here](../scripts/). You can run each script under the virtual environment showing the prompt like *"(.venv) PS C:\work>"*.
 
 * [Deploy models](#How-to-deploy-models)  
   - Deploy to CPU only   
@@ -13,12 +14,14 @@ The sample scripts are [here](../scripts/). You can run each script under the vi
   - Deploy to CPU with NPU/Ethos U55 supported
 * [How to handle multiple models](#How-to-handle-multiple-models)   
 
-## Conversion options
-The introduced scripts here supports each option. You can use the script depending on the case below.
+## Conversion Options
+
+The scripts provided here support each option. You can use the script depending on the case below.
+
 ![](../docs/material/conversion_options.gif)
 
-[NOTICE]
-Some options has NOT been supported yet. If you have seen the message like below after runingn the script, please understand it's not ready yet.
+> [!NOTE]
+> Some options have NOT been supported yet. If you see a message like below after running the script, please understand it's not ready yet.
 
 ```
 If you input the onnx model with the script, mcu_deploy.py, you will receive the message like below.
@@ -31,11 +34,13 @@ UNAVAILABLE: Feature not available yet. Direct deployment supports only FP32/INT
 For .onnx or .pte, quantize with mcu_quantize.py first.
 ```
 
-# How to deploy quantized models  
-The sample script shows how to use the deployment API to compile an already quantized TFLite model on a board with Ethos-U55 support.  
+## How to Deploy Quantized Models
 
-This release introduces some tested models. As the example model,we can download [ad01_int8.tflite](https://raw.githubusercontent.com/mlcommons/tiny/master/benchmark/training/anomaly_detection/trained_models/ad01_int8.tflite) and [ad01_fp32.tflite](https://raw.githubusercontent.com/mlcommons/tiny/master/benchmark/training/anomaly_detection/trained_models/ad01_fp32.tflite) from [MLCommons](https://github.com/mlcommons)    
-When runing the scripts provided in the repository, you shall build the folder configuration including each model.  
+The sample script shows how to use the deployment API to compile an already quantized TFLite model on a board with Ethos-U55 support.
+
+This release introduces some tested models. As an example, you can download [ad01_int8.tflite](https://raw.githubusercontent.com/mlcommons/tiny/master/benchmark/training/anomaly_detection/trained_models/ad01_int8.tflite) and [ad01_fp32.tflite](https://raw.githubusercontent.com/mlcommons/tiny/master/benchmark/training/anomaly_detection/trained_models/ad01_fp32.tflite) from [MLCommons](https://github.com/mlcommons).
+
+When running the scripts provided in the repository, you shall build the folder configuration including each model.
 
 The directory configuration for the sample scripts to run is below.
 ```
@@ -43,14 +48,14 @@ The directory configuration for the sample scripts to run is below.
   |     ├── mcu_deploy.py  // sample script for deploy
   |     └── mcu_quantize.py  // sample script for quantize and deploy
   ├── models_int8                                                                        // To be prepared
-  |     └── ad01_int8.tflite  // sample model to iput to deployer from MLCommons
+  |     └── ad01_int8.tflite  // sample model to input to deployer from MLCommons
   ├── models_fp32                                                                        // To be prepared
   |     └── ad01_fp32.tflite  // sample model to input to Quantizer from MLCommons
   ├── models_fp32_ethos                                                                  // To be prepared
   |     └── ad01_fp32.tflite  // sample model to input to Quantizer from MLCommons
 ```
->[!TIP]
->If you see any warnings in the process below, you can refer [Tips](../doc/tips.md)
+> [TIP]
+> If you see any warnings in the process below, you can refer to [Tips](../docs/tips.md)
 
 ### Deploy to CPU only   
 By running the provided script **scripts/mcu_deploy.py**. we can compile the model for MCU only:  
@@ -76,12 +81,12 @@ you will get the following results:
 
 When Ethos-U support is enabled, each of the directories contain a deployment of the corresponding model for MCU + Ethos-U55 platform:  
 ```
-└── [ad01_int8_no_ospi]  # an example for "ad01_int8_no_ospi"  
+└── [ad01_int8_no_ospi]  # deployment output example
     ├── build  
         ├── MCU  
             ├── compilation  
                 ├── mera.plan  
-                ├── src     # compilation results: C source code and C++ testing support code # HAL entry example  
+                ├── src     # C source code and C++ testing support code
                     ├── CMakeLists.txt  
                     ├── compare.cpp  
                     ├── compute_sub_0000.c # CPU subgraph generated C source code  
@@ -90,7 +95,7 @@ When Ethos-U support is enabled, each of the directories contain a deployment of
                     ├── ethosu_common.h  
                     ├── hal_entry.c  
                     ├── kernel_library_int.c # kernel library if CPU subgraphs are present  
-                    ├──  ...  
+                    ├── ...  
                     ├── model.c  
                     ├── model.h  
                     ├── model_io_data.c  
@@ -100,32 +105,27 @@ When Ethos-U support is enabled, each of the directories contain a deployment of
                     ├── sub_0001_command_stream.h  
                     ├── sub_0001_invoke.c  
                     ├── sub_0001_invoke.h  
-                    ├──  ...  
-                ├──  ...  
+                    ├── ...  
             ├── deploy_cfg.json  
             ├── ir_dumps  
-                ├── person-det_can.dot  
-                ├── ...  
-            ├── person-det_after_canonicalization.dot  
-            ├── person-det_subgraphs.dot  
+                ├── *.dot  # IR visualization files
     ├── logs  
-    ├──　model  
+    ├── model  
         ├── input_desc.json  
     ├── project.mdp  
 ```
   
-The generated C code under **"build/MCU/compilation/src"** can be incorporated into a e2studio project.  
-You can refer to [Guide to the generated C source code](/docs/runtime_api.md) to study how to use the output file from RUHMI Framework.  
+The generated C code under **"build/MCU/compilation/src"** can be incorporated into an e2 studio project.  
+You can refer to [Guide to the generated C source code](/docs/runtime_api.md) to study how to use the output files from RUHMI Framework.
 
-# How to quantize and deploy models 
+## How to Quantize and Deploy Models
 
-If the starting point it is a Float32 precision model, it is possible to use the Quantizer to first quantize the model and finally deploy with MCU/Ethos-U55 support.
-The sample script with using the Quantizer can be refered.
+If the starting point is a Float32 precision model, it is possible to use the Quantizer to first quantize the model and then deploy with MCU/Ethos-U55 support.
+The sample script using the Quantizer can be referred to below.
 
-For an example model, the same model in FP32 shall be used [ad01_fp32.tflite](https://github.com/mlcommons/tiny/blob/master/benchmark/training/anomaly_detection/trained_models/ad01_fp32.tflite) from  [MLCommons](https://github.com/mlcommons)  
+For an example model, you can use [ad01_fp32.tflite](https://github.com/mlcommons/tiny/blob/master/benchmark/training/anomaly_detection/trained_models/ad01_fp32.tflite) from [MLCommons](https://github.com/mlcommons).
 
-
-### Deploy to CPU only   
+### Deploy to CPU Only
 
 To run the script:
 ```
@@ -133,69 +133,38 @@ cd scripts/
 python mcu_quantize.py ../models_fp32 deploy_mcu   
 ```
 
-### Deploy to CPU with Ethos U55 supported   
+### Deploy to CPU with Ethos-U55 Support
 ```
 cd scripts/  
 python mcu_quantize.py -e ../models_fp32_ethos deploy_ethos  
 ```
 
-### Check the quantize and deploy result   
+### Check the Quantize and Deploy Result
 
-When Ethos-U support is enabled, each of the directories contain a deployment of the corresponding model for MCU + Ethos-U55 platform:  
-```
-C:\work\scripts\deploy_ethos\model_000_ad01_fp32\deploy_mcu\build\MCU\compilation
+When Ethos-U support is enabled, the output directory structure is similar to the deployment result above, with the quantized model placed in a subdirectory.
 
-[deploy_ethos]
-└── [model_000_ad01_fp32]  # an example for "ad01_fp32.tflite"  
-        ├── [deploy_mcu]    
-        ├── build  
-            ├── MCU  
-                ├── compilation  
-                    ├── mera.plan  
-                    ├── src     # compilation results: C source code and C++ testing support code # HAL entry example  
-                        ├── CMakeLists.txt  
-                        ├── compare.cpp  
-                        ├── compute_sub_0000.c # CPU subgraph generated C source code  
-                        ├── compute_sub_0000.h  
-                        ├── ...  
-                        ├── ethosu_common.h  
-                        ├── hal_entry.c  
-                        ├── kernel_library_int.c # kernel library if CPU subgraphs are present  
-                        ├──  ...  
-                        ├── model.c  
-                        ├── model.h  
-                        ├── model_io_data.c  
-                        ├── model_io_data.h  
-                        ├── python_bindings.cpp  
-                        ├── sub_0001_command_stream.c # Ethos-U55 subgraph generated C source code  
-                        ├── sub_0001_command_stream.h  
-                        ├── sub_0001_invoke.c  
-                        ├── sub_0001_invoke.h  
-                        ├──  ...  
-                    ├──  ...  
-```
+The generated C code under **"build/MCU/compilation/src"** can be incorporated into an e2 studio project.  
+You can refer to [Guide to the generated C source code](/docs/runtime_api.md) to study how to use the output files from RUHMI Framework.
 
-The generated C code under **"build/MCU/compilation/src"** can be incorporated into a e2studio project.  
-You can refer to [Guide to the generated C source code](/docs/runtime_api.md) to study how to use the output file from RUHMI Framework.  
+## How to Handle Multiple Models
 
-# How to handle multiple models
-Even the case of multiple models to be ported in the application, you will convert each model one by one by the same procedure for single model. The output functions should be identified by each model to be converted. You can use the option adding "--suffix"
+Even when multiple models need to be ported into the application, you will convert each model one by one using the same procedure as for a single model. The output functions should be identified by each model to be converted. You can use the `--suffix` option to differentiate them.
 
-The example below.
-```
-# to deploy to CPU only
+**Examples:**
+```bash
+# Deploy to CPU only
 python mcu_deploy.py --suffix _func1 ../models_int8 deploy_qtzed  
 
-#to deploy to CPU with Ethos enabled  
+# Deploy to CPU with Ethos enabled  
 python mcu_deploy.py --ethos --suffix _func1 ../models_int8 deploy_qtzed_ethos  
 
-# to deploy to CPU only after the quantization
+# Deploy to CPU only after quantization
 python mcu_quantize.py --suffix _func1 ../models_fp32 deploy_mcu
 
-#to deploy to CPU with Ethos enabled after the quantization
+# Deploy to CPU with Ethos enabled after quantization
 python mcu_quantize.py --ethos --suffix _func1 ../models_fp32_ethos deploy_ethos  
 ```
-The description of func1 in the example means the name to identified for you.
-You can get the functions which are identified with the suffix you set added. How to port is same as the standard usage.
+
+The `_func1` suffix in the example is a name you choose to identify each model. The generated functions will include this suffix, allowing you to differentiate between multiple models in your application.
 
 

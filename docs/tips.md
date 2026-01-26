@@ -1,6 +1,9 @@
-## If you see some warning at running the sample scripts, you can refer the tips below depending on the message in display.
-**[Linux]   For Linux version**  
-**[Winows]  For Windows version**  
+# Troubleshooting Tips
+
+If you see some warnings when running the sample scripts, refer to the tips below depending on the message displayed.
+
+**[Linux]** For Linux version  
+**[Windows]** For Windows version
 
 
 ### **[Linux]** `GLIBCXX_3.4.32' not found` occered at running the script like "python mcu_deploy.py --ethos --ref_data ../models_int8 deploy_qtzed_ethos"

@@ -1,19 +1,3 @@
-# Demo movies  
-
-<table>
-  <tr>
-    <td align="center">
-      <h3>[1] Face detection</h3>
-      <img src="https://raw.github.com/wiki/renesas/ruhmi-framework-mcu/images/Face_detection_RA8P1.gif?raw=true" width="300">
-    </td>
-    <td align="center">
-      <h3>[2] Image classification</h3>
-      <img src="https://raw.github.com/wiki/renesas/ruhmi-framework-mcu/images/image_classification.gif?raw=true" width="300">
-    </td>
-  </tr>
-</table>
-
-
 # EK-RA8P1 Quick Setup Overview  
 
 ## Preparing EK-RA8P1 and the system configuration  
@@ -36,21 +20,37 @@
 3.	Connect the USB-C  cable to USB-C  (J10) of the EK-RA8P1 board.  
 4.	Connect the other end of this cable to the USB port of the host PC. When powered, the white LED near the center of the board (the “dash” in the EK-RA8P1 name) will light up.   
 
-![](../doc/material/EK_RA8P1_buringup.GIF)
+![](../docs/material/EK_RA8P1_buringup.GIF)
 
 ## Downloading sample AI Application and run  
 
 ### Lauch AI Navigator and Import sample AI Application.  
 
 <div align="center">
-<img src ="launch_import.gif"> 
+<img src ="../docs/material/launch_import.gif"> 
 
 <div align="left">
  
 ### Compile the sample application and load artifact to EK-RA8P1
 
 <div align="center">
-<img src ="./build_run.gif">  
+<img src ="../docs/material/build_run.gif">  
 <div align="left">
+
+
+# Demo movies  
+
+<table>
+  <tr>
+    <td align="center">
+      <h3>Face detection</h3>
+      <img src="https://raw.github.com/wiki/renesas/ruhmi-framework-mcu/images/Face_detection_RA8P1.gif?raw=true" width="300">
+    </td>
+    <td align="center">
+      <h3>Image classification</h3>
+      <img src="https://raw.github.com/wiki/renesas/ruhmi-framework-mcu/images/image_classification.gif?raw=true" width="300">
+    </td>
+  </tr>
+</table>
 
 

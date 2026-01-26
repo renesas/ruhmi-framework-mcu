@@ -1,21 +1,19 @@
 
-# Installation  
+# Installation
 
-In order to install the software tool, the installation file below shall be used. 
-RUHMI framework[^1] includes MERA IPs supported by EdgeCortix, so you will see the files and some discriptions with the name of MERA included.
-Also, the version number included in the file name like 2.3.2 depens on MERA IP.  
-Download the installation files from the repository, then move on to the installation guide according to your system type;
-[Installation guide for Ubuntu Linux](#installation---Ubuntu-Linux), [Installation guide for Windows](#installation---Windows)
-```
-\install\mera-2.4.0+pkg.1756-cp310-cp310-manylinux_2_27_x86_64.whl  
-\install\mera-2.4.0+pkg.179-cp310-cp310-win_amd64.whl  
-```
+RUHMI Framework[^1] AI MCU compiler includes MERA IPs supported by EdgeCortix, so you will see files and descriptions with the name MERA included.
+The version number in the file name (e.g., 2.5.0) corresponds to the MERA IP version.
 
-# Installation - Ubuntu Linux  
-In order to install RUHMI on supported environment, you will need:
-* A machine with Ubuntu 22.04 installation is recommended as this was the version used for testing.
-* A working installation of PyEnv or other Python virtual environment management system that provides Python
-version 3.10.x.
+Select your installation guide:
+- [Installation guide for Ubuntu Linux](#installation---ubuntu-linux)
+- [Installation guide for Windows](#installation---windows)
+
+## Installation - Ubuntu Linux
+
+In order to install RUHMI on a supported environment, you will need:
+
+- A machine with Ubuntu 22.04 (recommended, as this was the version used for testing)
+- A working installation of PyEnv or other Python virtual environment management system that provides Python version 3.10.x
 
 **Prepare the environment**  
 System dependencies necessary to create environments and run demos:  
@@ -44,8 +42,9 @@ pip install --upgrade pip && pip install decorator typing_extensions psutil attr
 Your prompt should now show that you are under a virtual environment mera-env:
 (mera-env) user@compute:~$
 
-**Alternative: PyEnv installation**  
-If PyEnv is preffered over the base system Python installation you can get started with:
+**Alternative: PyEnv installation**
+
+If PyEnv is preferred over the base system Python installation you can get started with:
 
 ```
 # pyenv dependencies
@@ -76,21 +75,28 @@ pip install decorator typing_extensions psutil attrs pybind11 cmake junitparser
 Your prompt should now show that you are under a virtual environment mera-env:  
 (mera-env) user@compute:~$  
 
-**Install MERA**  
-Finally install MERA on the virtual environment mera-env:  
+**Install MERA**
 
-```
-pip install ./mera-2.4.0+pkg.1756-cp310-cp310-manylinux_2_27_x86_64.whl  
+Download and install MERA on the virtual environment:
+
+```bash
+# Download the wheel file
+wget https://github.com/renesas/ruhmi-framework-mcu/raw/main/install/mera-2.5.0+pkg.3019-cp310-cp310-manylinux_2_27_x86_64.whl
+
+# Install MERA
+pip install ./mera-2.5.0+pkg.3019-cp310-cp310-manylinux_2_27_x86_64.whl
 ```
 
-where the versions may vary depending on the MERA release used.  
-At this point MERA should be ready to use. You can confirm with the following example:  
+> [**TIP**]
+> The version number may vary depending on the MERA release. Check the [install directory](https://github.com/renesas/ruhmi-framework-mcu/tree/main/install) for the latest version.
+
+At this point MERA should be ready to use. You can confirm with:
 
 ```
 python -c "import mera;print(dir(mera))"  
 ```
 
-# Installation - Windows  
+## Installation - Windows
 
 The software stack is also provided as PIP package compatible with Windows 11 or 10.  
 The only requirement needed on Windows are C++ runtime libraries.   
@@ -104,14 +110,15 @@ Create and move to the working folder. Assuming C:\work is the current folder in
 PS <current directory>> cd C:\work   
 ```
 
-**Prepare the virtual environment**  
-Build the vertual environment for Python  
+**Prepare the virtual environment**
+
+Build the virtual environment for Python
 ```
 py -3.10 -m venv .venv  
 ```
 
-Activate the virtual environment as following   
-Before activating the vertual environment, you may need to change the execution policy for shell execution.  
+Activate the virtual environment as follows.
+Before activating the virtual environment, you may need to change the execution policy for shell execution.
 ```
 [Environment]::SetEnvironmentVariable('CONVERSION_TOOL_E2STUDIO_PLUGIN_PYTHON_VENV_LOC', "$(Get-Location)", 'User') 
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process  
@@ -119,23 +126,27 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process
 ```
 You will see the prompt as "(.venv) PS C:\work>"
 
-**Install MERA into Windows**  
-Copy the install directory including the installation file into the current folder.  
-The file name may vary depending on the release version.
+**Install MERA into Windows**
 
-Install RUHMI AI Compiler into the virtual environment.
-Also, install required dependencies.
-```
-cd install
-python -m pip install .\mera-2.4.0+pkg.179-cp310-cp310-win_amd64.whl   
+Download and install RUHMI AI Compiler into the virtual environment:
+
+```powershell
+# Download the wheel file
+Invoke-WebRequest -Uri "https://github.com/renesas/ruhmi-framework-mcu/raw/main/install/mera-2.5.0+pkg.3019-cp310-cp310-win_amd64.whl" -OutFile "mera-2.5.0+pkg.3019-cp310-cp310-win_amd64.whl"
+
+# Install MERA and dependencies
+python -m pip install .\mera-2.5.0+pkg.3019-cp310-cp310-win_amd64.whl
 python -m pip install onnx==1.17.0 tflite==2.18.0
 ```
+
+> [TIP]
+> The version number may vary depending on the MERA release. Check the [install directory](https://github.com/renesas/ruhmi-framework-mcu/tree/main/install) for the latest version.
 
 Please check that all your path settings of your environment are correct. After installation you should be able to
 successfully complete the following commands.
 ```
 python -c "import mera; print(mera.__version__)"  
-2.4.0+pkg.179  
+2.5.0+pkg.3019
 
 vela --version
 4.2.0
@@ -144,4 +155,32 @@ python -c "import mera;print(dir(mera))"
 ['Deployer', 'InputDescription', 'InputDescriptionContainer', 'Layout', 'MERADeployer', 'MeraModel', 'MeraTvmDeployment', 'MeraTvmModelRunner', 'MeraTvmPrjDeployment', 'ModelLoader', 'ModelQuantizer', 'Platform', 'PowerMetrics', 'QuantizationQualityMetrics', 'Quantizer', 'TVMDeployer', 'Target', '__builtins__', '__cached__', '__doc__', '__file__', '__loader__', '__name__', '__package__', '__path__', '__spec__', '__version__', 'calculate_quantization_quality', 'deploy', 'deploy_project', 'get_mera_dna_version', 'get_mera_tvm_version', 'get_mera_version', 'get_versions', 'load_mera_deployment', 'mera_deployment', 'mera_model', 'mera_platform', 'mera_quantizer', 'metrics', 'model', 'quantization_quality', 'quantizer', 'version']  
 ```
 
-[^1]: RUHMI Framework is powered by EdgeCortix® MERA™.
+## MERA Visualizer
+
+The framework includes a visualizer tool (MERA Visualizer) with an interactive web interface for visualizing device compatibility (model partitioning) and performance metrics.
+
+**Installation**
+
+Ensure your MERA virtual environment is activated, then install the visualizer wheel found in the install directory:
+
+```bash
+# Linux
+pip install mera_visualizer-2.5.0-py3-none-any.whl
+
+# Windows
+python -m pip install .\mera_visualizer-2.5.0-py3-none-any.whl
+```
+
+**Usage**
+
+Start the visualizer web server:
+
+```bash
+mera_visualizer
+```
+
+This will start a local server (default: http://127.0.0.1:5000).
+
+📖 For detailed usage instructions and features, see the [Visualizer Guide](../docs/visualizer/README.md).
+
+[^1]: RUHMI Framework AI MCU Compiler is powered by EdgeCortix® MERA™.
