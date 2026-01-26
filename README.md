@@ -24,7 +24,7 @@ RUHMI Framework[^1] provides a compiler and the necessary tools to convert machi
 The software stack generates C source code while ensuring compatibility and tight integration with Renesas e2 studio.
 It also ships with Mera Quantizer, a post-training static INT8 quantizer, allowing more demanding models to meet the memory and latency constraints typical of microcontrollers and Ethos-U accelerators.
 
-[^1]: RUHMI Framework's AI MCU Compiler is powered by EdgeCortix® MERA™.
+[^1]: RUHMI Framework's AI Compiler is powered by EdgeCortix® MERA™.
 
 ## RUHMI Framework Workflow
 ![](docs/material/workflow_ruhmi.GIF)
