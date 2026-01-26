@@ -7,7 +7,7 @@ Copyright © 2025 Renesas Electronics Corporation and its contributors. Licensed
 ## RUHMI FRAMEWORK
 |Component|License|
 |---|---|
-|RUHMI FRAMEWORK|Apache, Version 2.0|
+|RUHMI FRAMEWORK AI MCU Compiler|Apache, Version 2.0|
 
 The framework shall use some external components to be installed in the installation process. Please refer the External Licenses below.  
 
