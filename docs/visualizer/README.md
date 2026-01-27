@@ -18,10 +18,10 @@ Navigate to working directory and ensure the same virtual environment that was u
 ```
 # For the reference, assuming the installation file named as mera_visualizer-2.5.0-py3-none-any.whl
 # in the virtual environment on Linux  
-pip install mera_visualizer-2.5.0-py3-none-any.whl
+pip install mera_visualizer-2.5.0+mcuv3-py3-none-any.whl
 
 # in the virtual environment on Windows
-python -m pip install .\mera_visualizer-2.5.0-py3-none-any.whl
+python -m pip install .\mera_visualizer-2.5.0+mcuv3-py3-none-any.whl
 ```
 
 ## Usage  
