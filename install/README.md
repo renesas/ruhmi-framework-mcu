@@ -42,38 +42,7 @@ pip install --upgrade pip && pip install decorator typing_extensions psutil attr
 Your prompt should now show that you are under a virtual environment mera-env:
 (mera-env) user@compute:~$
 
-**Alternative: PyEnv installation**
-
-If PyEnv is preferred over the base system Python installation you can get started with:
-
-```
-# pyenv dependencies
-sudo apt update; sudo apt install build-essential libssl-dev zlib1g-dev \  
-libbz2-dev libreadline-dev libsqlite3-dev curl git cmake \  
-libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev  
-# actual installation of PyEnv  
-curl https://pyenv.run | bash  
-```
-
-The installation of PyEnv recommends to do some post-installation steps that involve to modify your .bashrc file in
-order to easily create virtual environments:
-
-```
-echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bashrc  
-echo '[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.bashrc  
-echo 'eval "$(pyenv init - bash)"' >> ~/.bashrc  
-```
-
-To create a Python Virtual Environment for MERA named “mera-env” using PyEnv:  
-
-```
-MENV=mera-env; pyenv install 3.10.15 && pyenv virtualenv 3.10.15 $MENV && pyenv activate $MENV && \  
-pip install --upgrade pip && \  
-pip install decorator typing_extensions psutil attrs pybind11 cmake junitparser 
-```
-
-Your prompt should now show that you are under a virtual environment mera-env:  
-(mera-env) user@compute:~$  
+> **Note:** Alternative such as Pyenvs can also be used.
 
 **Install MERA**
 
@@ -81,10 +50,10 @@ Download and install MERA on the virtual environment:
 
 ```bash
 # Download the wheel file
-wget https://github.com/renesas/ruhmi-framework-mcu/raw/main/install/mera-2.5.0+pkg.3019-cp310-cp310-manylinux_2_27_x86_64.whl
+wget https://github.com/renesas/ruhmi-framework-mcu/raw/main/install/mera-2.5.0+pkg.3577-cp310-cp310-manylinux_2_27_x86_64.whl
 
 # Install MERA
-pip install ./mera-2.5.0+pkg.3019-cp310-cp310-manylinux_2_27_x86_64.whl
+pip install ./mera-2.5.0+pkg.3577-cp310-cp310-manylinux_2_27_x86_64.whl
 ```
 
 > [**TIP**]
@@ -132,10 +101,10 @@ Download and install RUHMI AI Compiler into the virtual environment:
 
 ```powershell
 # Download the wheel file
-Invoke-WebRequest -Uri "https://github.com/renesas/ruhmi-framework-mcu/raw/main/install/mera-2.5.0+pkg.3019-cp310-cp310-win_amd64.whl" -OutFile "mera-2.5.0+pkg.3019-cp310-cp310-win_amd64.whl"
+Invoke-WebRequest -Uri "https://github.com/renesas/ruhmi-framework-mcu/raw/main/install/mera-2.5.0+pkg.3577-cp310-cp310-win_amd64.whl" -OutFile "mera-2.5.0+pkg.3577-cp310-cp310-win_amd64.whl"
 
 # Install MERA and dependencies
-python -m pip install .\mera-2.5.0+pkg.3019-cp310-cp310-win_amd64.whl
+python -m pip install .\mera-2.5.0+pkg.3577-cp310-cp310-win_amd64.whl
 python -m pip install onnx==1.17.0 tflite==2.18.0
 ```
 
@@ -165,10 +134,10 @@ Ensure your MERA virtual environment is activated, then install the visualizer w
 
 ```bash
 # Linux
-pip install mera_visualizer-2.5.0+mcuv3-py3-none-any.whl
+pip install mera_visualizer-2.5.0-py3-none-any.whl
 
 # Windows
-python -m pip install .\mera_visualizer-2.5.0+mcuv3-py3-none-any.whl
+python -m pip install .\mera_visualizer-2.5.0-py3-none-any.whl
 ```
 
 **Usage**

@@ -5,14 +5,10 @@ from mera import Platform, Target
 from argparse import ArgumentParser
 from pathlib import Path
 
-# globals
-args = None
-
 def needs_ospi(file, size_mb):
     return os.path.getsize(file) / (1024 * 1024) > size_mb
 
 def deploy_mcu(model_path, deploy_dir, with_ethos, with_ospi, with_ref_data):
-    global args
     try:
         with mera.Deployer(deploy_dir, overwrite=True) as deployer:
             model = mera.ModelLoader(deployer).from_tflite(model_path)
@@ -22,17 +18,17 @@ def deploy_mcu(model_path, deploy_dir, with_ethos, with_ospi, with_ref_data):
             # ARM Vela options
             # only effective if Platform.MCU_ETHOS is selected, ignored otherwise
             vela_config = {}
-            vela_config['enable_ospi']  = with_ospi
-            vela_config['sys_config']   = 'RA8P1'
-            vela_config['memory_mode']  = args.memory_mode
+            vela_config['enable_ospi'] = with_ospi
+            vela_config['sys_config'] = 'RA8P1'
+            vela_config['memory_mode'] = 'Sram_Only'
             vela_config['accel_config'] = 'ethos-u55-256'
-            vela_config['optimise']     = args.optimization_mode
-            vela_config['verbose_all']  = False
+            vela_config['optimise'] = 'Performance'
+            vela_config['verbose_all'] = False
 
             # MCU C code generation options
             mcu_config = {}
-            mcu_config['suffix']          = args.suffix
-            mcu_config['weight_location'] = args.weight_loc.lower() # other option is: 'iram'
+            mcu_config['suffix'] = '_net1'
+            mcu_config['weight_location'] = 'flash' # other option is: 'iram'
 
             # On other scripts we could use True and it will not generate
             # x86 related source code (python bindings for example)
@@ -54,22 +50,12 @@ def deploy_mcu(model_path, deploy_dir, with_ethos, with_ospi, with_ref_data):
 
 
 def main():
-  arg_p = ArgumentParser('mcu_deploy.py - MCU deployment demo')
+  arg_p = ArgumentParser('mcu_run')
   arg_p.add_argument('models_dir', type=str, help='Path to directory with TFLite models')
   arg_p.add_argument('deploy_dir', type=str, help='Directory for CCodegen deployment')
-  arg_p.add_argument('-e', '--ethos', action='store_true', help='Enable Ethos codegen')
+  arg_p.add_argument('--ethos', action='store_true', help='Enable Ethos codegen')
   arg_p.add_argument('--ospi', action='store_true', help='Use SPI memory')
-  arg_p.add_argument('-r', '--ref_data', action='store_true', help='Generate reference data for testing')
-
-  arg_p.add_argument('--suffix', type=str, default='', help="Add the suffix to the output source code when converting for CPU")
-  choices_memory_mode = ["Sram_Only","Shared_Sram"]
-  arg_p.add_argument('--memory_mode', choices=choices_memory_mode, default=choices_memory_mode[0], help="vela option for model storage Sram_Only/Shared_Sram")	
-  choices_optimization_mode = ["Performance","Size"]
-  arg_p.add_argument('--optimization_mode', choices=choices_optimization_mode, default=choices_optimization_mode[0], help="vela optimization target Performance/Size")
-  choices_weight_loc = ["Flash","Iram"]
-  arg_p.add_argument('--weight_loc', choices=choices_weight_loc, default=choices_weight_loc[0], help="C-Code only option for model storage")
-
-  global args
+  arg_p.add_argument('--ref_data', action='store_true', help='Generate reference data for testing')
   args = arg_p.parse_args()
 
   models_dir = Path(args.models_dir).resolve()
