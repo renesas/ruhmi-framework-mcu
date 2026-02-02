@@ -1,6 +1,6 @@
 # RUHMI Performance Benchmark Base Project for EK-RA8P1
 
-This guide helps developers quickly measure inference latency on EK-RA8P1 using the RUHMI AI compiler. The base project is designed for easy integration of your own AI model C-code, with best practices for memory configuration and CPU/NPU execution.
+This guide helps developers quickly measure inference latency on EK-RA8P1 using the RUHMI AI compiler. [The base project](ruhmi_perf_exal_ek_ra8p1_base_project_fsp620.zip) is designed for easy integration of your own AI model C-code, with best practices for memory configuration and CPU/NPU execution.
 
 
 ## Overview
