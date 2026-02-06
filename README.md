@@ -12,11 +12,11 @@
 - [Quick Start](#quick-start)
 - [Workflow](#ruhmi-framework-workflow)
 - [Supported Platforms](#supported-embedded-platforms)
-- [Installation](#installation---ubuntu-linux)
+- [Installation](#installation)
 - [Model Compilation](#model-compilation)
 - [Generated C Source Code](#guide-to-the-generated-c-source-code)
-- [API Documentation](#ai-model-compiler-api-specification)
-- [Support](#support)
+- [Documentation](#documentation)
+- [Inquiries](#inquiries)
 
 ## Introduction
 
@@ -67,25 +67,17 @@ Your compiled C source code will be in `deploy_output/ad01_int8_no_ospi/build/MC
 - Renesas MCU RA8P1 series
 - Renesas MCU RA8xx series (non-NPU devices)
 
-## Supported Operating Systems
+## Installation
 
-RUHMI supports two operating systems. This section outlines the prerequisites. For detailed installation instructions, refer to the [Installation Guide](/install/README.md).
+RUHMI supports Ubuntu Linux and Windows. The table below outlines the prerequisites for each platform.
 
-## Installation - Ubuntu Linux
+| Requirement | Ubuntu Linux | Windows |
+|-------------|--------------|----------|
+| **OS Version** | Ubuntu 22.04 (recommended) | Windows 10 or 11 (11 recommended) |
+| **Python** | Python 3.10.x via PyEnv or venv | Python 3.10.x via PyEnv or venv |
+| **Additional** | — | Microsoft C++ runtime libraries |
 
-In order to install RUHMI Framework on a supported environment you will need:
-
-- A machine with Ubuntu 22.04 (recommended, as this was the version used for testing)
-- A working installation of PyEnv or other Python virtual environment management system that provides Python version 3.10.x
-
-## Installation - Windows
-
-The software stack is also provided as a PIP package compatible with Windows 11.
-In order to install RUHMI Framework on a supported environment you will need:
-
-- A machine with Windows 10 or 11 (Windows 11 is recommended, as this was the version used for testing)
-- A working installation of PyEnv or other Python virtual environment management system that provides Python version 3.10.x
-- Microsoft C++ runtime libraries
+📖 For detailed installation instructions, refer to the [Installation Guide](/install/README.md).
 
 ## Model Compilation
 
@@ -110,30 +102,18 @@ This directory contains the model converted into a set of C99 source code files.
 
 📖 [Guide to the generated C source code](docs/runtime_api.md)
 
-## AI Model Compiler API Specification
+## Documentation
 
-You may want to use customized methods to quantize and optimize your model with your expertise. For your needs, you can refer to the API specification for the model compiler.
+| Document | Description |
+|----------|-------------|
+| 📖 [AI Model Compiler API](https://renesas.github.io/ruhmi-framework-mcu/mera_api.html) | API specification for AI Compiler python library|
+| 📖 [Operator Support](docs/operator_support.md) | Supported operators for each frontend framework |
+| 📖 [Visualizer](docs/visualizer/README.md) | Model graph visualization tool |
+| 📖 [Benchmark](docs/benchmark/README.md) | Performance benchmarking guide to measure inference on RA8xx |
+| 📖 [Models Tested](docs/models_tested.md) | List of tested models |
+| 📖 [Tips](docs/tips.md) | Troubleshooting common warnings and issues |
+| 📖 [Error List](docs/error_list.md) | Compile/runtime error references |
 
-📖 [AI model compiler API](https://renesas.github.io/ruhmi-framework-mcu/mera_api.html)
+## Inquiries
 
-## Support
-
-### Operator Support
-
-Please refer to the [Operator Support](/docs/operator_support.md) documentation to understand what operators are supported by the framework.
-
-### Tips
-
-If you see any warnings during installation or while running the sample scripts, refer to [Tips](./docs/tips.md).
-
-
-### Error List
-
-If an error occurs during compile/runtime operation, please refer to the [Error List](./docs/error_list.md).
-
-### Inquiries
-
-If you have any questions, please contact [Renesas Technical Support](https://www.renesas.com/support).
-You can also open an [issue](https://github.com/renesas/ruhmi-framework-mcu/issues) on GitHub.
-
-
+If you have any questions, please contact [Renesas Technical Support](https://www.renesas.com/support) or open an [issue](https://github.com/renesas/ruhmi-framework-mcu/issues) on GitHub.
