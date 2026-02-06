@@ -106,13 +106,13 @@ This directory contains the model converted into a set of C99 source code files.
 
 | Document | Description |
 |----------|-------------|
-| 📖 [AI Model Compiler API](https://renesas.github.io/ruhmi-framework-mcu/mera_api.html) | API specification for AI Compiler python library|
-| 📖 [Operator Support](docs/operator_support.md) | Supported operators for each frontend framework |
-| 📖 [Visualizer](docs/visualizer/README.md) | Model graph visualization tool |
-| 📖 [Benchmark](docs/benchmark/README.md) | Performance benchmarking guide to measure inference on RA8xx |
-| 📖 [Models Tested](docs/models_tested.md) | List of tested models |
-| 📖 [Tips](docs/tips.md) | Troubleshooting common warnings and issues |
-| 📖 [Error List](docs/error_list.md) | Compile/runtime error references |
+| [AI Model Compiler API](https://renesas.github.io/ruhmi-framework-mcu/mera_api.html) | API specification for AI Compiler python library|
+| [Operator Support](docs/operator_support.md) | Supported operators for each frontend framework |
+| [Visualizer](docs/visualizer/README.md) | Model graph visualization tool |
+| [Benchmark](docs/benchmark/README.md) | Performance benchmarking guide to measure inference on RA8xx |
+| [Models Tested](docs/models_tested.md) | List of tested models |
+| [Tips](docs/tips.md) | Troubleshooting common warnings and issues |
+| [Error List](docs/error_list.md) | Compile/runtime error references |
 
 ## Inquiries
 
