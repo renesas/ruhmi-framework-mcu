@@ -6,18 +6,6 @@
 [![Platform](https://img.shields.io/badge/Platform-Linux%20%7C%20Windows-lightgrey.svg)]()
 [![Python](https://img.shields.io/badge/Python-3.10-green.svg)]()
 
-## Table of Contents
-
-- [Introduction](#introduction)
-- [Quick Start](#quick-start)
-- [Workflow](#ruhmi-framework-workflow)
-- [Supported Platforms](#supported-embedded-platforms)
-- [Installation](#installation)
-- [Model Compilation](#model-compilation)
-- [Generated C Source Code](#guide-to-the-generated-c-source-code)
-- [Documentation](#documentation)
-- [Inquiries](#inquiries)
-
 ## Introduction
 
 RUHMI Framework[^1] provides a compiler and the necessary tools to convert machine learning models into C source code compatible with a range of Renesas MCUs powered by Arm Ethos-U NPUs.
