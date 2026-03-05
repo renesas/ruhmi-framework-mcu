@@ -20,7 +20,7 @@ It also ships with Mera Quantizer, a post-training static INT8 quantizer, allowi
 
 ## Quick Start
 
-Get up and running in 5 steps (Ubuntu Linux / WSL):
+Get up and running in 6 steps (Ubuntu Linux / WSL):
 
 ```bash
 # 1. Clone the repository
@@ -42,7 +42,10 @@ mkdir -p models_int8 && mv ad01_int8.tflite models_int8/
 
 # 5. Deploy the model to C code
 cd scripts
-python mcu_deploy.py --ethos --ref_data ../models_int8 ../deploy_output
+python mcu_compile.py ../models_int8 ../deploy_output --npu
+
+# 6. Check Model Metrics
+python utils/check_model_metrics.py ../deploy_output/ad01_int8_NPU
 ```
 
 Your compiled C source code will be in `deploy_output/ad01_int8_no_ospi/build/MCU/compilation/src/`.
@@ -71,13 +74,13 @@ RUHMI supports Ubuntu Linux and Windows. The table below outlines the prerequisi
 
 Sample scripts are provided for common use cases:
 
-**Deploy models:**
-- Deploy to CPU only
-- Deploy to CPU with Ethos-U55 support
+A unified compilation script `mcu_compile.py` handles both quantization (if needed) and deployment.
 
-**Quantize and deploy models:**
-- Deploy to CPU only
-- Deploy to CPU with Ethos-U55 support
+**Capabilities:**
+-   **Deploy Pre-Quantized Models**: Convert `.tflite` directly to C code.
+-   **Deploy FP32 Models**: Convert `.tflite` , `.onnx` or `.pte` directly to C code.
+-   **Quantize & Deploy**: Convert FP32 models to INT8 using calibration data, then to C code.
+-   **Platform Support**: Target CPU or NPU (Ethos-U55).
 
 📖 [Detailed guide on executing model compilation with sample scripts](scripts/README.md)
 
@@ -95,9 +98,10 @@ This directory contains the model converted into a set of C99 source code files.
 | Document | Description |
 |----------|-------------|
 | [AI Model Compiler API](https://renesas.github.io/ruhmi-framework-mcu/mera_api.html) | API specification for AI Compiler python library|
+| [Tutorials](docs/tutorials/README.md) | Hands-on Jupyter notebooks for learning the AI MCU Compiler workflow |
 | [Operator Support](docs/operator_support.md) | Supported operators for each frontend framework |
-| [Visualizer](docs/visualizer/README.md) | Model graph visualization tool |
-| [Benchmark](docs/benchmark/README.md) | Performance benchmarking guide to measure inference on RA8xx |
+| [Visualizer](docs/graph_vizualizer/README.md) | Model graph visualization tool |
+| [Inference Benchmark](docs/benchmark/README.md) | Performance benchmarking guide to measure inference on RA8xx |
 | [Models Tested](docs/models_tested.md) | List of tested models |
 | [Tips](docs/tips.md) | Troubleshooting common warnings and issues |
 | [Error List](docs/error_list.md) | Compile/runtime error references |
