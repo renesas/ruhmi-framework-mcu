@@ -20,7 +20,7 @@
 
 | Document | Description |
 |----------|-------------|
-| [Visualizer](visualizer/README.md) | Model graph visualization tool |
+| [Visualizer](graph_vizualizer/README.md) | Model graph visualization tool |
 | [Benchmark](benchmark/README.md) | Performance benchmarking guide to measure inference on RA8xx |
 
 ## Resources
