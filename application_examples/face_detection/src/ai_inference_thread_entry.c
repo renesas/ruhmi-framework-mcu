@@ -25,7 +25,7 @@
 /***************************************************************************************************************************
  * Macro definitions
  ***************************************************************************************************************************/
-#define AI_THREAD_YIELD                     (25)
+#define AI_THREAD_YIELD                     (1U)
 
 /***************************************************************************************************************************
  * Typedef definitions
@@ -44,7 +44,7 @@ int8_t model_buffer_int8[AI_INPUT_IMAGE_WIDTH * AI_INPUT_IMAGE_HEIGHT * AI_INPUT
 #endif
 uint32_t model_buffer_int8_size = sizeof(model_buffer_int8);
 
-extern vision_ai_app_err_t face_detection(void);
+extern vision_ai_app_err_t face_detection (void);
 
 /***************************************************************************************************************************
  * Exported global variables and functions (to be accessed by other files)
@@ -107,25 +107,21 @@ void ai_inference_thread_entry(void *pvParameters)
 
     RegisterDebugLogCallback(print_log);
 
-    if(VISION_AI_APP_SUCCESS != vision_ai_status )
-    {
-        handle_error(VISION_AI_APP_ERR_AI_INIT);
-    }
-
     xEventGroupSetBits(g_ai_app_event, SOFTWARE_AI_INFERENCE_INIT_DONE);
 
     while (true)
     {
         xEventGroupWaitBits(g_ai_app_event, AI_INFERENCE_INPUT_IMAGE_READY, pdTRUE, pdTRUE, portMAX_DELAY);
 
-        INFERENCE_START_INDICATE_LED;
+        /* restart face detection statistics for each inference */
         for(int i = 0; i < AI_MAX_DETECTION_NUM; i++)
         {
             memset(&g_ai_detection[i], 0, sizeof(g_ai_detection[i]));
         }
-        // Execute AI inference (face detection)
-        vision_ai_status = face_detection();
 
+        // Execute AI inference (face detection)
+        INFERENCE_START_INDICATE_LED;
+        vision_ai_status = face_detection();
         INFERENCE_END_INDICATE_LED;
 
         if(VISION_AI_APP_ERR_AI_INFERENCE == vision_ai_status)

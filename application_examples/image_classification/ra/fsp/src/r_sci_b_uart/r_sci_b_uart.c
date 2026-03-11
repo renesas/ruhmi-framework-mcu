@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2020 - 2025 Renesas Electronics Corporation and/or its affiliates
+* Copyright (c) 2020 - 2026 Renesas Electronics Corporation and/or its affiliates
 *
 * SPDX-License-Identifier: BSD-3-Clause
 */
@@ -156,6 +156,7 @@ static fsp_err_t r_sci_b_read_write_param_check(sci_b_uart_instance_ctrl_t const
 #endif
 
 static void r_sci_b_uart_config_set(sci_b_uart_instance_ctrl_t * const p_ctrl, uart_cfg_t const * const p_cfg);
+static void r_sci_b_uart_synchronization_delay_cfg(sci_b_uart_instance_ctrl_t * const p_ctrl);
 
 #if SCI_B_UART_CFG_DTC_SUPPORTED
 static fsp_err_t r_sci_b_uart_transfer_configure(sci_b_uart_instance_ctrl_t * const p_ctrl,
@@ -355,6 +356,8 @@ fsp_err_t R_SCI_B_UART_Open (uart_ctrl_t * const p_api_ctrl, uart_cfg_t const * 
     p_ctrl->tx_src_bytes  = 0U;
     p_ctrl->p_rx_dest     = NULL;
     p_ctrl->rx_dest_bytes = 0;
+
+    r_sci_b_uart_synchronization_delay_cfg(p_ctrl);
 
     /* Set flow control pins. */
     p_ctrl->flow_pin = p_extend->flow_control_pin;
@@ -704,6 +707,9 @@ fsp_err_t R_SCI_B_UART_BaudSet (uart_ctrl_t * const p_api_ctrl, void const * con
     p_ctrl->p_reg->CCR0 = preserved_ccr0 &
                           (uint32_t) ~(R_SCI_B0_CCR0_TE_Msk | R_SCI_B0_CCR0_RE_Msk | R_SCI_B0_CCR0_RIE_Msk);
     p_ctrl->p_tx_src = NULL;
+
+    /* Update delay loops in case SCICLK changed since open */
+    r_sci_b_uart_synchronization_delay_cfg(p_ctrl);
 
     /* Apply new baud rate register settings. */
     p_ctrl->p_reg->CCR2 = ((sci_b_baud_setting_t *) p_baud_setting)->baudrate_bits;
@@ -1327,6 +1333,32 @@ static void r_sci_b_uart_config_set (sci_b_uart_instance_ctrl_t * const p_ctrl, 
     p_ctrl->p_reg->DCR = dcr;
 }
 
+/*******************************************************************************************************************//**
+ * When SCICLK/SCISPICLK is much slower than PCLK, it may be necessary to delay up to 3 cycles of SCICLK/SCISPICLK after
+ * writing the last data to TDR to avoid early termination of the transmission.
+ *
+ * This function configures the synchronization delay loop count
+ *
+ * @param[in]     p_ctrl  Pointer to UART control structure
+ **********************************************************************************************************************/
+static void r_sci_b_uart_synchronization_delay_cfg (sci_b_uart_instance_ctrl_t * const p_ctrl)
+{
+    sci_b_uart_extended_cfg_t * p_extend = (sci_b_uart_extended_cfg_t *) p_ctrl->p_cfg->p_extend;
+    p_ctrl->delay_loops = 0;
+    if (p_extend->delay_cycles)
+    {
+        uint32_t sciclk;
+#if BSP_FEATURE_SCI_HAS_SCISPI_CLOCK
+        sciclk = R_FSP_SciSpiClockHzGet();
+#elif BSP_FEATURE_SCI_HAS_CLOCK
+        sciclk = R_FSP_SciClockHzGet();
+#endif
+
+        uint32_t delay_cycles_system_clock = (uint32_t) ((p_extend->delay_cycles * SystemCoreClock) / sciclk);
+        p_ctrl->delay_loops = BSP_DELAY_LOOPS_CALCULATE(delay_cycles_system_clock);
+    }
+}
+
 #if SCI_B_UART_CFG_FIFO_SUPPORT
 
 /*******************************************************************************************************************//**
@@ -1562,8 +1594,15 @@ void sci_b_uart_txi_isr (void)
     {
         /* After all data has been transmitted, disable transmit interrupts and enable the transmit end interrupt. */
         uint32_t ccr0_temp = p_ctrl->p_reg->CCR0;
-        ccr0_temp          |= R_SCI_B0_CCR0_TEIE_Msk;
-        ccr0_temp          &= (uint32_t) ~(R_SCI_B0_CCR0_TIE_Msk);
+        ccr0_temp |= R_SCI_B0_CCR0_TEIE_Msk;
+        ccr0_temp &= (uint32_t) ~(R_SCI_B0_CCR0_TIE_Msk);
+
+        /* If configured, wait for TDR synchronization delay to prevent TEI firing before data transfer to TSR */
+        if (p_ctrl->delay_loops)
+        {
+            bsp_prv_software_delay_loop(p_ctrl->delay_loops);
+        }
+
         p_ctrl->p_reg->CCR0 = ccr0_temp;
 
         p_ctrl->p_tx_src = NULL;

@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2020 - 2025 Renesas Electronics Corporation and/or its affiliates
+* Copyright (c) 2020 - 2026 Renesas Electronics Corporation and/or its affiliates
 *
 * SPDX-License-Identifier: BSD-3-Clause
 */
@@ -242,7 +242,6 @@ typedef struct st_uart_api
      * @param[in]   p_ctrl     Pointer to the UART control block.
      */
     fsp_err_t (* receiveSuspend)(uart_ctrl_t * const p_ctrl);
-
 
     /** Resume RX operations for UART device.
      *

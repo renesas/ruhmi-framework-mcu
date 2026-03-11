@@ -21,7 +21,7 @@
 
 extern "C" {
 #include "time_counter.h"
-#include "mera/wrapper.h"
+#include "wrapper.h"
 void update_detection_result(uint16_t index, signed short  x, signed short  y, signed short  w, signed short  h);
 }
 
@@ -104,13 +104,15 @@ static bool PresentInferenceResult(const std::vector<arm::app::object_detection:
 ***********************************************************************************************************************/
 bool main_loop_face_detection()
 {
-    memcpy(mera_input_ptr(), model_buffer_int8, model_image_input_SIZE);
-    /* Run inference over this image. */
+    /* Copy the AI input image to tensor arena */
+    memcpy(mera_input_ptr(), model_buffer_int8, IMAGE_DATA_SIZE);
+
     volatile uint32_t old_counter =  TimeCounter_CurrentCountGet();
+
+    /* Execute AI inference */
     mera_invoke();
-    volatile uint32_t new_counter = TimeCounter_CurrentCountGet();
-    volatile uint32_t diff = new_counter - old_counter;
-    application_processing_time.ai_inference_time_ms = TimeCounter_CountValueConvertToMs(old_counter, new_counter);
+
+    application_processing_time.ai_inference_time_ms = TimeCounter_CountValueConvertToMs(old_counter, TimeCounter_CurrentCountGet());
 
     int8_t* output0 = (int8_t*)mera_output1_ptr();
     int8_t* output1 = (int8_t*)mera_output2_ptr();

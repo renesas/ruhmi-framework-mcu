@@ -85,12 +85,6 @@ typedef struct ai_detection_point_t {
   signed short      m_h;
 } st_ai_detection_point_t;
 
-/* The possibilities of the detected category based on 224x224x3 rgb pixel area */
-typedef struct ai_classification_point_t {
-  unsigned short    category;
-  float             prob;
-} st_ai_classification_point_t;
-
 typedef enum
 {
     CAM_VGA_WIDTH          = 640,
@@ -153,7 +147,6 @@ typedef struct st_processing_time_info_t
 extern char sprintf_buffer[];
 extern processinf_time_info_t application_processing_time;
 extern st_ai_detection_point_t g_ai_detection[AI_MAX_DETECTION_NUM];
-extern st_ai_classification_point_t g_ai_classification[AI_MAX_DETECTION_NUM];
 
 FSP_CPP_HEADER
 void handle_error (vision_ai_app_err_t err);

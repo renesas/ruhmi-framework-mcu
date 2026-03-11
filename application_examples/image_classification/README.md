@@ -36,8 +36,8 @@ This demo performs real-time image classification on captured frames, using a Mo
 
 ## Software Setup
 
-- **e² studio version**: 2025-10    
-- **Flexible Software Package (FSP)**: 6.2.0  
+- **e² studio version**: 2025-12 (25.12.0)      
+- **Flexible Software Package (FSP)**: 6.4.0  
 - **mera inference framework**: Included in this repository
 - **Model**: MobileNet V1 (quantized, 1000-class output)
 

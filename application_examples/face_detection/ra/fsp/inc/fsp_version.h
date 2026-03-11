@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2020 - 2025 Renesas Electronics Corporation and/or its affiliates
+* Copyright (c) 2020 - 2026 Renesas Electronics Corporation and/or its affiliates
 *
 * SPDX-License-Identifier: BSD-3-Clause
 */
@@ -31,7 +31,7 @@ extern "C" {
  #define FSP_VERSION_MAJOR (6U)
 
 /** FSP pack minor version. */
- #define FSP_VERSION_MINOR (2U)
+ #define FSP_VERSION_MINOR (4U)
 
 /** FSP pack patch version. */
  #define FSP_VERSION_PATCH (0U)
@@ -40,10 +40,10 @@ extern "C" {
  #define FSP_VERSION_BUILD           (0U)
 
 /** Public FSP version name. */
- #define FSP_VERSION_STRING          ("6.2.0")
+ #define FSP_VERSION_STRING          ("6.4.0")
 
 /** Unique FSP version ID. */
- #define FSP_VERSION_BUILD_STRING    ("Built with Renesas Advanced Flexible Software Package version 6.2.0")
+ #define FSP_VERSION_BUILD_STRING    ("Built with Renesas Advanced Flexible Software Package version 6.4.0")
 
 /**********************************************************************************************************************
  * Typedef definitions

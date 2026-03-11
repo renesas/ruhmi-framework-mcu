@@ -128,8 +128,11 @@ ra/fsp/src/r_gpt \
 ra/fsp/src/r_icu \
 ra/fsp/src/r_iic_master \
 ra/fsp/src/r_ioport \
+ra/fsp/src/r_mipi_csi \
+ra/fsp/src/r_mipi_phy \
 ra/fsp/src/r_ospi_b \
 ra/fsp/src/r_sci_b_uart \
+ra/fsp/src/r_vin \
 ra/fsp/src/rm_ethosu \
 ra/fsp/src/rm_freertos_port \
 ra/npu/ethos-u-core-driver/src \
@@ -161,16 +164,13 @@ ra/npu/tflite-micro/tensorflow/lite/schema \
 ra/tes/dave2d/src \
 ra_gen \
 src/ai_application/common \
-src/ai_application \
 src/ai_application/face_detection \
-src/ai_application/face_detection/mera \
+src/ai_application/ruhmi_conversion_results \
 src \
 src/camera_layer \
 src/console_output/SEGGER_RTT \
 src/console_output \
 src/display_layer \
 src/external_memory \
-src/fsp_custom \
-src/fsp_custom/r_mipi_phy \
 src/time_counter \
 

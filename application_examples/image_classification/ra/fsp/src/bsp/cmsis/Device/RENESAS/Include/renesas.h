@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2020 - 2025 Renesas Electronics Corporation and/or its affiliates
+* Copyright (c) 2020 - 2026 Renesas Electronics Corporation and/or its affiliates
 *
 * SPDX-License-Identifier: BSD-3-Clause
 */
@@ -46,6 +46,8 @@ extern "C" {
   #include "R7FA0E107.h"
  #elif BSP_MCU_GROUP_RA0E2
   #include "R7FA0E209.h"
+ #elif BSP_MCU_GROUP_RA0E3
+  #include "R7FA0E303.h"
  #elif BSP_MCU_GROUP_RA0L1
   #include "R7FA0L107.h"
  #elif BSP_MCU_GROUP_RA2A1

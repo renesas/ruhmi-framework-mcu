@@ -1,8 +1,4 @@
-/*
-* Copyright (c) 2020 - 2025 Renesas Electronics Corporation and/or its affiliates
-*
-* SPDX-License-Identifier: BSD-3-Clause
-*/
+/* ${REA_DISCLAIMER_PLACEHOLDER} */
 
 #ifndef RM_ETHOSU_LOG_H
 #define RM_ETHOSU_LOG_H
@@ -25,7 +21,7 @@
 #define RM_ETHOSU_LOG_INFO        3
 #define RM_ETHOSU_LOG_DEBUG       4
 
-/* Logger is required by various ethosu components. Implement it in this file to avoid redefinition error. */
+#include "rm_ethosu_cfg.h"
 
 // Define default log severity
 #ifndef RM_ETHOSU_LOG_SEVERITY

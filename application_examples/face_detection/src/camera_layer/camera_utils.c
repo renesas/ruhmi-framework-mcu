@@ -79,45 +79,6 @@ vision_ai_app_err_t image_rgb565_to_int8 (const void * p_input_image_buff, void 
     return vision_ai_status;
 }
 
-vision_ai_app_err_t image_rgb565_to_rgb888(const void *p_input_image_buff, void *p_output_image_buff,
-                                           uint16_t in_width, uint16_t in_height,
-                                           uint16_t out_width, uint16_t out_height) {
-    if (!p_input_image_buff || !p_output_image_buff) {
-        return VISION_AI_APP_ERR_NULL_POINTER;
-    }
-
-    if (in_width < in_height) {
-        return VISION_AI_APP_ERR_IMG_PROCESS;
-    }
-
-    register uint16_t *p_input = (uint16_t *)p_input_image_buff;
-    register uint8_t *p_output = (uint8_t *)p_output_image_buff;
-
-    uint32_t crop_offset = (in_width - in_height) / 2;
-
-    for (uint32_t y = 0; y < out_height; y++) {
-        for (uint32_t x = 0; x < out_width; x++) {
-            uint32_t y_offset = in_width * ((in_height * y) / out_height);
-            uint16_t *p_input_base = p_input + crop_offset + y_offset;
-            uint16_t input = *(p_input_base + ((in_height * x) / out_width));
-
-            uint8_t r = (input >> 11) & 0x1F;
-            uint8_t g = (input >> 5) & 0x3F;
-            uint8_t b = input & 0x1F;
-
-            r = (r * 255) / 31;
-            g = (g * 255) / 63;
-            b = (b * 255) / 31;
-
-            *p_output++ = r;
-            *p_output++ = g;
-            *p_output++ = b;
-        }
-    }
-
-    return VISION_AI_APP_SUCCESS;
-}
-
 /*********************************************************************************************************************
  *  Rotate an input image of 16 bit per pixel clockwise for 90 degree.
  *  @param[IN]   uint8_t* input_image: input image buffer rgb565

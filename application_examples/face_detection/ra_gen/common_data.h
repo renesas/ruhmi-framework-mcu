@@ -5,10 +5,14 @@
 #include "bsp_api.h"
 #include "FreeRTOS.h"
 #include "event_groups.h"
-#include "arm_math.h"
-#include "arm_nnfunctions.h"
 #include "rm_ethosu_api.h"
 #include "rm_ethosu.h"
+#include "arm_math.h"
+#include "arm_nnfunctions.h"
+#include "r_mipi_csi.h"
+#include "r_mipi_csi_api.h"
+#include "r_vin.h"
+#include "r_capture_api.h"
 #include "r_glcdc.h"
 #include "r_display_api.h"
 #include "dave_driver.h"
@@ -25,6 +29,48 @@ extern const rm_ethosu_instance_t g_rm_ethosu0;
 #ifndef NULL
 void NULL(rm_ethosu_callback_args_t *p_arg);
 #endif
+/* MIPI PHY on MIPI PHY Instance. */
+
+extern const mipi_phy_instance_t g_cam_display_mipi_phy;
+
+/* Access the MIPI PHY instance using these structures when calling API functions directly (::p_api is not used). */
+extern mipi_phy_ctrl_t g_cam_display_mipi_phy_ctrl;
+extern const mipi_phy_cfg_t g_cam_display_mipi_phy_cfg;
+/* MIPI CSI on MIPI CSI Instance. */
+extern const mipi_csi_instance_t g_cam_mipi_csi;
+
+/* Access the MIPI CSI instance using these structures when calling API functions directly (::p_api is not used). */
+extern mipi_csi_instance_ctrl_t g_cam_mipi_csi_ctrl;
+extern const mipi_csi_cfg_t g_cam_mipi_csi_cfg;
+
+#ifndef cam_mipi_csi_callback
+void cam_mipi_csi_callback(mipi_csi_callback_args_t *p_args);
+#endif
+/* MIPI VIN on MIPI VIN Instance. */
+extern const capture_instance_t g_cam_vin;
+
+/* Access the MIPI VIN instance using these structures when calling API functions directly (::p_api is not used). */
+extern vin_instance_ctrl_t g_cam_vin_ctrl;
+extern const capture_cfg_t g_cam_vin_cfg;
+
+#ifndef cam_vin_callback
+void cam_vin_callback(capture_callback_args_t *p_args);
+#endif
+
+#ifndef VIN_CFG_IMAGE_STRIDE
+#define VIN_CFG_IMAGE_STRIDE (640)
+#endif
+
+#ifndef VIN_CFG_BYTES_PER_LINE
+#define VIN_CFG_BYTES_PER_LINE (1280)
+#endif
+
+#define VIN_BYTES_PER_FRAME (VIN_CFG_BYTES_PER_LINE * 480)
+
+extern uint8_t vin_image_buffer_1[VIN_BYTES_PER_FRAME];
+extern uint8_t vin_image_buffer_2[VIN_BYTES_PER_FRAME];
+extern uint8_t vin_image_buffer_3[VIN_BYTES_PER_FRAME];
+
 #define GLCDC_CFG_LAYER_1_ENABLE (true)
 #define GLCDC_CFG_LAYER_2_ENABLE (false)
 
@@ -87,12 +133,12 @@ void lcd_glcdc_callback(display_callback_args_t *p_args);
             #else
             #define DISPLAY_BITS_PER_PIXEL_INPUT1 (1)
             #endif
-#define DISPLAY_HSIZE_INPUT1                 (320)
-#define DISPLAY_VSIZE_INPUT1                 (600)
+#define DISPLAY_HSIZE_INPUT1                 (480)
+#define DISPLAY_VSIZE_INPUT1                 (854)
 #define DISPLAY_BUFFER_STRIDE_BYTES_INPUT1   (((DISPLAY_HSIZE_INPUT1 * DISPLAY_BITS_PER_PIXEL_INPUT1 + 0x1FF) >> 9) << 6)
 #define DISPLAY_BUFFER_STRIDE_PIXELS_INPUT1  ((DISPLAY_BUFFER_STRIDE_BYTES_INPUT1 * 8) / DISPLAY_BITS_PER_PIXEL_INPUT1)
 #if GLCDC_CFG_LAYER_2_ENABLE
-            extern uint8_t fb_foreground[1][DISPLAY_BUFFER_STRIDE_BYTES_INPUT1 * DISPLAY_VSIZE_INPUT1];
+            extern uint8_t fb_foreground[2][DISPLAY_BUFFER_STRIDE_BYTES_INPUT1 * DISPLAY_VSIZE_INPUT1];
             #endif
 #if DRW_CFG_CUSTOM_MALLOC
             void * d1_malloc(size_t size);

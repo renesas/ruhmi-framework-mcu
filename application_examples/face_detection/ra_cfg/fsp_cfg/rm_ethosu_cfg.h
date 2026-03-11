@@ -6,7 +6,7 @@
             #endif
 
 #define RM_ETHOSU_CFG_PARAM_CHECKING_ENABLE (BSP_CFG_PARAM_CHECKING_ENABLE)
-#define RM_ETHOSU_LOG_SEVERITY 0
+#define RM_ETHOSU_LOG_SEVERITY RM_ETHOSU_LOG_DISABLED
 
 /* These macros are required by the driver. Only ethos-u55 is supported. */
 #define ETHOSU55 1

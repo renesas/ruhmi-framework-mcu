@@ -8,12 +8,6 @@
  * Version      : .
  * Description  : .
  *********************************************************************************************************************/
-/**********************************************************************************************************************
- * IMPORTANT NOTICE : This version of sample project contains preliminary version of MIPI-CSI and VIN module control code.
- *                    The code is under development and can be used for AS-IS use only. Any configuration change may
- *                    cause operation failure, for example timing setting.
- *                    Recommend to check MCU Hardware User's Manual if you need a modification.
- *********************************************************************************************************************/
 #include "hal_data.h"
 #include "common_data.h"
 
@@ -23,9 +17,6 @@
 #include "camera_utils.h"
 
 #include "application_config.h"
-
-#include "mipicsi_vin_hal_driver.h"
-#include "mipicsi_vin_hal_driver_config.h"
 
 #include "time_counter.h"
 
@@ -153,34 +144,22 @@ static const st_ov_reg_t cam_config_table_normal_mode[] =
 
  { REQUEST_SOFTWARE_WAIT, 5 },
 
- { 0x3017, 0x00 }, // set Frex, Vsync, Href, PCLK, D[9:6] input
- { 0x3018, 0x00 }, // set d[5:0], GPIO[1:0] input
- { 0x3034, 0x10 | MIPI_BIT_MODE }, // MIPI 8-bit mode
+ { 0x3017, 0x00 }, { 0x3018, 0x00 },
+ { 0x3034, 0x10 | 8 }, // MIPI 8-bit mode
 
  { 0x3037, 0x13 }, // PLL
  { 0x302c, 0xc2 }, // Bit1: FREX-enable, Bit6~7: output drive-1x
  { 0x3108, 0x01 }, // Bit0~1: SCLK root-pll/2, Bit2~3: slk2x root-pll, Bit4~5: PCLK root-pll
 
- { 0x3630, 0x2e }, { 0x3632, 0xe2 }, { 0x3633, 0x23 }, { 0x3621, 0xe0 }, // Unknown
- { 0x3704, 0xa0 }, { 0x3703, 0x5a }, { 0x3715, 0x78 }, { 0x3717, 0x01 }, // Unknown
- { 0x370b, 0x60 }, { 0x3705, 0x1a }, { 0x3905, 0x02 }, { 0x3906, 0x10 }, // Unknown
- { 0x3901, 0x0a }, { 0x3731, 0x12 }, { 0x3600, 0x08 }, { 0x3601, 0x33 }, // Unknown
- { 0x302d, 0x60 }, { 0x3620, 0x52 }, { 0x371b, 0x20 }, { 0x471c, 0x50 }, // Unknown
-
- { 0x3a18, 0x00 }, // gain ceiling
- { 0x3a19, 0xf8 }, // gain ceiling
-
- { 0x3635, 0x1c }, { 0x3634, 0x40 }, { 0x3622, 0x01 }, // Unknown
-
- // 50Hz/60Hz
- { 0x3c04, 0x28 }, // Threshold low sum
- { 0x3c05, 0x98 }, // Threshold high sum
- { 0x3c06, 0x00 }, // Lightmeter1 threshold H
- { 0x3c07, 0x08 }, // Lightmeter1 threshold L
- { 0x3c08, 0x00 }, // Lightmeter2 threshold H
- { 0x3c09, 0x1c }, // Lightmeter2 threshold L
- { 0x3c0a, 0x9c }, // Sample number H
- { 0x3c0b, 0x40 }, // Sample number L
+ { 0x3630, 0x2e }, { 0x3632, 0xe2 }, { 0x3633, 0x23 }, { 0x3621, 0xe0 },
+ { 0x3704, 0xa0 }, { 0x3703, 0x5a }, { 0x3715, 0x78 }, { 0x3717, 0x01 },
+ { 0x370b, 0x60 }, { 0x3705, 0x1a }, { 0x3905, 0x02 }, { 0x3906, 0x10 },
+ { 0x3901, 0x0a }, { 0x3731, 0x12 }, { 0x3600, 0x08 }, { 0x3601, 0x33 },
+ { 0x302d, 0x60 }, { 0x3620, 0x52 }, { 0x371b, 0x20 }, { 0x471c, 0x50 },
+ { 0x3a18, 0x00 }, { 0x3a19, 0xf8 }, { 0x3635, 0x1c }, { 0x3634, 0x40 },
+ { 0x3622, 0x01 }, { 0x3c04, 0x28 }, { 0x3c05, 0x98 }, { 0x3c06, 0x00 },
+ { 0x3c07, 0x08 }, { 0x3c08, 0x00 }, { 0x3c09, 0x1c }, { 0x3c0a, 0x9c },
+ { 0x3c0b, 0x40 },
 
  // Mirror and Flip
  { 0x3820, 0x41 }, // default: 0x40 | (B1:Sensor vflip, B2: ISP vflip)
@@ -206,57 +185,22 @@ static const st_ov_reg_t cam_config_table_normal_mode[] =
  { 0x380a, ((CAMERA_ACTIVE_IMAGE_HEIGHT >> 8) & 0xFF) }, // Yout size_high- 0x01E0(480)
  { 0x380b, (CAMERA_ACTIVE_IMAGE_HEIGHT & 0xFF) },        // Yout size_low
 
- // timing
- { 0x3814, 0x31 }, // Horizontal odd/even subsample incr
- { 0x3815, 0x31 }, // Vertical odd/even subsample incr
+ { 0x3814, 0x31 }, { 0x3815, 0x31 }, { 0x3708, 0x64 }, { 0x4001, 0x02 },
+ { 0x4005, 0x1a }, { 0x3000, 0x00 }, { 0x3002, 0x1c }, { 0x3004, 0xff },
+ { 0x3006, 0xc3 },
 
- // timing
- { 0x3708, 0x64 }, // B50
- { 0x4001, 0x02 }, // BLC start line
- { 0x4005, 0x1a }, // BLC always update
- { 0x3000, 0x00 }, // system reset 0
- { 0x3002, 0x1c }, // system reset 2
- { 0x3004, 0xff }, // clock enable 00
- { 0x3006, 0xc3 }, // clock enable 2
-
-#if (MIPI_NUM_LANES == 2)
  { 0x300e, 0x44 }, // MIPI control, 2 lane, MIPI enable
-#elif
-#error Untested Configuration
- { 0x300e, 0x24 }, // MIPI control, 1 lane, MIPI enable
-#else
-#error Invalid lane configuration
-#endif
 
- { 0x302e, 0x08 }, // Unknown
+ { 0x302e, 0x08 },
 
-#if (VIN_INPUT_FORMAT == 0) // INPUT_FORMAT_YUV422_8_BIT
- { 0x4300, 0x32 }, // YUV 422, YUYV
-#elif (VIN_INPUT_FORMAT == 1) // INPUT_FORMAT_YUV422_10_BIT
-#error Untested Configuration
- enum ov5640_format_t format = ov5640_yuv422;
- { 0x4300, 0x32 }, // YUV 422, YUYV
-#elif (VIN_INPUT_FORMAT == 2) // INPUT_FORMAT_RAW8
-#error Untested Configuration
- { 0x4300, 0xf8 }, // RAW
-#elif (VIN_INPUT_FORMAT == 3) // INPUT_FORMAT_RGB888
-#error Untested Configuration
- { 0x4300, 0x22 }, // YUV444/RGB888
-#endif
+ { 0x4300, 0x32 }, // YUV 422 (8bit), YUYV
 
  { 0x501f, 0x00 }, // ISP format: ISP YUV 422
  { 0x4407, 0x04 }, // JPEG QS
  { 0x5000, 0xa7 }, // ISP control, Lenc on, gamma on, BPC on, WPC on, CIP on
 
- { 0x3406, 0x01 }, // Bit0: AWB gain manual enable
- { 0x3400, 0x06 },
- { 0x3401, 0x80 },
- { 0x3402, 0x04 },
- { 0x3403, 0x00 },
- { 0x3404, 0x06 },
- { 0x3405, 0x00 },
-
- // AWB
+ { 0x3406, 0x01 }, { 0x3400, 0x06 }, { 0x3401, 0x80 }, { 0x3402, 0x04 },
+ { 0x3403, 0x00 }, { 0x3404, 0x06 }, { 0x3405, 0x00 },
  { 0x5180, 0xff }, { 0x5181, 0xf2 }, { 0x5182, 0x00 }, { 0x5183, 0x14 },
  { 0x5184, 0x25 }, { 0x5185, 0x24 }, { 0x5186, 0x16 }, { 0x5187, 0x16 },
  { 0x5188, 0x16 }, { 0x5189, 0x62 }, { 0x518a, 0x62 }, { 0x518b, 0xf0 },
@@ -265,18 +209,12 @@ static const st_ov_reg_t cam_config_table_normal_mode[] =
  { 0x5194, 0xf0 }, { 0x5195, 0xf0 }, { 0x5196, 0x03 }, { 0x5197, 0x01 },
  { 0x5198, 0x04 }, { 0x5199, 0x12 }, { 0x519a, 0x04 }, { 0x519b, 0x00 },
  { 0x519c, 0x06 }, { 0x519d, 0x82 }, { 0x519e, 0x38 },
-
- // Color matrix
  { 0x5381, 0x1e }, { 0x5382, 0x5b }, { 0x5383, 0x14 }, { 0x5384, 0x06 },
  { 0x5385, 0x82 }, { 0x5386, 0x88 }, { 0x5387, 0x7c }, { 0x5388, 0x60 },
  { 0x5389, 0x1c }, { 0x538a, 0x01 }, { 0x538b, 0x98 },
-
- //Sharp&Noise
  { 0x5300, 0x08 }, { 0x5301, 0x30 }, { 0x5302, 0x3f }, { 0x5303, 0x10 },
  { 0x5304, 0x08 }, { 0x5305, 0x30 }, { 0x5306, 0x18 }, { 0x5307, 0x28 },
  { 0x5309, 0x08 }, { 0x530a, 0x30 }, { 0x530b, 0x04 }, { 0x530c, 0x06 },
-
- // Gamma
  { 0x5480, 0x01 }, { 0x5481, 0x06 }, { 0x5482, 0x12 }, { 0x5483, 0x24 },
  { 0x5484, 0x4a }, { 0x5485, 0x58 }, { 0x5486, 0x65 }, { 0x5487, 0x72 },
  { 0x5488, 0x7d }, { 0x5489, 0x88 }, { 0x548a, 0x92 }, { 0x548b, 0xa3 },
@@ -296,7 +234,6 @@ static const st_ov_reg_t cam_config_table_normal_mode[] =
  { 0x5588, REG_VALUE_5588 },
  { 0x501d, REG_VALUE_501D },
 
- // Lens shading
  { 0x5000, 0xa7 }, { 0x5800, 0x20 }, { 0x5801, 0x19 }, { 0x5802, 0x17 },
  { 0x5803, 0x16 }, { 0x5804, 0x18 }, { 0x5805, 0x21 }, { 0x5806, 0x0F },
  { 0x5807, 0x0A }, { 0x5808, 0x07 }, { 0x5809, 0x07 }, { 0x580a, 0x0A },
@@ -313,48 +250,34 @@ static const st_ov_reg_t cam_config_table_normal_mode[] =
  { 0x5833, 0x28 }, { 0x5834, 0x26 }, { 0x5835, 0x24 }, { 0x5836, 0x26 },
  { 0x5837, 0x2A }, { 0x5838, 0x44 }, { 0x5839, 0x4A }, { 0x583a, 0x2C },
  { 0x583b, 0x2a }, { 0x583c, 0x46 }, { 0x583d, 0xCE },
-
- // AVG
  { 0x5688, 0x22 }, { 0x5689, 0x22 }, { 0x568a, 0x42 }, { 0x568b, 0x24 },
  { 0x568c, 0x42 }, { 0x568d, 0x24 }, { 0x568e, 0x22 }, { 0x568f, 0x22 },
- { 0x5025, 0x00 }, // Unknown
-
- // AEC target
- { 0x3a0f, 0x30 }, // stable in H
- { 0x3a10, 0x28 }, // stable in L
- { 0x3a1b, 0x30 }, // stable out H
- { 0x3a1e, 0x28 }, // stable out L
- { 0x3a11, 0x61 }, // fast zone H
- { 0x3a1f, 0x10 }, // fast zone L
+ { 0x5025, 0x00 }, { 0x3a0f, 0x30 }, { 0x3a10, 0x28 }, { 0x3a1b, 0x30 },
+ { 0x3a1e, 0x28 }, { 0x3a11, 0x61 }, { 0x3a1f, 0x10 },
 
  { 0x4800, 0x24 }, // MIPI Control 00
  { 0x3007, 0XFB }, // Disable DVP PCLK and enable others
 
  // Timing control
- { 0x380c, 0x07 }, { 0x380d, 0x68 }, { 0x380e, 0x03 }, { 0x380f, 0xd8 },
+ { 0x380c, 0x0b }, { 0x380d, 0x1c }, { 0x380e, 0x07 }, { 0x380f, 0xb0 }, // Detail unknown
+// { 0x380c, 0x07 }, { 0x380d, 0x68 }, { 0x380e, 0x03 }, { 0x380f, 0xd8 },
+// { 0x380c, ((X_ISP_INPUT_SIZE >> 8) & 0xFF) },  // Xout size_high- 0x0280(640)
+// { 0x380d, (X_ISP_INPUT_SIZE & 0xFF) },         // Xout size_low
+// { 0x380e, ((Y_ISP_INPUT_SIZE >> 8) & 0xFF) }, // Yout size_high- 0x01E0(480)
+// { 0x380f, (Y_ISP_INPUT_SIZE & 0xFF) },        // Yout size_low
 
- // 5060Hz detector
  { 0x3c01, 0xb4 }, { 0x3c00, 0x04 }, { 0x3a08, 0x00 }, { 0x3a09, 0x93 },
  { 0x3a0e, 0x06 }, { 0x3a0a, 0x00 }, { 0x3a0b, 0x7b }, { 0x3a0d, 0x08 },
-
- // AEC/AGC power down domain control
  { 0x3a00, 0x3c }, { 0x3a02, 0x05 }, { 0x3a03, 0xc4 }, { 0x3a14, 0x05 },
- { 0x3a15, 0xc4 },
-
- { 0x3618, 0x00 }, { 0x3612, 0x29 }, { 0x3708, 0x64 }, { 0x3709, 0x52 }, // Unknown
- { 0x370c, 0x03 }, // Unknown
-
- { 0x4004, 0x02 }, // BLC line number
- { 0x4713, 0x03 }, // JPEG mode 3
- { 0x460b, 0x35 }, // debug
- { 0x460c, 0x22 }, // VFIFO, PCLK manual
+ { 0x3a15, 0xc4 }, { 0x3618, 0x00 }, { 0x3612, 0x29 }, { 0x3708, 0x64 },
+ { 0x3709, 0x52 }, { 0x370c, 0x03 },
+ { 0x4004, 0x02 }, { 0x4713, 0x03 }, { 0x460b, 0x35 }, { 0x460c, 0x22 },
  { 0x4837, 0x0a }, // MIPI global timing
  { 0x3824, 0x01 }, // add by bright
  { 0x5001, 0xa3 }, // Bit0: AWB enable, Bit1: Color matrix enable, Bit2: UV average enable
                    // Bit5: Scaling enable, Bit7: SDE enable
 
- { 0x3406, 0x00 }, //awbinit
- { 0x3503, 0x00 }, //awbinit
+ { 0x3406, 0x00 }, { 0x3503, 0x00 },
 
  // wake up
  { 0x3008, 0x02 },
@@ -389,28 +312,9 @@ static const st_ov_reg_t cam_config_table_test_mode[] =
  */
 
 // Camera capture image buffer must be 128 byte alignment for MIPI-CSI (VIN) module operation
-#if (CAMERA_CAPTURE_BUFF_NUMBER == 2)
-#if (CAMERA_CAPTURE_BUFFER_ALLOCATION == ALLOCATE_TO_ONCHIP_RAM)
-uint8_t camera_capture_buffer[2][CAMERA_ACTIVE_IMAGE_WIDTH * CAMERA_ACTIVE_IMAGE_HEIGHT * CAMERA_IMAGE_BYTE_PER_PIXEL + IMAGE_BUFFER_PADDING] BSP_ALIGN_VARIABLE(128);
-#elif (CAMERA_CAPTURE_BUFFER_ALLOCATION == ALLOCATE_TO_SDRAM)
-uint8_t camera_capture_buffer[2][CAMERA_ACTIVE_IMAGE_WIDTH * CAMERA_ACTIVE_IMAGE_HEIGHT * CAMERA_IMAGE_BYTE_PER_PIXEL + IMAGE_BUFFER_PADDING] BSP_PLACE_IN_SECTION(".sdram") BSP_ALIGN_VARIABLE(128);
-#else
-#error "Add your preferred buffer definition"
-#endif
-uint32_t camera_capture_buffer_size = sizeof(camera_capture_buffer) / 2;
-#else
-#if (CAMERA_CAPTURE_BUFFER_ALLOCATION == ALLOCATE_TO_ONCHIP_RAM)
-uint8_t camera_capture_buffer[CAMERA_ACTIVE_IMAGE_WIDTH * CAMERA_ACTIVE_IMAGE_HEIGHT * CAMERA_IMAGE_BYTE_PER_PIXEL + IMAGE_BUFFER_PADDING] BSP_ALIGN_VARIABLE(128);
-#elif (CAMERA_CAPTURE_BUFFER_ALLOCATION == ALLOCATE_TO_SDRAM)
-uint8_t camera_capture_buffer[CAMERA_ACTIVE_IMAGE_WIDTH * CAMERA_ACTIVE_IMAGE_HEIGHT * CAMERA_IMAGE_BYTE_PER_PIXEL + IMAGE_BUFFER_PADDING] BSP_PLACE_IN_SECTION(".sdram") BSP_ALIGN_VARIABLE(128);
-#else
-#error "Add your preferred buffer definition"
-#endif
-uint32_t camera_capture_buffer_size = sizeof(camera_capture_buffer);
-#endif
 
 #if (CAMERA_IMAGE_ALLOCATION == ALLOCATE_TO_ONCHIP_RAM)
-uint8_t camera_capture_image_rgb565[CAMERA_CAPTURE_IMAGE_WIDTH  * CAMERA_CAPTURE_IMAGE_HEIGHT * CAMERA_IMAGE_BYTE_PER_PIXEL] BSP_ALIGN_VARIABLE(8);
+uint8_t camera_capture_image_rgb565[CAMERA_CAPTURE_IMAGE_WIDTH  * CAMERA_CAPTURE_IMAGE_HEIGHT * CAMERA_IMAGE_BYTE_PER_PIXEL] BSP_ALIGN_VARIABLE(8);   // + IMAGE_BUFFER_PADDING] BSP_ALIGN_VARIABLE(128);
 #elif (CAMERA_IMAGE_ALLOCATION == ALLOCATE_TO_SDRAM)
 uint8_t camera_capture_image_rgb565[CAMERA_CAPTURE_IMAGE_WIDTH  * CAMERA_CAPTURE_IMAGE_HEIGHT * CAMERA_IMAGE_BYTE_PER_PIXEL] BSP_PLACE_IN_SECTION(".sdram") BSP_ALIGN_VARIABLE(8);
 #else
@@ -418,14 +322,11 @@ uint8_t camera_capture_image_rgb565[CAMERA_CAPTURE_IMAGE_WIDTH  * CAMERA_CAPTURE
 #endif
 uint32_t camera_capture_image_rgb565_size = sizeof(camera_capture_image_rgb565);
 
-uint8_t camera_buffer_capture_active_layer = 0;
-uint8_t camera_buffer_next_layer = 0;
-
 #if (ENABLE_CAMERA_CAPTURE_RUNNING_LED == 1)
 static volatile bool cam_capture_end_led_status = false;
 #endif
 
-void (* camera_user_callback)(void * p_args);
+static uint8_t * p_camera_capture_buffer_stored;
 
 FSP_CPP_HEADER
 static fsp_err_t bsp_camera_write_array (st_ov_reg_t * array);
@@ -434,8 +335,6 @@ static void      ov5640_mipi_virtual_channel_set(uint32_t vchannel);
 static fsp_err_t ov5640_configure_clocks(void);
 static void      ov5640_stream_on(void);
 static void      ov5640_stream_off(void);
-
-void g_cam_mipicsi_vin_user_callback(vin_event_t vin_event, mipicsi_event_status_t mipicsi_event);
 FSP_CPP_FOOTER
 
 #if (BSP_CFG_RTOS == 0) // Non RTOS
@@ -507,7 +406,8 @@ fsp_err_t camera_init (bool use_test_mode)
 
     if(FSP_SUCCESS == fsp_status)
     {
-        ov5640_mipi_virtual_channel_set(MIPI_VIRTUAL_CHANNEL);
+        vin_extended_cfg_t * p_vin_extend = (vin_extended_cfg_t *) g_cam_vin_cfg.p_extend;
+        ov5640_mipi_virtual_channel_set(p_vin_extend->input_ctrl.csi_mode_bits.virtual_channel);
     }
 
     // Enabling ISP Test Pattern Mode
@@ -526,8 +426,7 @@ fsp_err_t camera_init (bool use_test_mode)
 
         SOFTWARE_DELAY_MS(5);
 
-        mipicsi_vin_callback_set(g_cam_mipicsi_vin_user_callback);
-        fsp_status = mipicsi_vin_module_configure();
+        fsp_status = R_VIN_Open(&g_cam_vin_ctrl, &g_cam_vin_cfg);
     }
 
     if(FSP_SUCCESS == fsp_status)
@@ -621,7 +520,7 @@ static fsp_err_t ov5640_configure_clocks()
     if(!(reg_3108_div_lut[sclk2x_root_div] < 0xF)){ return FSP_ERR_ASSERTION; }
     if(!(reg_3108_div_lut[sclk_root_div] < 0xF)){ return FSP_ERR_ASSERTION; }
 
-    uint32_t base_pll_hz = (((uint32_t)MIPI_XCLK_HZ / (pll_root_div * pll_pre_div)) * pll_multiplier);
+    uint32_t base_pll_hz = (((uint32_t)24000000 / (pll_root_div * pll_pre_div)) * pll_multiplier);
     if(!(800000000 >= base_pll_hz)){ return FSP_ERR_ASSERTION; }
 
     uint32_t sys_clk_hz = base_pll_hz/ (uint32_t)(sys_clock_div  * sclk2x_root_div * sclk_root_div); (void)sys_clk_hz;
@@ -657,97 +556,82 @@ void ov5640_stream_off(void)
     wrSensorReg16_8(0x4202, 0x0f);
 }
 
-void camera_user_callback_set(void (* p_callback)(void * p_args))
-{
-    camera_user_callback = p_callback;
-}
-
 void camera_image_buffer_initialize(void)
 {
-    memset(camera_capture_buffer, 0x0, sizeof(camera_capture_buffer));
     memset(camera_capture_image_rgb565, 0x0, sizeof(camera_capture_image_rgb565));
+
+#if (BSP_CFG_DCACHE_ENABLED == 1)
+    SCB_CleanDCache_by_Addr((uint8_t *)camera_capture_image_rgb565, (int32_t)sizeof(camera_capture_image_rgb565));
+#endif
 }
 
 void camera_capture_start(void)
 {
-    camera_buffer_capture_active_layer = camera_buffer_next_layer;
-
-#if (CAMERA_CAPTURE_BUFF_NUMBER == 2)
-    mipicsi_vin_capture_start(&camera_capture_buffer[camera_buffer_capture_active_layer][0]);
-#else
-    mipicsi_vin_capture_start(&camera_capture_buffer[0]);
-#endif
-}
-
-void camera_data_buffer_switch(void)
-{
-    camera_buffer_next_layer = (camera_buffer_capture_active_layer == 0) ? 1 : 0;
+    R_VIN_CaptureStart(&g_cam_vin_ctrl, NULL);
 }
 
 uint32_t camera_data_ready_buffer_pointer_get(void)
 {
-    uint8_t read_buffer = (camera_buffer_capture_active_layer == 0) ? 1 : 0;
-
-#if (CAMERA_CAPTURE_BUFF_NUMBER == 2)
-    return (uint32_t)&camera_capture_buffer[read_buffer][0];
-#else
-    FSP_PARAMETER_NOT_USED(buff_switch);
-    return (uint32_t)&camera_capture_buffer[0];
-#endif
+    return (uint32_t)&camera_capture_image_rgb565[0];
 }
 
 void camera_capture_post_process(void)
 {
-    // Switch camera buffer
-    camera_data_buffer_switch();
-
 #if (BSP_CFG_DCACHE_ENABLED == 1)
     // Invalidate cache data for camera capture image buffer since its content may be updated by capture hardware
-    SCB_InvalidateDCache_by_Addr((uint8_t *)camera_data_ready_buffer_pointer_get(), (int32_t)(camera_capture_buffer_size));
+    SCB_InvalidateDCache_by_Addr(p_camera_capture_buffer_stored, (int32_t)(camera_capture_image_rgb565_size));
 #endif
 
     // Copy the image data to the buffer that will be accessed in subsequent process
-    memcpy(&camera_capture_image_rgb565[0], (void *)camera_data_ready_buffer_pointer_get(), camera_capture_image_rgb565_size);
+    memcpy(&camera_capture_image_rgb565[0], (void *)p_camera_capture_buffer_stored, camera_capture_image_rgb565_size);
 }
 
 static uint32_t last_vin_frame_end = 0;
 
-void g_cam_mipicsi_vin_user_callback(vin_event_t vin_event, mipicsi_event_status_t mipicsi_event)
+void cam_vin_callback(capture_callback_args_t *p_args)
 {
+    vin_event_t            event            = (vin_event_t) p_args->event;
+    vin_interrupt_status_t interrupt_status = (vin_interrupt_status_t) p_args->interrupt_status;
+
     BaseType_t xHigherPriorityTaskWoken, xResult;
     xHigherPriorityTaskWoken = pdFALSE;
 
-    if(vin_event & VIN_EVENT_VFS)
+    if(event == VIN_EVENT_NOTIFY)
     {
-        application_processing_time.camera_image_capture_time_ms = TimeCounter_CountValueConvertToMs(last_vin_frame_end, TimeCounter_CurrentCountGet());
-        last_vin_frame_end = TimeCounter_CurrentCountGet();
-
-        /* Set camera data ready flag */
-        xResult = xEventGroupSetBitsFromISR(g_ai_app_event, CAMERA_CAPTURE_COMPLETED, &xHigherPriorityTaskWoken);
-        if( xResult != pdFAIL )
+        if (interrupt_status.bits.frame_complete)
         {
-          /* If xHigherPriorityTaskWoken is now set to pdTRUE then a context
-          switch should be requested.  The macro used is port specific and will
-          be either portYIELD_FROM_ISR() or portEND_SWITCHING_ISR() - refer to
-          the documentation page for the port being used. */
-          portYIELD_FROM_ISR( xHigherPriorityTaskWoken );
-        }
+            application_processing_time.camera_image_capture_time_ms = TimeCounter_CountValueConvertToMs(last_vin_frame_end, TimeCounter_CurrentCountGet());
+            last_vin_frame_end = TimeCounter_CurrentCountGet();
 
-        camera_capture_start();
+            p_camera_capture_buffer_stored = p_args->p_buffer;
+
+            /* Set camera data ready flag */
+            xResult = xEventGroupSetBitsFromISR(g_ai_app_event, CAMERA_CAPTURE_COMPLETED, &xHigherPriorityTaskWoken);
+            if( xResult != pdFAIL )
+            {
+                /* If xHigherPriorityTaskWoken is now set to pdTRUE then a context
+                switch should be requested.  The macro used is port specific and will
+                be either portYIELD_FROM_ISR() or portEND_SWITCHING_ISR() - refer to
+                the documentation page for the port being used. */
+                portYIELD_FROM_ISR( xHigherPriorityTaskWoken );
+            }
 
 #if (ENABLE_CAMERA_CAPTURE_RUNNING_LED == 1)
-        cam_capture_end_led_status = !cam_capture_end_led_status;
-        if(cam_capture_end_led_status)
-        {
-            CAMERA_CAPTURE_END_INDICATE_LED_ON;
-        }
-        else
-        {
-            CAMERA_CAPTURE_END_INDICATE_LED_OFF;
-        }
+            cam_capture_end_led_status = !cam_capture_end_led_status;
+            if(cam_capture_end_led_status)
+            {
+                CAMERA_CAPTURE_END_INDICATE_LED_ON;
+            }
+            else
+            {
+                CAMERA_CAPTURE_END_INDICATE_LED_OFF;
+            }
 #endif
+        }
     }
+}
 
-    FSP_PARAMETER_NOT_USED(vin_event);
-    FSP_PARAMETER_NOT_USED(mipicsi_event);
+void cam_mipi_csi_callback(mipi_csi_callback_args_t *p_args)
+{
+    FSP_PARAMETER_NOT_USED(p_args);
 }

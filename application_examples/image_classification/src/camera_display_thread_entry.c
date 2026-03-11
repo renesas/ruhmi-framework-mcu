@@ -41,7 +41,7 @@
  * Imported global variables and functions (from other files)
  ***************************************************************************************************************************/
 
-void do_face_reconition_screen(bool ai_result_new);
+
 void do_image_classification_screen(bool ai_result_new);
 /***************************************************************************************************************************
  * Exported global variables and functions (to be accessed by other files)

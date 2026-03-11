@@ -87,24 +87,15 @@ typedef enum
 } bsp_camera_size_list_t;
 
 
-#if (CAMERA_CAPTURE_BUFF_NUMBER == 2)
-extern uint8_t camera_capture_buffer[2][CAMERA_ACTIVE_IMAGE_WIDTH * CAMERA_ACTIVE_IMAGE_HEIGHT * CAMERA_IMAGE_BYTE_PER_PIXEL + IMAGE_BUFFER_PADDING];
-#else
-extern uint8_t camera_capture_buffer[CAMERA_ACTIVE_IMAGE_WIDTH * CAMERA_ACTIVE_IMAGE_HEIGHT * CAMERA_IMAGE_BYTE_PER_PIXEL + IMAGE_BUFFER_PADDING];
-#endif
-extern uint32_t camera_capture_buffer_size;
-
-extern uint8_t  camera_capture_image_rgb565[CAMERA_ACTIVE_IMAGE_WIDTH  * CAMERA_ACTIVE_IMAGE_HEIGHT * CAMERA_IMAGE_BYTE_PER_PIXEL];
+extern uint8_t  camera_capture_image_rgb565[CAMERA_ACTIVE_IMAGE_WIDTH  * CAMERA_ACTIVE_IMAGE_HEIGHT * CAMERA_IMAGE_BYTE_PER_PIXEL];     // + IMAGE_BUFFER_PADDING];
 extern uint32_t camera_capture_image_rgb565_size;
 
 FSP_CPP_HEADER
 fsp_err_t camera_init (bool use_test_mode);
-void      camera_user_callback_set(void (* p_callback)(void *));
 void      camera_image_buffer_initialize(void);
 
 void      camera_capture_start(void);
 uint32_t  camera_data_ready_buffer_pointer_get(void);
-void      camera_data_buffer_switch(void);
 
 void      camera_capture_post_process(void);
 FSP_CPP_FOOTER

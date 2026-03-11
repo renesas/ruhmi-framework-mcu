@@ -9,20 +9,11 @@
  **********************************************************************************************************************/
 
 #include "hal_data.h"
+#include "common_util.h"
 
 #include "application_config.h"
 #if defined(REQUIRE_OSPI_OPEN)
 #include "ospi_b_ep.h"
-#endif
-
-#if defined(REQUIRE_OSPI_OPEN) && defined(REQUIRE_OSPI_MEMORY_COPY_TO_SDRAM)
-//extern uint32_t __sdram_ospi_data_start__;
-//extern uint32_t __sdram_ospi_data_end__;
-//extern uint32_t __ospi_device_1_end__;
-
-fsp_err_t ospi_b_init();
-fsp_err_t ospi_b_set_protocol_to_spi();
-fsp_err_t ospi_b_set_protocol_to_opi();
 #endif
 
 FSP_CPP_HEADER
@@ -37,8 +28,6 @@ void hal_entry(void)
 {
     /* Do nothing. This function will not be called in RTOS enabled project. */
 }
-
-volatile uint32_t read_data[64];
 
 /*******************************************************************************************************************//**
  * This function is called at various points during the startup process.  This implementation uses the event that is
@@ -55,6 +44,11 @@ void R_BSP_WarmStart(bsp_warm_start_event_t event)
         /* Configure pins. */
         R_IOPORT_Open (&IOPORT_CFG_CTRL, &IOPORT_CFG_NAME);
 
+        /* In order to prevent the parallel graphics panel from power-on-reset fail, */
+        /* make a delay of the signal output including initial level assertion as a workaround. */
+        R_BSP_SoftwareDelay(100, BSP_DELAY_UNITS_MILLISECONDS);
+        R_IOPORT_PinsCfg(&IOPORT_CFG_CTRL, &g_bsp_pin_cfg_glcd);
+
 #if BSP_CFG_SDRAM_ENABLED
         /* Setup SDRAM and initialize it. Must configure pins first. */
         R_BSP_SdramInit(true);
@@ -62,14 +56,25 @@ void R_BSP_WarmStart(bsp_warm_start_event_t event)
 
 #if defined(REQUIRE_OSPI_OPEN)
         fsp_err_t err = ospi_b_init();
-        if(err) return;
+        if(FSP_SUCCESS != err)
+        {
+            ERROR_INDICATE_LED_ON;
+            __BKPT(0);
+        }
 
-//        ospi_b_set_protocol_to_opi();
-#if 0
-#if defined(REQUIRE_OSPI_MEMORY_COPY_TO_SDRAM)
-        uint32_t data_length = (uint32_t) &__sdram_ospi_data_end__ - (uint32_t) &__sdram_ospi_data_start__;
-        memcpy(&__sdram_ospi_data_start__, &__ospi_device_1_end__, data_length);
+#if ENABLE_OSPI_8BIT_MODE
+        // Important note: In order to use 8D-8D-8D, the data must be written with byte order swap in 16bit unit.
+        //                 This project does not provide a solution. It is recommended to swap the data before programming by debugger
+        err = ospi_b_set_protocol_to_opi();
+        if(FSP_SUCCESS != err)
+        {
+            ERROR_INDICATE_LED_ON;
+            __BKPT(0);
+        }
 #endif
+
+#if defined(REQUIRE_OSPI_MEMORY_COPY_TO_SDRAM)
+        // Note: Starting with FSPv6.0.0, the copy is done by Reset_Handler code.
 #endif
 #endif
     }

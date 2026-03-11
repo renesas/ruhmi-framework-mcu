@@ -42,6 +42,7 @@
  ***************************************************************************************************************************/
 
 void do_face_reconition_screen(bool ai_result_new);
+
 /***************************************************************************************************************************
  * Exported global variables and functions (to be accessed by other files)
  ***************************************************************************************************************************/
@@ -178,10 +179,8 @@ void camera_display_thread_entry(void *pvParameters)
         time_counter_start = TimeCounter_CurrentCountGet();
 
         // Create an image for AI inference
-
-
-        image_rgb565_to_int8(&camera_capture_buffer[0], &model_buffer_int8[0],
-                                    CAMERA_CAPTURE_IMAGE_WIDTH, CAMERA_CAPTURE_IMAGE_HEIGHT, AI_INPUT_IMAGE_WIDTH, AI_INPUT_IMAGE_HEIGHT);
+        image_rgb565_to_int8(&camera_capture_image_rgb565[0], &model_buffer_int8[0],
+                             CAMERA_CAPTURE_IMAGE_WIDTH, CAMERA_CAPTURE_IMAGE_HEIGHT, AI_INPUT_IMAGE_WIDTH, AI_INPUT_IMAGE_HEIGHT);
 
 #if (BSP_CFG_DCACHE_ENABLED == 1)
         // Clean cache data because this buffer will be accessed by NPU hardware in subsequent process
@@ -205,6 +204,7 @@ void camera_display_thread_entry(void *pvParameters)
         // Display camera image and AI inference result on display screen
         do_face_reconition_screen(ai_result_updated);
 #endif
+
         // Output the result to Terminal Software
         console_output(ai_result_updated);
 
@@ -261,15 +261,11 @@ void console_output_ai_inference_result(bool ai_result_new)
     {
         if((g_ai_detection[i].m_x != 0) && (g_ai_detection[i].m_x != 0))
         {
-            detected_face_count++;
-
             sprintf (sprintf_buffer, "  Face count %2d: x=%4d, y=%4d, w=%4d, h=%4d\r\n",
-                     i, g_ai_detection[i].m_x, g_ai_detection[i].m_y, g_ai_detection[i].m_w, g_ai_detection[i].m_h);
+                     detected_face_count, g_ai_detection[i].m_x, g_ai_detection[i].m_y, g_ai_detection[i].m_w, g_ai_detection[i].m_h);
             print_to_console(sprintf_buffer);
-        }
-        else
-        {
-            break;
+
+            detected_face_count++;
         }
     }
 
@@ -278,7 +274,6 @@ void console_output_ai_inference_result(bool ai_result_new)
         sprintf (sprintf_buffer, "  No face detected. Show your face at the front of the camera.\r\n");
         print_to_console(sprintf_buffer);
     }
-
 }
 #endif
 

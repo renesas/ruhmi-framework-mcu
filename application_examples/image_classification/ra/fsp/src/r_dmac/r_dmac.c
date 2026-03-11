@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2020 - 2025 Renesas Electronics Corporation and/or its affiliates
+* Copyright (c) 2020 - 2026 Renesas Electronics Corporation and/or its affiliates
 *
 * SPDX-License-Identifier: BSD-3-Clause
 */
@@ -198,6 +198,7 @@ fsp_err_t R_DMAC_Open (transfer_ctrl_t * const p_api_ctrl, transfer_cfg_t const 
  * @retval FSP_ERR_ASSERTION        An input parameter is invalid.
  * @retval FSP_ERR_NOT_ENABLED      DMAC is not enabled. The current configuration must not be valid.
  * @retval FSP_ERR_NOT_OPEN         Handle is not initialized.  Call R_DMAC_Open to initialize the control block.
+ * @retval FSP_ERR_UNSUPPORTED      Transfer 8 byte is not supported.
  **********************************************************************************************************************/
 fsp_err_t R_DMAC_Reconfigure (transfer_ctrl_t * const p_api_ctrl, transfer_info_t * p_info)
 {
@@ -209,6 +210,13 @@ fsp_err_t R_DMAC_Reconfigure (transfer_ctrl_t * const p_api_ctrl, transfer_info_
     FSP_ERROR_RETURN(p_ctrl->open == DMAC_ID, FSP_ERR_NOT_OPEN);
     err = r_dmac_reconfigure_parameter_checking(p_info);
     FSP_ERROR_RETURN(FSP_SUCCESS == err, err);
+
+ #if !BSP_FEATURE_DMAC_SUPPORT_TRANSFER_8_BYTE
+    if (TRANSFER_SIZE_8_BYTE == p_info->transfer_settings_word_b.size)
+    {
+        return FSP_ERR_UNSUPPORTED;
+    }
+ #endif
 #endif
 
     /* Reconfigure the transfer settings. */
@@ -553,7 +561,7 @@ static void r_dmac_config_transfer_info (dmac_instance_ctrl_t * p_ctrl, transfer
     /* Disable transfers if they are currently enabled. */
     r_dmac_prv_disable(p_ctrl);
 
-    /* Configure the Transfer Data Size (1,2,4) bytes. */
+    /* Configure the Transfer Data Size (1,2,4,8) bytes. */
     dmtmd |= (uint32_t) (p_info->transfer_settings_word_b.size << DMAC_PRV_DMTMD_SZ_OFFSET);
 
     /* Configure source and destination address mode. */

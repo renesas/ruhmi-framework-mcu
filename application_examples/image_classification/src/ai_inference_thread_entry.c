@@ -58,6 +58,7 @@ void update_detection_result(uint16_t index, signed short  x, signed short  y, s
  * Private global variables and functions
  ***************************************************************************************************************************/
 
+
 /*********************************************************************************************************************
  *  Read the face detection result to a buffer which will be used by the mipi display function.
  *  @param[IN]   index: index of the image in the result list
@@ -113,23 +114,21 @@ void ai_inference_thread_entry(void *pvParameters)
 
     RegisterDebugLogCallback(print_log);
 
-    if(VISION_AI_APP_SUCCESS != vision_ai_status )
-    {
-        handle_error(VISION_AI_APP_ERR_AI_INIT);
-    }
-
     xEventGroupSetBits(g_ai_app_event, SOFTWARE_AI_INFERENCE_INIT_DONE);
 
     while (true)
     {
         xEventGroupWaitBits(g_ai_app_event, AI_INFERENCE_INPUT_IMAGE_READY, pdTRUE, pdTRUE, portMAX_DELAY);
 
-        INFERENCE_START_INDICATE_LED;
-
+        /* restart face detection statistics for each inference */
         for(int i = 0; i < AI_MAX_DETECTION_NUM; i++)
         {
             memset(&g_ai_classification[i], 0, sizeof(g_ai_classification[i]));
         }
+        
+
+        // Execute AI inference (image classification)
+        INFERENCE_START_INDICATE_LED;
         vision_ai_status = image_classification();
 
         INFERENCE_END_INDICATE_LED;

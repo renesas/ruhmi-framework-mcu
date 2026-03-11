@@ -41,9 +41,6 @@ const ioport_pin_cfg_t g_bsp_pin_cfg_data[] =
           { .pin = BSP_IO_PORT_01_PIN_08, .pin_cfg = ((uint32_t) IOPORT_CFG_PORT_DIRECTION_OUTPUT
                   | (uint32_t) IOPORT_CFG_PORT_OUTPUT_HIGH) },
 
-          { .pin = BSP_IO_PORT_01_PIN_11, .pin_cfg = ((uint32_t) IOPORT_CFG_IRQ_ENABLE
-                  | (uint32_t) IOPORT_CFG_PORT_DIRECTION_INPUT) },
-
           { .pin = BSP_IO_PORT_01_PIN_12, .pin_cfg = ((uint32_t) IOPORT_CFG_DRIVE_HIGH
                   | (uint32_t) IOPORT_CFG_PERIPHERAL_PIN | (uint32_t) IOPORT_PERIPHERAL_BUS) },
 
@@ -55,9 +52,6 @@ const ioport_pin_cfg_t g_bsp_pin_cfg_data[] =
 
           { .pin = BSP_IO_PORT_01_PIN_15, .pin_cfg = ((uint32_t) IOPORT_CFG_DRIVE_HIGH
                   | (uint32_t) IOPORT_CFG_PERIPHERAL_PIN | (uint32_t) IOPORT_PERIPHERAL_BUS) },
-
-          { .pin = BSP_IO_PORT_02_PIN_07, .pin_cfg = ((uint32_t) IOPORT_CFG_PERIPHERAL_PIN
-                  | (uint32_t) IOPORT_PERIPHERAL_LCD_GRAPHICS) },
 
           { .pin = BSP_IO_PORT_02_PIN_10, .pin_cfg = ((uint32_t) IOPORT_CFG_PERIPHERAL_PIN
                   | (uint32_t) IOPORT_PERIPHERAL_DEBUG) },
@@ -113,19 +107,7 @@ const ioport_pin_cfg_t g_bsp_pin_cfg_data[] =
           { .pin = BSP_IO_PORT_05_PIN_12, .pin_cfg = ((uint32_t) IOPORT_CFG_DRIVE_MID
                   | (uint32_t) IOPORT_CFG_PERIPHERAL_PIN | (uint32_t) IOPORT_PERIPHERAL_IIC) },
 
-          { .pin = BSP_IO_PORT_05_PIN_13, .pin_cfg = ((uint32_t) IOPORT_CFG_PERIPHERAL_PIN
-                  | (uint32_t) IOPORT_PERIPHERAL_LCD_GRAPHICS) },
-
-          { .pin = BSP_IO_PORT_05_PIN_14, .pin_cfg = ((uint32_t) IOPORT_CFG_PORT_DIRECTION_OUTPUT
-                  | (uint32_t) IOPORT_CFG_PORT_OUTPUT_LOW) },
-
-          { .pin = BSP_IO_PORT_05_PIN_15, .pin_cfg = ((uint32_t) IOPORT_CFG_PERIPHERAL_PIN
-                  | (uint32_t) IOPORT_PERIPHERAL_LCD_GRAPHICS) },
-
           { .pin = BSP_IO_PORT_06_PIN_00, .pin_cfg = ((uint32_t) IOPORT_CFG_PORT_DIRECTION_OUTPUT
-                  | (uint32_t) IOPORT_CFG_PORT_OUTPUT_LOW) },
-
-          { .pin = BSP_IO_PORT_06_PIN_06, .pin_cfg = ((uint32_t) IOPORT_CFG_PORT_DIRECTION_OUTPUT
                   | (uint32_t) IOPORT_CFG_PORT_OUTPUT_LOW) },
 
           { .pin = BSP_IO_PORT_06_PIN_07, .pin_cfg = ((uint32_t) IOPORT_CFG_DRIVE_HIGH
@@ -155,29 +137,8 @@ const ioport_pin_cfg_t g_bsp_pin_cfg_data[] =
           { .pin = BSP_IO_PORT_06_PIN_15, .pin_cfg = ((uint32_t) IOPORT_CFG_DRIVE_HIGH
                   | (uint32_t) IOPORT_CFG_PERIPHERAL_PIN | (uint32_t) IOPORT_PERIPHERAL_BUS) },
 
-          { .pin = BSP_IO_PORT_07_PIN_07, .pin_cfg = ((uint32_t) IOPORT_CFG_PERIPHERAL_PIN
-                  | (uint32_t) IOPORT_PERIPHERAL_LCD_GRAPHICS) },
-
           { .pin = BSP_IO_PORT_07_PIN_09, .pin_cfg = ((uint32_t) IOPORT_CFG_PORT_DIRECTION_OUTPUT
                   | (uint32_t) IOPORT_CFG_PORT_OUTPUT_LOW) },
-
-          { .pin = BSP_IO_PORT_07_PIN_10, .pin_cfg = ((uint32_t) IOPORT_CFG_PERIPHERAL_PIN
-                  | (uint32_t) IOPORT_PERIPHERAL_LCD_GRAPHICS) },
-
-          { .pin = BSP_IO_PORT_07_PIN_11, .pin_cfg = ((uint32_t) IOPORT_CFG_PERIPHERAL_PIN
-                  | (uint32_t) IOPORT_PERIPHERAL_LCD_GRAPHICS) },
-
-          { .pin = BSP_IO_PORT_07_PIN_12, .pin_cfg = ((uint32_t) IOPORT_CFG_PERIPHERAL_PIN
-                  | (uint32_t) IOPORT_PERIPHERAL_LCD_GRAPHICS) },
-
-          { .pin = BSP_IO_PORT_07_PIN_13, .pin_cfg = ((uint32_t) IOPORT_CFG_PERIPHERAL_PIN
-                  | (uint32_t) IOPORT_PERIPHERAL_LCD_GRAPHICS) },
-
-          { .pin = BSP_IO_PORT_07_PIN_14, .pin_cfg = ((uint32_t) IOPORT_CFG_PERIPHERAL_PIN
-                  | (uint32_t) IOPORT_PERIPHERAL_LCD_GRAPHICS) },
-
-          { .pin = BSP_IO_PORT_07_PIN_15, .pin_cfg = ((uint32_t) IOPORT_CFG_PERIPHERAL_PIN
-                  | (uint32_t) IOPORT_PERIPHERAL_LCD_GRAPHICS) },
 
           { .pin = BSP_IO_PORT_08_PIN_00, .pin_cfg = ((uint32_t) IOPORT_CFG_DRIVE_HIGH
                   | (uint32_t) IOPORT_CFG_PERIPHERAL_PIN | (uint32_t) IOPORT_PERIPHERAL_OSPI) },
@@ -194,47 +155,11 @@ const ioport_pin_cfg_t g_bsp_pin_cfg_data[] =
           { .pin = BSP_IO_PORT_08_PIN_04, .pin_cfg = ((uint32_t) IOPORT_CFG_DRIVE_HIGH
                   | (uint32_t) IOPORT_CFG_PERIPHERAL_PIN | (uint32_t) IOPORT_PERIPHERAL_OSPI) },
 
-          { .pin = BSP_IO_PORT_08_PIN_05, .pin_cfg = ((uint32_t) IOPORT_CFG_PERIPHERAL_PIN
-                  | (uint32_t) IOPORT_PERIPHERAL_LCD_GRAPHICS) },
-
-          { .pin = BSP_IO_PORT_08_PIN_06, .pin_cfg = ((uint32_t) IOPORT_CFG_PERIPHERAL_PIN
-                  | (uint32_t) IOPORT_PERIPHERAL_LCD_GRAPHICS) },
-
-          { .pin = BSP_IO_PORT_08_PIN_07, .pin_cfg = ((uint32_t) IOPORT_CFG_PERIPHERAL_PIN
-                  | (uint32_t) IOPORT_PERIPHERAL_LCD_GRAPHICS) },
-
           { .pin = BSP_IO_PORT_08_PIN_08, .pin_cfg = ((uint32_t) IOPORT_CFG_DRIVE_HS_HIGH
                   | (uint32_t) IOPORT_CFG_PERIPHERAL_PIN | (uint32_t) IOPORT_PERIPHERAL_OSPI) },
 
           { .pin = BSP_IO_PORT_08_PIN_13, .pin_cfg = ((uint32_t) IOPORT_CFG_DRIVE_HIGH
                   | (uint32_t) IOPORT_CFG_PERIPHERAL_PIN | (uint32_t) IOPORT_PERIPHERAL_BUS) },
-
-          { .pin = BSP_IO_PORT_09_PIN_02, .pin_cfg = ((uint32_t) IOPORT_CFG_PERIPHERAL_PIN
-                  | (uint32_t) IOPORT_PERIPHERAL_LCD_GRAPHICS) },
-
-          { .pin = BSP_IO_PORT_09_PIN_03, .pin_cfg = ((uint32_t) IOPORT_CFG_PERIPHERAL_PIN
-                  | (uint32_t) IOPORT_PERIPHERAL_LCD_GRAPHICS) },
-
-          { .pin = BSP_IO_PORT_09_PIN_04, .pin_cfg = ((uint32_t) IOPORT_CFG_PERIPHERAL_PIN
-                  | (uint32_t) IOPORT_PERIPHERAL_LCD_GRAPHICS) },
-
-          { .pin = BSP_IO_PORT_09_PIN_10, .pin_cfg = ((uint32_t) IOPORT_CFG_PERIPHERAL_PIN
-                  | (uint32_t) IOPORT_PERIPHERAL_LCD_GRAPHICS) },
-
-          { .pin = BSP_IO_PORT_09_PIN_11, .pin_cfg = ((uint32_t) IOPORT_CFG_PERIPHERAL_PIN
-                  | (uint32_t) IOPORT_PERIPHERAL_LCD_GRAPHICS) },
-
-          { .pin = BSP_IO_PORT_09_PIN_12, .pin_cfg = ((uint32_t) IOPORT_CFG_PERIPHERAL_PIN
-                  | (uint32_t) IOPORT_PERIPHERAL_LCD_GRAPHICS) },
-
-          { .pin = BSP_IO_PORT_09_PIN_13, .pin_cfg = ((uint32_t) IOPORT_CFG_PERIPHERAL_PIN
-                  | (uint32_t) IOPORT_PERIPHERAL_LCD_GRAPHICS) },
-
-          { .pin = BSP_IO_PORT_09_PIN_14, .pin_cfg = ((uint32_t) IOPORT_CFG_PERIPHERAL_PIN
-                  | (uint32_t) IOPORT_PERIPHERAL_LCD_GRAPHICS) },
-
-          { .pin = BSP_IO_PORT_09_PIN_15, .pin_cfg = ((uint32_t) IOPORT_CFG_PERIPHERAL_PIN
-                  | (uint32_t) IOPORT_PERIPHERAL_LCD_GRAPHICS) },
 
           { .pin = BSP_IO_PORT_10_PIN_00, .pin_cfg = ((uint32_t) IOPORT_CFG_DRIVE_HIGH
                   | (uint32_t) IOPORT_CFG_PERIPHERAL_PIN | (uint32_t) IOPORT_PERIPHERAL_BUS) },
@@ -283,30 +208,6 @@ const ioport_pin_cfg_t g_bsp_pin_cfg_data[] =
 
           { .pin = BSP_IO_PORT_10_PIN_15, .pin_cfg = ((uint32_t) IOPORT_CFG_DRIVE_HS_HIGH
                   | (uint32_t) IOPORT_CFG_PERIPHERAL_PIN | (uint32_t) IOPORT_PERIPHERAL_BUS) },
-
-          { .pin = BSP_IO_PORT_11_PIN_00, .pin_cfg = ((uint32_t) IOPORT_CFG_PERIPHERAL_PIN
-                  | (uint32_t) IOPORT_PERIPHERAL_LCD_GRAPHICS) },
-
-          { .pin = BSP_IO_PORT_11_PIN_01, .pin_cfg = ((uint32_t) IOPORT_CFG_PERIPHERAL_PIN
-                  | (uint32_t) IOPORT_PERIPHERAL_LCD_GRAPHICS) },
-
-          { .pin = BSP_IO_PORT_11_PIN_02, .pin_cfg = ((uint32_t) IOPORT_CFG_PERIPHERAL_PIN
-                  | (uint32_t) IOPORT_PERIPHERAL_LCD_GRAPHICS) },
-
-          { .pin = BSP_IO_PORT_11_PIN_03, .pin_cfg = ((uint32_t) IOPORT_CFG_PERIPHERAL_PIN
-                  | (uint32_t) IOPORT_PERIPHERAL_LCD_GRAPHICS) },
-
-          { .pin = BSP_IO_PORT_11_PIN_04, .pin_cfg = ((uint32_t) IOPORT_CFG_PERIPHERAL_PIN
-                  | (uint32_t) IOPORT_PERIPHERAL_LCD_GRAPHICS) },
-
-          { .pin = BSP_IO_PORT_11_PIN_05, .pin_cfg = ((uint32_t) IOPORT_CFG_PERIPHERAL_PIN
-                  | (uint32_t) IOPORT_PERIPHERAL_LCD_GRAPHICS) },
-
-          { .pin = BSP_IO_PORT_11_PIN_06, .pin_cfg = ((uint32_t) IOPORT_CFG_PERIPHERAL_PIN
-                  | (uint32_t) IOPORT_PERIPHERAL_LCD_GRAPHICS) },
-
-          { .pin = BSP_IO_PORT_11_PIN_07, .pin_cfg = ((uint32_t) IOPORT_CFG_PERIPHERAL_PIN
-                  | (uint32_t) IOPORT_PERIPHERAL_LCD_GRAPHICS) },
 
           { .pin = BSP_IO_PORT_12_PIN_00, .pin_cfg = ((uint32_t) IOPORT_CFG_DRIVE_HIGH
                   | (uint32_t) IOPORT_CFG_PERIPHERAL_PIN | (uint32_t) IOPORT_PERIPHERAL_BUS) },
@@ -368,6 +269,112 @@ const ioport_pin_cfg_t g_bsp_pin_cfg_data[] =
 const ioport_cfg_t g_bsp_pin_cfg =
 { .number_of_pins = sizeof(g_bsp_pin_cfg_data) / sizeof(ioport_pin_cfg_t), .p_pin_cfg_data = &g_bsp_pin_cfg_data[0], };
 
+const ioport_pin_cfg_t g_bsp_pin_cfg_glcd_data[] =
+{
+
+{ .pin = BSP_IO_PORT_01_PIN_11, .pin_cfg = ((uint32_t) IOPORT_CFG_IRQ_ENABLE
+        | (uint32_t) IOPORT_CFG_PORT_DIRECTION_INPUT) },
+
+  { .pin = BSP_IO_PORT_02_PIN_07, .pin_cfg = ((uint32_t) IOPORT_CFG_DRIVE_MID | (uint32_t) IOPORT_CFG_PERIPHERAL_PIN
+          | (uint32_t) IOPORT_PERIPHERAL_LCD_GRAPHICS) },
+
+  { .pin = BSP_IO_PORT_05_PIN_13, .pin_cfg = ((uint32_t) IOPORT_CFG_DRIVE_MID | (uint32_t) IOPORT_CFG_PERIPHERAL_PIN
+          | (uint32_t) IOPORT_PERIPHERAL_LCD_GRAPHICS) },
+
+  { .pin = BSP_IO_PORT_05_PIN_14, .pin_cfg = ((uint32_t) IOPORT_CFG_PORT_DIRECTION_OUTPUT
+          | (uint32_t) IOPORT_CFG_PORT_OUTPUT_LOW) },
+
+  { .pin = BSP_IO_PORT_05_PIN_15, .pin_cfg = ((uint32_t) IOPORT_CFG_DRIVE_HIGH | (uint32_t) IOPORT_CFG_PERIPHERAL_PIN
+          | (uint32_t) IOPORT_PERIPHERAL_LCD_GRAPHICS) },
+
+  { .pin = BSP_IO_PORT_06_PIN_06, .pin_cfg = ((uint32_t) IOPORT_CFG_PORT_DIRECTION_OUTPUT
+          | (uint32_t) IOPORT_CFG_PORT_OUTPUT_HIGH) },
+
+  { .pin = BSP_IO_PORT_07_PIN_07, .pin_cfg = ((uint32_t) IOPORT_CFG_DRIVE_MID | (uint32_t) IOPORT_CFG_PERIPHERAL_PIN
+          | (uint32_t) IOPORT_PERIPHERAL_LCD_GRAPHICS) },
+
+  { .pin = BSP_IO_PORT_07_PIN_10, .pin_cfg = ((uint32_t) IOPORT_CFG_DRIVE_MID | (uint32_t) IOPORT_CFG_PERIPHERAL_PIN
+          | (uint32_t) IOPORT_PERIPHERAL_LCD_GRAPHICS) },
+
+  { .pin = BSP_IO_PORT_07_PIN_11, .pin_cfg = ((uint32_t) IOPORT_CFG_DRIVE_MID | (uint32_t) IOPORT_CFG_PERIPHERAL_PIN
+          | (uint32_t) IOPORT_PERIPHERAL_LCD_GRAPHICS) },
+
+  { .pin = BSP_IO_PORT_07_PIN_12, .pin_cfg = ((uint32_t) IOPORT_CFG_DRIVE_MID | (uint32_t) IOPORT_CFG_PERIPHERAL_PIN
+          | (uint32_t) IOPORT_PERIPHERAL_LCD_GRAPHICS) },
+
+  { .pin = BSP_IO_PORT_07_PIN_13, .pin_cfg = ((uint32_t) IOPORT_CFG_DRIVE_MID | (uint32_t) IOPORT_CFG_PERIPHERAL_PIN
+          | (uint32_t) IOPORT_PERIPHERAL_LCD_GRAPHICS) },
+
+  { .pin = BSP_IO_PORT_07_PIN_14, .pin_cfg = ((uint32_t) IOPORT_CFG_DRIVE_MID | (uint32_t) IOPORT_CFG_PERIPHERAL_PIN
+          | (uint32_t) IOPORT_PERIPHERAL_LCD_GRAPHICS) },
+
+  { .pin = BSP_IO_PORT_07_PIN_15, .pin_cfg = ((uint32_t) IOPORT_CFG_DRIVE_MID | (uint32_t) IOPORT_CFG_PERIPHERAL_PIN
+          | (uint32_t) IOPORT_PERIPHERAL_LCD_GRAPHICS) },
+
+  { .pin = BSP_IO_PORT_08_PIN_05, .pin_cfg = ((uint32_t) IOPORT_CFG_DRIVE_MID | (uint32_t) IOPORT_CFG_PERIPHERAL_PIN
+          | (uint32_t) IOPORT_PERIPHERAL_LCD_GRAPHICS) },
+
+  { .pin = BSP_IO_PORT_08_PIN_06, .pin_cfg = ((uint32_t) IOPORT_CFG_DRIVE_MID | (uint32_t) IOPORT_CFG_PERIPHERAL_PIN
+          | (uint32_t) IOPORT_PERIPHERAL_LCD_GRAPHICS) },
+
+  { .pin = BSP_IO_PORT_08_PIN_07, .pin_cfg = ((uint32_t) IOPORT_CFG_DRIVE_MID | (uint32_t) IOPORT_CFG_PERIPHERAL_PIN
+          | (uint32_t) IOPORT_PERIPHERAL_LCD_GRAPHICS) },
+
+  { .pin = BSP_IO_PORT_09_PIN_02, .pin_cfg = ((uint32_t) IOPORT_CFG_DRIVE_MID | (uint32_t) IOPORT_CFG_PERIPHERAL_PIN
+          | (uint32_t) IOPORT_PERIPHERAL_LCD_GRAPHICS) },
+
+  { .pin = BSP_IO_PORT_09_PIN_03, .pin_cfg = ((uint32_t) IOPORT_CFG_DRIVE_MID | (uint32_t) IOPORT_CFG_PERIPHERAL_PIN
+          | (uint32_t) IOPORT_PERIPHERAL_LCD_GRAPHICS) },
+
+  { .pin = BSP_IO_PORT_09_PIN_04, .pin_cfg = ((uint32_t) IOPORT_CFG_DRIVE_MID | (uint32_t) IOPORT_CFG_PERIPHERAL_PIN
+          | (uint32_t) IOPORT_PERIPHERAL_LCD_GRAPHICS) },
+
+  { .pin = BSP_IO_PORT_09_PIN_10, .pin_cfg = ((uint32_t) IOPORT_CFG_DRIVE_MID | (uint32_t) IOPORT_CFG_PERIPHERAL_PIN
+          | (uint32_t) IOPORT_PERIPHERAL_LCD_GRAPHICS) },
+
+  { .pin = BSP_IO_PORT_09_PIN_11, .pin_cfg = ((uint32_t) IOPORT_CFG_DRIVE_MID | (uint32_t) IOPORT_CFG_PERIPHERAL_PIN
+          | (uint32_t) IOPORT_PERIPHERAL_LCD_GRAPHICS) },
+
+  { .pin = BSP_IO_PORT_09_PIN_12, .pin_cfg = ((uint32_t) IOPORT_CFG_DRIVE_MID | (uint32_t) IOPORT_CFG_PERIPHERAL_PIN
+          | (uint32_t) IOPORT_PERIPHERAL_LCD_GRAPHICS) },
+
+  { .pin = BSP_IO_PORT_09_PIN_13, .pin_cfg = ((uint32_t) IOPORT_CFG_DRIVE_MID | (uint32_t) IOPORT_CFG_PERIPHERAL_PIN
+          | (uint32_t) IOPORT_PERIPHERAL_LCD_GRAPHICS) },
+
+  { .pin = BSP_IO_PORT_09_PIN_14, .pin_cfg = ((uint32_t) IOPORT_CFG_DRIVE_MID | (uint32_t) IOPORT_CFG_PERIPHERAL_PIN
+          | (uint32_t) IOPORT_PERIPHERAL_LCD_GRAPHICS) },
+
+  { .pin = BSP_IO_PORT_09_PIN_15, .pin_cfg = ((uint32_t) IOPORT_CFG_DRIVE_MID | (uint32_t) IOPORT_CFG_PERIPHERAL_PIN
+          | (uint32_t) IOPORT_PERIPHERAL_LCD_GRAPHICS) },
+
+  { .pin = BSP_IO_PORT_11_PIN_00, .pin_cfg = ((uint32_t) IOPORT_CFG_DRIVE_MID | (uint32_t) IOPORT_CFG_PERIPHERAL_PIN
+          | (uint32_t) IOPORT_PERIPHERAL_LCD_GRAPHICS) },
+
+  { .pin = BSP_IO_PORT_11_PIN_01, .pin_cfg = ((uint32_t) IOPORT_CFG_DRIVE_MID | (uint32_t) IOPORT_CFG_PERIPHERAL_PIN
+          | (uint32_t) IOPORT_PERIPHERAL_LCD_GRAPHICS) },
+
+  { .pin = BSP_IO_PORT_11_PIN_02, .pin_cfg = ((uint32_t) IOPORT_CFG_DRIVE_MID | (uint32_t) IOPORT_CFG_PERIPHERAL_PIN
+          | (uint32_t) IOPORT_PERIPHERAL_LCD_GRAPHICS) },
+
+  { .pin = BSP_IO_PORT_11_PIN_03, .pin_cfg = ((uint32_t) IOPORT_CFG_DRIVE_MID | (uint32_t) IOPORT_CFG_PERIPHERAL_PIN
+          | (uint32_t) IOPORT_PERIPHERAL_LCD_GRAPHICS) },
+
+  { .pin = BSP_IO_PORT_11_PIN_04, .pin_cfg = ((uint32_t) IOPORT_CFG_DRIVE_MID | (uint32_t) IOPORT_CFG_PERIPHERAL_PIN
+          | (uint32_t) IOPORT_PERIPHERAL_LCD_GRAPHICS) },
+
+  { .pin = BSP_IO_PORT_11_PIN_05, .pin_cfg = ((uint32_t) IOPORT_CFG_DRIVE_MID | (uint32_t) IOPORT_CFG_PERIPHERAL_PIN
+          | (uint32_t) IOPORT_PERIPHERAL_LCD_GRAPHICS) },
+
+  { .pin = BSP_IO_PORT_11_PIN_06, .pin_cfg = ((uint32_t) IOPORT_CFG_DRIVE_MID | (uint32_t) IOPORT_CFG_PERIPHERAL_PIN
+          | (uint32_t) IOPORT_PERIPHERAL_LCD_GRAPHICS) },
+
+  { .pin = BSP_IO_PORT_11_PIN_07, .pin_cfg = ((uint32_t) IOPORT_CFG_DRIVE_MID | (uint32_t) IOPORT_CFG_PERIPHERAL_PIN
+          | (uint32_t) IOPORT_PERIPHERAL_LCD_GRAPHICS) }, };
+
+const ioport_cfg_t g_bsp_pin_cfg_glcd =
+{ .number_of_pins = sizeof(g_bsp_pin_cfg_glcd_data) / sizeof(ioport_pin_cfg_t), .p_pin_cfg_data =
+          &g_bsp_pin_cfg_glcd_data[0], };
+
 #if BSP_TZ_SECURE_BUILD
 
 void R_BSP_PinCfgSecurityInit(void);
@@ -386,6 +393,28 @@ void R_BSP_PinCfgSecurityInit(void)
     for(uint32_t i = 0; i < g_bsp_pin_cfg.number_of_pins; i++)
     {
         uint32_t port_pin = g_bsp_pin_cfg.p_pin_cfg_data[i].pin;
+        uint32_t port = port_pin >> 8U;
+        uint32_t pin = port_pin & 0xFFU;
+        pmsar[port] &= (uint16_t) ~(1U << pin);
+    }
+
+    for(uint32_t i = 0; i < BSP_FEATURE_BSP_NUM_PMSAR; i++)
+    {
+ #if (2U == BSP_FEATURE_IOPORT_VERSION)
+    #if BSP_SECONDARY_CORE_BUILD
+        R_PMISC->PMSAR[i].PMSAR &= (uint16_t) pmsar[i];
+    #else
+        R_PMISC->PMSAR[i].PMSAR = (uint16_t) pmsar[i];
+    #endif
+ #else
+        R_PMISC->PMSAR[i].PMSAR = pmsar[i];
+ #endif
+    }
+
+
+    for(uint32_t i = 0; i < g_bsp_pin_cfg_glcd.number_of_pins; i++)
+    {
+        uint32_t port_pin = g_bsp_pin_cfg_glcd.p_pin_cfg_data[i].pin;
         uint32_t port = port_pin >> 8U;
         uint32_t pin = port_pin & 0xFFU;
         pmsar[port] &= (uint16_t) ~(1U << pin);

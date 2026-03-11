@@ -8,9 +8,8 @@
 
 #define DISPLAY_SCREEN_BUFF_D2_COLOR_CODE (d2_mode_rgb565)
 
-#define CAMERA_IMAGE_SCALING  (2.2f)
+#define CAMERA_IMAGE_SCALING  (1.25f)
 #define DISPLAY_FONT_SCALING  (1.25f)
-#define NORMAL_FONT_SCALING   (1.0f)
 
 #define AI_INFERENCE_RESULT_BOUNDING_BOX_COLOR  (0xFF0000) // 24-bit RGB color format
 

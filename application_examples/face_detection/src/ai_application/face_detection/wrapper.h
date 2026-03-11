@@ -17,7 +17,7 @@
 #ifndef MODEL_WRAPPER_H
 #define MODEL_WRAPPER_H
 
-#include "mera/model.h"
+#include "model.h"
 #include <stdint.h>
 
 static inline uint8_t* mera_input_ptr() {

@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2020 - 2025 Renesas Electronics Corporation and/or its affiliates
+* Copyright (c) 2020 - 2026 Renesas Electronics Corporation and/or its affiliates
 *
 * SPDX-License-Identifier: BSD-3-Clause
 */
@@ -57,6 +57,7 @@ typedef struct st_sci_b_uart_instance_ctrl
     uint8_t  data_bytes         : 2;   // 1 byte for 7 or 8 bit data, 2 bytes for 9 bit data
     uint8_t  bitrate_modulation : 1;   // 1 if bit rate modulation is enabled, 0 otherwise
     uint32_t open;                     // Used to determine if the channel is configured
+    uint32_t delay_loops;
 
     bsp_io_port_pin_t flow_pin;
 
@@ -178,6 +179,7 @@ typedef struct st_sci_b_uart_extended_cfg
     bsp_io_port_pin_t               flow_control_pin; ///< UART Driver Enable pin
     sci_b_uart_flow_control_t       flow_control;     ///< CTS/RTS function of the SSn pin
     sci_b_uart_rs485_setting_t      rs485_setting;    ///< RS-485 settings.
+    uint8_t delay_cycles;                             ///< Number of SCICLK cycles to delay after writing last byte to TDR
 } sci_b_uart_extended_cfg_t;
 
 /**********************************************************************************************************************

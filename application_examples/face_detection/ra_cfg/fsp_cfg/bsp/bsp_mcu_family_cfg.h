@@ -44,7 +44,7 @@
 #define BSP_CFG_SLEEP_MODE_DELAY_ENABLE      (1)
 #define BSP_CFG_MSTP_CHANGE_DELAY_ENABLE     (1)
 #define BSP_CFG_RTOS_SLEEP_MODE_DELAY_ENABLE (1)
-#define BSP_CFG_CLOCK_SETTLING_DELAY_US      (150)
+#define BSP_CFG_CLOCK_SETTLING_DELAY_US      (30)
 
 #if defined(BSP_PACKAGE_HLQFP)
                 #define BSP_MAX_CLOCK_CHANGE_THRESHOLD (300000000U)
@@ -127,7 +127,7 @@
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 12) /* SDHI0 */ | \
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 13) /* DOC */ | \
             (((1 > 0) ? 0U : 1U) << 15) /* GLCDC/MIPI-DSI/DRW */ | \
-            (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 15) /* MIPI_CSI */ | \
+            (((1 > 0) ? 0U : 1U) << 15) /* MIPI_CSI */ | \
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 16) /* CEU */ | \
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 24) /* PDM */ | \
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 26) /* CANFD1 */ | \
@@ -179,7 +179,7 @@
             (1U << 1) /* SRAM1 */ | \
             (1U << 2) /* SRAM2 */ | \
             (1U << 3) /* SRAM3 */ | \
-            (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 16) /* NPU */ | \
+            (((1 > 0) ? 0U : 1U) << 16) /* NPU */ | \
             (1U << 22) /* DTC0_DMAC0 */ | \
             (1U << 23) /* DTC1_DMAC1 */ | \
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 31) /* ELC */)
@@ -301,27 +301,15 @@
 
 /* Security attribution for registers for DMAC channels */
 #ifndef BSP_TZ_CFG_DMACCHSAR
-#if (0 == BSP_CFG_CPU_CORE)
 #define BSP_TZ_CFG_DMACCHSAR (\
-            (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 0U) /* DMAC Channel 0 */ | \
-            (((1 > 0) ? 0U : 1U) << 1U) /* DMAC Channel 1 */ | \
-            (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 2U) /* DMAC Channel 2 */ | \
-            (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 3U) /* DMAC Channel 3 */ | \
-            (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 4U) /* DMAC Channel 4 */ | \
-            (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 5U) /* DMAC Channel 5 */ | \
-            (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 6U) /* DMAC Channel 6 */ | \
-            (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 7U) /* DMAC Channel 7 */)
-#else
-#define BSP_TZ_CFG_DMACCHSAR (\
-            (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 16U) /* DMAC1 Channel 0 */ | \
-            (((1 > 0) ? 0U : 1U) << 17U) /* DMAC1 Channel 1 */ | \
-            (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 18U) /* DMAC1 Channel 2 */ | \
-            (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 19U) /* DMAC1 Channel 3 */ | \
-            (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 20U) /* DMAC1 Channel 4 */ | \
-            (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 21U) /* DMAC1 Channel 5 */ | \
-            (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 22U) /* DMAC1 Channel 6 */ | \
-            (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 23U) /* DMAC1 Channel 7 */)
-#endif
+            (((1 > 0) ? 0U : 1U) << 0U) /* DMACx Channel 0 */ | \
+            (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 1U) /* DMACx Channel 1 */ | \
+            (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 2U) /* DMACx Channel 2 */ | \
+            (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 3U) /* DMACx Channel 3 */ | \
+            (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 4U) /* DMACx Channel 4 */ | \
+            (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 5U) /* DMACx Channel 5 */ | \
+            (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 6U) /* DMACx Channel 6 */ | \
+            (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 7U) /* DMACx Channel 7 */)
 #endif
 
 /* Security attribution registers for WUPEN0. */
@@ -454,15 +442,15 @@
 #endif
 
 #ifndef BSP_CFG_SDRAM_TRAS
-#define BSP_CFG_SDRAM_TRAS  (5)
+#define BSP_CFG_SDRAM_TRAS  (6)
 #endif
 
 #ifndef BSP_CFG_SDRAM_TRCD
-#define BSP_CFG_SDRAM_TRCD  (2)
+#define BSP_CFG_SDRAM_TRCD  (3)
 #endif
 
 #ifndef BSP_CFG_SDRAM_TRP
-#define BSP_CFG_SDRAM_TRP  (2)
+#define BSP_CFG_SDRAM_TRP  (3)
 #endif
 
 #ifndef BSP_CFG_SDRAM_TWR
@@ -474,23 +462,23 @@
 #endif
 
 #ifndef BSP_CFG_SDRAM_TRFC
-#define BSP_CFG_SDRAM_TRFC  (781)
+#define BSP_CFG_SDRAM_TRFC  (937)
 #endif
 
 #ifndef BSP_CFG_SDRAM_TREFW
-#define BSP_CFG_SDRAM_TREFW  (6)
+#define BSP_CFG_SDRAM_TREFW  (8)
 #endif
 
 #ifndef BSP_CFG_SDRAM_INIT_ARFI
-#define BSP_CFG_SDRAM_INIT_ARFI  (6)
+#define BSP_CFG_SDRAM_INIT_ARFI  (10)
 #endif
 
 #ifndef BSP_CFG_SDRAM_INIT_ARFC
-#define BSP_CFG_SDRAM_INIT_ARFC  (2)
+#define BSP_CFG_SDRAM_INIT_ARFC  (8)
 #endif
 
 #ifndef BSP_CFG_SDRAM_INIT_PRC
-#define BSP_CFG_SDRAM_INIT_PRC  (6)
+#define BSP_CFG_SDRAM_INIT_PRC  (3)
 #endif
 
 #ifndef BSP_CFG_SDRAM_MULTIPLEX_ADDR_SHIFT

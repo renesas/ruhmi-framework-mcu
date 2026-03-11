@@ -14,9 +14,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+#include <image_classification/Labels.h>
 #include "Classifier.hpp"
 #include "PlatformMath.hpp"
-#include "Labels.h"
 #include "ethosu_log.h"
 #include <vector>
 #include <string>

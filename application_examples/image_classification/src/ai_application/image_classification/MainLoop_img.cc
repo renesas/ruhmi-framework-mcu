@@ -22,7 +22,7 @@
 
 extern "C" {
 #include "time_counter.h"
-#include <image_classification/mera/wrapper.h>
+#include <wrapper.h>
 void update_classification_result(unsigned index, unsigned short category, float probability);
 }
 

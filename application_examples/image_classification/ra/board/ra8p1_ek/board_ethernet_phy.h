@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2020 - 2025 Renesas Electronics Corporation and/or its affiliates
+* Copyright (c) 2020 - 2026 Renesas Electronics Corporation and/or its affiliates
 *
 * SPDX-License-Identifier: BSD-3-Clause
 */
@@ -44,4 +44,4 @@ FSP_FOOTER
 
 #endif
 
-/** @} (end defgroup BOARD_RA8P1_WSB_EK_ETHERNET_PHY) */
+/** @} (end defgroup BOARD_RA8P1_EK_ETHERNET_PHY) */

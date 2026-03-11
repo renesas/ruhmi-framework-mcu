@@ -152,7 +152,6 @@ typedef struct st_processing_time_info_t
 
 extern char sprintf_buffer[];
 extern processinf_time_info_t application_processing_time;
-extern st_ai_detection_point_t g_ai_detection[AI_MAX_DETECTION_NUM];
 extern st_ai_classification_point_t g_ai_classification[AI_MAX_DETECTION_NUM];
 
 FSP_CPP_HEADER

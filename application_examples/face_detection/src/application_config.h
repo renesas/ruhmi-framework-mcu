@@ -10,26 +10,23 @@
 #ifndef APPLICATION_CONFIG_H__
 #define APPLICATION_CONFIG_H__
 
-// ###################### DEFINE AI DEMO #######################
-#define FACE_DETECTION                      1
-#define AI_DEMO                             (FACE_DETECTION)
 // ###################### MEMORY ALLOCATION ######################
 /* Defines for memory allocation options */
-#define ALLOCATE_TO_ONCHIP_ROM              0
-#define ALLOCATE_TO_ONCHIP_RAM              1
-#define ALLOCATE_TO_SDRAM                   2 // Buffer will be located in ".sdram"
-#define ALLOCATE_TO_SDRAM_INITIAL_IN_OSPI   3 // Buffer will be located in ".sdram_ospi_data.data"
-#define ALLOCATE_TO_OSPI                    4 // Buffer will be located in ".ospi_device_1.data"
-
+#define ALLOCATE_TO_ONCHIP_ROM                 1 // Buffer will be located in MRAM section
+#define ALLOCATE_TO_ONCHIP_RAM                 2 // Buffer will be located in SRAM, initial data is copied from MRAM
+#define ALLOCATE_TO_SDRAM                      3 // Buffer will be located in SDRAM section
+#define ALLOCATE_TO_SDRAM_INITIAL_IN_OSPI      4 // Buffer will be located in SDRAM, initial data is copied from OSPI section
+#define ALLOCATE_TO_OSPI                       5 // Buffer will be located in OSPI
+#define ALLOCATE_TO_ONCHIP_RAM_INITIAL_IN_OSPI 6 // Buffer will be located in SRAM, initial data is copied from OSPI section
 
 /* Selection of target memory space for application buffer */
-#define DISPLAY_BUFFER_ALLICATION           /* Defined in user_common_data.c. Generally, setting the memory allocation on FSP Configurator. */
-#define CAMERA_CAPTURE_BUFFER_ALLOCATION    ALLOCATE_TO_SDRAM       /* Option: OnchipRAM or SDRAM */
-#define CAMERA_TEMPORARY_BUFFER_ALLOCATION  ALLOCATE_TO_ONCHIP_RAM       /* Option: OnchipRAM or SDRAM */
+#define CAMERA_CAPTURE_BUFFER_ALLOCATION    /* Defined by r_vin configuration property. */
 #define CAMERA_IMAGE_ALLOCATION             ALLOCATE_TO_ONCHIP_RAM  /* Option: OnchipRAM or SDRAM */
 
+#define DISPLAY_BUFFER_ALLICATION           /* Defined by r_glcdc configuration property. */
+
 #define AI_INPUT_IMAGE_ALLOCATION           ALLOCATE_TO_ONCHIP_RAM  /* Option: OnchipRAM or SDRAM */
-#define AI_MODEL_ALLOCATION                 ALLOCATE_TO_ONCHIP_ROM  /* Option: OnchipROM, OnchipRAM, SDRAM(IntialOSPI) or OSPI */
+#define AI_MODEL_ALLOCATION                 ALLOCATE_TO_ONCHIP_ROM  /* Option: OnchipROM, OnchipRAM, SDRAM(IntialInOSPI), OSPI or OnchipRAM(InitialInOSPI) */
 #define TENSOR_ARENA_ALLOCATION             ALLOCATE_TO_ONCHIP_RAM  /* Option: OnchipRAM or SDRAM */
 
 // ################## FUNCTION ENABLEMENT SETTING ################
@@ -43,12 +40,16 @@
 #define ENABLE_AI_INFERENCE_RESULT_CONSOLE_OUTPUT    (1) // 0: Disabled, 1: Enabled
 #define ENABLE_PROCESSING_TIME_RESULT_CONSOLE_OUTPUT (1) // 0: Disabled, 1: Enabled
 
+#define ENABLE_OSPI_8BIT_MODE                        (0) // 0: Disabled, 1: Enabled
+
 // ------------------ Internal auto config ------------------
 #if ((AI_MODEL_ALLOCATION) == (ALLOCATE_TO_OSPI))
 #define REQUIRE_OSPI_OPEN
 #elif ((AI_MODEL_ALLOCATION) == (ALLOCATE_TO_SDRAM_INITIAL_IN_OSPI))
 #define REQUIRE_OSPI_OPEN
 #define REQUIRE_OSPI_MEMORY_COPY_TO_SDRAM
+#elif ((AI_MODEL_ALLOCATION) == (ALLOCATE_TO_ONCHIP_RAM_INITIAL_IN_OSPI))
+#define REQUIRE_OSPI_OPEN
 #endif
 
 #endif /* APPLICATION_CONFIG_H__ */

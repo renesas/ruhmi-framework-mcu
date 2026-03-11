@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2020 - 2025 Renesas Electronics Corporation and/or its affiliates
+* Copyright (c) 2020 - 2026 Renesas Electronics Corporation and/or its affiliates
 *
 * SPDX-License-Identifier: BSD-3-Clause
 */
@@ -350,6 +350,7 @@ typedef enum e_fsp_err
     FSP_ERR_CRYPTO_RSIP_FAIL              = 0x10102, ///< Internal error
     FSP_ERR_CRYPTO_RSIP_KEY_SET_FAIL      = 0x10103, ///< Input key type is illegal
     FSP_ERR_CRYPTO_RSIP_AUTHENTICATION    = 0x10104, ///< Authentication failed
+    FSP_ERR_CRYPTO_RSIP_DLMS_ERROR        = 0x10105, ///< An error occurred during DLMS processing
 
     FSP_ERR_CRYPTO_RSIP_LBIST_CHECK_BUSY  = 0x101ff, ///< LBIST Check BUSY
 
@@ -361,10 +362,6 @@ typedef enum e_fsp_err
     FSP_ERR_CRYPTO_INVALID_OPERATION_MODE = 0x20004, ///< Invalid operation mode.
     FSP_ERR_MESSAGE_TOO_LONG              = 0x20005, ///< Message for RSA encryption is too long.
     FSP_ERR_RSA_DECRYPTION_ERROR          = 0x20006, ///< RSA Decryption error.
-
-    /** @note SF_CRYPTO APIs may return an error code starting from 0x10000 which is of Crypto module.
-     *        Refer to sf_cryoto_err.h for Crypto error codes.
-     */
 
     /* Start of Sensor specific */
     FSP_ERR_SENSOR_INVALID_DATA             = 0x30000, ///< Data is invalid.

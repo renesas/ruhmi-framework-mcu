@@ -17,14 +17,14 @@
             [10] = iic_master_eri_isr, /* IIC1 ERI (Transfer error) */
             [11] = drw_int_isr, /* DRW INT (DRW interrupt) */
             [12] = glcdc_line_detect_isr, /* GLCDC LINE DETECT (Specified line) */
-            [13] = rm_ethosu_isr, /* NPU IRQ (NPU IRQ) */
-            [14] = mipi_csi_rx_isr, /* MIPICSI RX (Receive interrupt) */
-            [15] = mipi_csi_dl_isr, /* MIPICSI DL (Data Lane interrupt) */
-            [16] = mipi_csi_pm_isr, /* MIPICSI PM (Power Management interrupt) */
+            [13] = vin_status_isr, /* VIN IRQ (Interrupt Request) */
+            [14] = vin_error_isr, /* VIN ERR (Interrupt Request for SYNC Error) */
+            [15] = mipi_csi_rx_isr, /* MIPICSI RX (Receive interrupt) */
+            [16] = mipi_csi_dl_isr, /* MIPICSI DL (Data Lane interrupt) */
             [17] = mipi_csi_vc_isr, /* MIPICSI VC (Virtual Channel interrupt) */
-            [18] = mipi_csi_gst_isr, /* MIPICSI GST (Generic Short Packet interrupt) */
-            [19] = vin_irq_isr, /* VIN IRQ (Interrupt Request) */
-            [20] = vin_err_isr, /* VIN ERR (Interrupt Request for SYNC Error) */
+            [18] = mipi_csi_pm_isr, /* MIPICSI PM (Power Management interrupt) */
+            [19] = mipi_csi_gst_isr, /* MIPICSI GST (Generic Short Packet interrupt) */
+            [20] = rm_ethosu_isr, /* NPU IRQ (NPU IRQ) */
         };
         #if BSP_FEATURE_ICU_HAS_IELSR
         const bsp_interrupt_event_t g_interrupt_event_link_select[BSP_ICU_VECTOR_NUM_ENTRIES] =
@@ -42,14 +42,14 @@
             [10] = BSP_PRV_VECT_ENUM(EVENT_IIC1_ERI,GROUP2), /* IIC1 ERI (Transfer error) */
             [11] = BSP_PRV_VECT_ENUM(EVENT_DRW_INT,GROUP3), /* DRW INT (DRW interrupt) */
             [12] = BSP_PRV_VECT_ENUM(EVENT_GLCDC_LINE_DETECT,GROUP4), /* GLCDC LINE DETECT (Specified line) */
-            [13] = BSP_PRV_VECT_ENUM(EVENT_NPU_IRQ,GROUP5), /* NPU IRQ (NPU IRQ) */
-            [14] = BSP_PRV_VECT_ENUM(EVENT_MIPICSI_RX,GROUP6), /* MIPICSI RX (Receive interrupt) */
-            [15] = BSP_PRV_VECT_ENUM(EVENT_MIPICSI_DL,GROUP7), /* MIPICSI DL (Data Lane interrupt) */
-            [16] = BSP_PRV_VECT_ENUM(EVENT_MIPICSI_PM,GROUP0), /* MIPICSI PM (Power Management interrupt) */
+            [13] = BSP_PRV_VECT_ENUM(EVENT_VIN_IRQ,GROUP5), /* VIN IRQ (Interrupt Request) */
+            [14] = BSP_PRV_VECT_ENUM(EVENT_VIN_ERR,GROUP6), /* VIN ERR (Interrupt Request for SYNC Error) */
+            [15] = BSP_PRV_VECT_ENUM(EVENT_MIPICSI_RX,GROUP7), /* MIPICSI RX (Receive interrupt) */
+            [16] = BSP_PRV_VECT_ENUM(EVENT_MIPICSI_DL,GROUP0), /* MIPICSI DL (Data Lane interrupt) */
             [17] = BSP_PRV_VECT_ENUM(EVENT_MIPICSI_VC,GROUP1), /* MIPICSI VC (Virtual Channel interrupt) */
-            [18] = BSP_PRV_VECT_ENUM(EVENT_MIPICSI_GST,GROUP2), /* MIPICSI GST (Generic Short Packet interrupt) */
-            [19] = BSP_PRV_VECT_ENUM(EVENT_VIN_IRQ,GROUP3), /* VIN IRQ (Interrupt Request) */
-            [20] = BSP_PRV_VECT_ENUM(EVENT_VIN_ERR,GROUP4), /* VIN ERR (Interrupt Request for SYNC Error) */
+            [18] = BSP_PRV_VECT_ENUM(EVENT_MIPICSI_PM,GROUP2), /* MIPICSI PM (Power Management interrupt) */
+            [19] = BSP_PRV_VECT_ENUM(EVENT_MIPICSI_GST,GROUP3), /* MIPICSI GST (Generic Short Packet interrupt) */
+            [20] = BSP_PRV_VECT_ENUM(EVENT_NPU_IRQ,GROUP4), /* NPU IRQ (NPU IRQ) */
         };
         #endif
         #endif

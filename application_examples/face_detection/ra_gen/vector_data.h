@@ -21,14 +21,14 @@ void iic_master_tei_isr(void);
 void iic_master_eri_isr(void);
 void drw_int_isr(void);
 void glcdc_line_detect_isr(void);
-void rm_ethosu_isr(void);
+void vin_status_isr(void);
+void vin_error_isr(void);
 void mipi_csi_rx_isr(void);
 void mipi_csi_dl_isr(void);
-void mipi_csi_pm_isr(void);
 void mipi_csi_vc_isr(void);
+void mipi_csi_pm_isr(void);
 void mipi_csi_gst_isr(void);
-void vin_irq_isr(void);
-void vin_err_isr(void);
+void rm_ethosu_isr(void);
 
 /* Vector table allocations */
 #define VECTOR_NUMBER_SCI8_RXI ((IRQn_Type) 0) /* SCI8 RXI (Receive data full) */
@@ -57,22 +57,22 @@ void vin_err_isr(void);
 #define DRW_INT_IRQn          ((IRQn_Type) 11) /* DRW INT (DRW interrupt) */
 #define VECTOR_NUMBER_GLCDC_LINE_DETECT ((IRQn_Type) 12) /* GLCDC LINE DETECT (Specified line) */
 #define GLCDC_LINE_DETECT_IRQn          ((IRQn_Type) 12) /* GLCDC LINE DETECT (Specified line) */
-#define VECTOR_NUMBER_NPU_IRQ ((IRQn_Type) 13) /* NPU IRQ (NPU IRQ) */
-#define NPU_IRQ_IRQn          ((IRQn_Type) 13) /* NPU IRQ (NPU IRQ) */
-#define VECTOR_NUMBER_MIPICSI_RX ((IRQn_Type) 14) /* MIPICSI RX (Receive interrupt) */
-#define MIPICSI_RX_IRQn          ((IRQn_Type) 14) /* MIPICSI RX (Receive interrupt) */
-#define VECTOR_NUMBER_MIPICSI_DL ((IRQn_Type) 15) /* MIPICSI DL (Data Lane interrupt) */
-#define MIPICSI_DL_IRQn          ((IRQn_Type) 15) /* MIPICSI DL (Data Lane interrupt) */
-#define VECTOR_NUMBER_MIPICSI_PM ((IRQn_Type) 16) /* MIPICSI PM (Power Management interrupt) */
-#define MIPICSI_PM_IRQn          ((IRQn_Type) 16) /* MIPICSI PM (Power Management interrupt) */
+#define VECTOR_NUMBER_VIN_IRQ ((IRQn_Type) 13) /* VIN IRQ (Interrupt Request) */
+#define VIN_IRQ_IRQn          ((IRQn_Type) 13) /* VIN IRQ (Interrupt Request) */
+#define VECTOR_NUMBER_VIN_ERR ((IRQn_Type) 14) /* VIN ERR (Interrupt Request for SYNC Error) */
+#define VIN_ERR_IRQn          ((IRQn_Type) 14) /* VIN ERR (Interrupt Request for SYNC Error) */
+#define VECTOR_NUMBER_MIPICSI_RX ((IRQn_Type) 15) /* MIPICSI RX (Receive interrupt) */
+#define MIPICSI_RX_IRQn          ((IRQn_Type) 15) /* MIPICSI RX (Receive interrupt) */
+#define VECTOR_NUMBER_MIPICSI_DL ((IRQn_Type) 16) /* MIPICSI DL (Data Lane interrupt) */
+#define MIPICSI_DL_IRQn          ((IRQn_Type) 16) /* MIPICSI DL (Data Lane interrupt) */
 #define VECTOR_NUMBER_MIPICSI_VC ((IRQn_Type) 17) /* MIPICSI VC (Virtual Channel interrupt) */
 #define MIPICSI_VC_IRQn          ((IRQn_Type) 17) /* MIPICSI VC (Virtual Channel interrupt) */
-#define VECTOR_NUMBER_MIPICSI_GST ((IRQn_Type) 18) /* MIPICSI GST (Generic Short Packet interrupt) */
-#define MIPICSI_GST_IRQn          ((IRQn_Type) 18) /* MIPICSI GST (Generic Short Packet interrupt) */
-#define VECTOR_NUMBER_VIN_IRQ ((IRQn_Type) 19) /* VIN IRQ (Interrupt Request) */
-#define VIN_IRQ_IRQn          ((IRQn_Type) 19) /* VIN IRQ (Interrupt Request) */
-#define VECTOR_NUMBER_VIN_ERR ((IRQn_Type) 20) /* VIN ERR (Interrupt Request for SYNC Error) */
-#define VIN_ERR_IRQn          ((IRQn_Type) 20) /* VIN ERR (Interrupt Request for SYNC Error) */
+#define VECTOR_NUMBER_MIPICSI_PM ((IRQn_Type) 18) /* MIPICSI PM (Power Management interrupt) */
+#define MIPICSI_PM_IRQn          ((IRQn_Type) 18) /* MIPICSI PM (Power Management interrupt) */
+#define VECTOR_NUMBER_MIPICSI_GST ((IRQn_Type) 19) /* MIPICSI GST (Generic Short Packet interrupt) */
+#define MIPICSI_GST_IRQn          ((IRQn_Type) 19) /* MIPICSI GST (Generic Short Packet interrupt) */
+#define VECTOR_NUMBER_NPU_IRQ ((IRQn_Type) 20) /* NPU IRQ (NPU IRQ) */
+#define NPU_IRQ_IRQn          ((IRQn_Type) 20) /* NPU IRQ (NPU IRQ) */
 /* The number of entries required for the ICU vector table. */
 #define BSP_ICU_VECTOR_NUM_ENTRIES (21)
 

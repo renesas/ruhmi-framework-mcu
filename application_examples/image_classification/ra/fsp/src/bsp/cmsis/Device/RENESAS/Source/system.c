@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2020 - 2025 Renesas Electronics Corporation and/or its affiliates
+* Copyright (c) 2020 - 2026 Renesas Electronics Corporation and/or its affiliates
 *
 * SPDX-License-Identifier: BSD-3-Clause
 */
@@ -458,10 +458,10 @@ void SystemInit (void)
     {
         /* Turn on NPU power domain */
         R_BSP_RegisterProtectDisable(BSP_REG_PROTECT_OM_LPC_BATT);
-        FSP_HARDWARE_REGISTER_WAIT((R_SYSTEM->PDCTRNPU & (R_SYSTEM_PDCTRNPU_PDCSF_Msk | R_SYSTEM_PDCTRNPU_PDPGSF_Msk)),
-                                   R_SYSTEM_PDCTRNPU_PDPGSF_Msk);
+        FSP_HARDWARE_REGISTER_WAIT((R_SYSTEM->PDCTRNPU & (R_SYSTEM_PDCTRNPU_PDCSF_Msk | R_SYSTEM_PDCTRGD_PDPGSF_Msk)),
+                                   R_SYSTEM_PDCTRGD_PDPGSF_Msk);
         R_SYSTEM->PDCTRNPU = 0;
-        FSP_HARDWARE_REGISTER_WAIT((R_SYSTEM->PDCTRNPU & (R_SYSTEM_PDCTRNPU_PDCSF_Msk | R_SYSTEM_PDCTRNPU_PDPGSF_Msk)),
+        FSP_HARDWARE_REGISTER_WAIT((R_SYSTEM->PDCTRNPU & (R_SYSTEM_PDCTRNPU_PDCSF_Msk | R_SYSTEM_PDCTRGD_PDPGSF_Msk)),
                                    0);
         R_BSP_RegisterProtectEnable(BSP_REG_PROTECT_OM_LPC_BATT);
     }

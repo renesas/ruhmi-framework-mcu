@@ -51,13 +51,6 @@ fsp_err_t display_init(void)
 {
     fsp_err_t fsp_status = FSP_SUCCESS;
 
-    /* Reset Display - active low */
-    /* Note: Please update wait periods according to LCD controller specification */
-    R_IOPORT_PinWrite(&g_ioport_ctrl, LCD_RST, BSP_IO_LEVEL_LOW);
-    R_BSP_SoftwareDelay(10, BSP_DELAY_UNITS_MICROSECONDS);
-    R_IOPORT_PinWrite(&g_ioport_ctrl, LCD_RST, BSP_IO_LEVEL_HIGH);
-    R_BSP_SoftwareDelay(120, BSP_DELAY_UNITS_MILLISECONDS);
-
     /* open MIPI DSI Interface */
     fsp_status = R_GLCDC_Open(&g_lcd_glcdc_ctrl, &g_lcd_glcdc_cfg);
     if (FSP_SUCCESS != fsp_status)
@@ -119,6 +112,11 @@ void display_image_buffer_initialize(void)
     fill_w_color_rgb565(&fb_background[1][0], DISPLAY_HSIZE_INPUT0, DISPLAY_VSIZE_INPUT0, 0, (DISPLAY_VSIZE_INPUT0/8)*5, DISPLAY_HSIZE_INPUT0, (DISPLAY_VSIZE_INPUT0/8), 0x07FF); // Cyan
     fill_w_color_rgb565(&fb_background[1][0], DISPLAY_HSIZE_INPUT0, DISPLAY_VSIZE_INPUT0, 0, (DISPLAY_VSIZE_INPUT0/8)*6, DISPLAY_HSIZE_INPUT0, (DISPLAY_VSIZE_INPUT0/8), 0x0000); // Write
     fill_w_color_rgb565(&fb_background[1][0], DISPLAY_HSIZE_INPUT0, DISPLAY_VSIZE_INPUT0, 0, (DISPLAY_VSIZE_INPUT0/8)*7, DISPLAY_HSIZE_INPUT0, (DISPLAY_VSIZE_INPUT0/8), 0xFFFF); // Black
+#endif
+
+#if (BSP_CFG_DCACHE_ENABLED == 1)
+    SCB_CleanDCache_by_Addr((uint8_t *)&fb_background[0][0], (int32_t)sizeof(fb_background)/2);
+    SCB_CleanDCache_by_Addr((uint8_t *)&fb_background[1][0], (int32_t)sizeof(fb_background)/2);
 #endif
 }
 
@@ -253,4 +251,29 @@ void graphics_end_frame()
     /* Flip the framebuffer */
     graphics_swap_buffer();
 
+}
+
+/**********************************************************************************************************************
+ * Porting layer code of cache maintenance for r_drw
+ **********************************************************************************************************************/
+#include "../src/r_drw/r_drw_base.h"
+
+d1_int_t d1_cacheflush (d1_device * handle, d1_int_t memtype)
+{
+    FSP_PARAMETER_NOT_USED(handle);
+    FSP_PARAMETER_NOT_USED(memtype);
+
+    SCB_CleanDCache();
+
+    return 1;
+}
+
+d1_int_t d1_cacheblockflush (d1_device * handle, d1_int_t memtype, const void * ptr, d1_uint_t size)
+{
+    FSP_PARAMETER_NOT_USED(handle);
+    FSP_PARAMETER_NOT_USED(memtype);
+
+    SCB_CleanDCache_by_Addr((void *)ptr, (int32_t)size);
+
+    return 1;
 }

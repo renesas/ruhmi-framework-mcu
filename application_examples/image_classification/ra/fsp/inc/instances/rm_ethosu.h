@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2020 - 2025 Renesas Electronics Corporation and/or its affiliates
+* Copyright (c) 2020 - 2026 Renesas Electronics Corporation and/or its affiliates
 *
 * SPDX-License-Identifier: BSD-3-Clause
 */
@@ -31,12 +31,18 @@ FSP_HEADER
  * Typedef definitions
  **********************************************************************************************************************/
 
+/* Extended configuration */
+typedef struct st_rm_ethosu_extended_cfg
+{
+    struct ethosu_driver * const p_dev; // Pointer to ethosu driver instance
+} rm_ethosu_extended_cfg_t;
+
 /** Instance control block.  This is private to the FSP and should not be used or modified by the application. */
 typedef struct st_rm_ethosu_instance_ctrl
 {
-    uint32_t                     open;                // Open flag
-    rm_ethosu_cfg_t const      * p_cfg;               // Pointer to configuration structure
-    struct ethosu_driver * const p_dev;               // Pointer to ethosu driver instance
+    uint32_t                   open;                  // Open flag
+    rm_ethosu_cfg_t const    * p_cfg;                 // Pointer to configuration structure
+    rm_ethosu_extended_cfg_t * p_ext_cfg;             // Pointer to extended configuration structure
     void (* p_callback)(rm_ethosu_callback_args_t *); // Pointer to callback
     rm_ethosu_callback_args_t * p_callback_memory;    // Pointer to optional callback argument memory
     void * p_context;                                 // Pointer to context to be passed into callback function
