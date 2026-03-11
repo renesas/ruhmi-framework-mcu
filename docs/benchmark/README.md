@@ -181,7 +181,7 @@ For NPU-assigned operators, RUHMI can generate code with the correct attributes 
 
 ### Vizualizing inference cycles at 1 GHz
 
-<img src="inference_benchmark_ekra8p1.png" alt="Inference Benchmark EK-RA8P1" width="400">
+<img src="../assets/inference_benchmark_ekra8p1.png" alt="Inference Benchmark EK-RA8P1" width="400">
 
 
 ## Troubleshooting & FAQs

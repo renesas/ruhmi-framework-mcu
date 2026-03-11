@@ -69,13 +69,13 @@ CLI options
 The web server is displayed in the screen after the installation.  
 In this case, the web server is http://127.0.0.1:5566 with referring the display of  "Running on http://127.0.0.1:5566".  
 You will see the interface on the browser like below.
-![](pic1.gif)
+![](../assets/pic1.gif)
 
 **Step-2**: Upload a JSON file using drag & drop or paste JSON data directly.  Explaination where to find JSON file is below.
 
 **Step-3**: Switch between visualization modes:  
 You can select the operation mode among MAC count, memory parameters and Memory Tensor.   
-![](pic2.gif)
+![](../assets/pic2.gif)
 
 #### Input Format  
 The tool expects JSON file named model_subgraphs.json.  

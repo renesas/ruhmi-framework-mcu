@@ -16,7 +16,7 @@ This demo performs real-time image classification on captured frames, using a Mo
 |3|TOP 5 accuracy|The Top-5 predicted class labels along with their confidence scores on the screen|
 
 <div align="center">
-<img src ="./assets/IM_flow.png" width="20%">  <img src ="./assets/Image_class_demo.png" width="50%">  
+<img src ="../../docs/assets/IM_flow.png" width="20%">  <img src ="../../docs/assets/Image_class_demo.png" width="50%">  
 
 
 <div align="left">

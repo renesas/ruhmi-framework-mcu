@@ -13,7 +13,7 @@ The system captures camera frames, detects faces, and draws bounding boxes over 
 |3|Num of face|Count the number of faces|
 
 <div align="center">
-<img src ="./assets/face_det.png" width="40%">  <img src ="./assets/Face_Det_demo.png" width="50%">  
+<img src ="../../docs/assets/face_det.png" width="40%">  <img src ="../../docs/assets/Face_Det_demo.png" width="50%">  
 
 
 <div align="left">
