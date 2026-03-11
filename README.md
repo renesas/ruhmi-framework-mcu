@@ -15,7 +15,7 @@ It also ships with Mera Quantizer, a post-training static INT8 quantizer, allowi
 [^1]: RUHMI Framework's AI Compiler is powered by EdgeCortix® MERA™.
 
 ## RUHMI Framework Workflow
-![](docs/material/workflow_ruhmi.GIF)
+![](docs/assets/workflow_ruhmi.GIF)
 
 
 ## Quick Start
