@@ -47,7 +47,8 @@ python mcu_compile.py <model_path> <output_dir> [options]
 | **Memory & Optimization** | | |
 | `--external` | `False` | Force external memory mode. NPU: enables Vela OSPI. CPU: directory naming only. Auto-enabled for large models. |
 | `--memory-threshold` | `0.8` | Size threshold (MB) to auto-detect large models requiring external memory. |
-| `--memory-mode` | `Sram_Only` | (NPU only) Vela memory mode. Choices: `Sram_Only`, `Shared_Sram`. Note: `Shared_Sram` is recommended when the tensor arena resides in a faster memory region than the model weights (e.g., placing the arena in internal SRAM while keeping weights in external memory).|
+| `--memory-mode` | `Sram_Only` | (NPU only) Vela memory mode. Choices: `Sram_Only`, `Shared_Sram`.
+**Note**: `Shared_Sram` is recommended when the tensor arena resides in a faster memory region than the model weights (e.g., placing the arena in internal SRAM while keeping weights in external memory).|
 | `--optimization` | `Performance` | (NPU only) Vela optimization target. Choices: `Performance`, `Size`. |
 | `--weight-loc` | `Flash` | Weight storage location. Choices: `Flash`, `Iram`. |
 | **Output & Naming** | | |
