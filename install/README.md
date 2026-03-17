@@ -115,7 +115,7 @@ Please check that all your path settings of your environment are correct. After 
 successfully complete the following commands.
 ```
 python -c "import mera; print(mera.__version__)"  
-2.5.0+pkg.3019
+2.5.0+pkg.3577
 
 vela --version
 4.2.0
