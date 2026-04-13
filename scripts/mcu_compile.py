@@ -3,7 +3,7 @@
 
 """MCU model compilation script."""
 
-__version__ = "1.0.0"
+__version__ = "1.1.0"
 
 import os
 import sys
@@ -14,11 +14,11 @@ import subprocess
 import random
 import gc
 from pathlib import Path
-from argparse import ArgumentParser
 from dataclasses import dataclass
 from enum import Enum
 from typing import Optional, List, Dict, Any
 from multiprocessing import Process, Queue
+from argparse import ArgumentParser, Namespace
 import numpy as np
 
 # MERA imports
@@ -509,6 +509,10 @@ def deploy_model(
     Returns:
         True on success, False on error
     """
+    # On Windows, previous cmake builds may leave read-only .git dirs that
+    # MERA's overwrite cannot remove. Force-clean before deploying.
+    if output_dir.exists():
+        shutil.rmtree(output_dir, onerror=rm_readonly)
     output_dir.mkdir(parents=True, exist_ok=True)
     
     with mera.Deployer(str(output_dir), overwrite=True) as deployer:
@@ -722,7 +726,6 @@ def compile_model(
     
     This simplified version does NOT inject memory attributes.
     For NPU, it uses Vela's enable_ospi flag.
-    For CPU models requiring OSPI, use the full mcu_compile.py.
     """
     result = CompileResult(
         model_name=model_path.stem,
@@ -738,14 +741,12 @@ def compile_model(
     print(f"{'='*60}")
     
     try:
-        # Step 1: Detect model format and precision
         model_format = get_model_format(model_path)
         is_quantized = is_model_quantized(model_path)
         
         print(f"  Format: {model_format}")
         print(f"  Quantized: {is_quantized}")
         
-        # Step 2: Validate arguments
         use_npu = args.npu
         use_quantize = args.quantize
         
@@ -759,8 +760,6 @@ def compile_model(
             print("           NPU (Ethos-U) requires INT8. MERA will fallback to CPU.")
             print("           Use --quantize flag or provide INT8 model for actual NPU execution.")
         
-        # Step 3: Auto-detect external memory requirement (applies to BOTH CPU and NPU)
-        # Matches mcu_quantize.py behavior: if model exceeds threshold, it needs external memory
         file_size_bytes = model_path.stat().st_size
         effective_size = file_size_bytes // 4 if (use_quantize and not is_quantized) else file_size_bytes
         needs_ext_mem = args.external or needs_external_memory(effective_size, args.memory_threshold)
@@ -768,13 +767,9 @@ def compile_model(
             file_size_mb = file_size_bytes / (1024 * 1024)
             print(f"  Auto-detected external memory need for large model ({file_size_mb:.2f} MB)")
         
-        # Step 4: Determine platform
         platform = Platform.MCU_ETHOS if use_npu else Platform.MCU_CPU
         print(f"  Platform: {platform}")
         
-        # Step 5: Build configs
-        # enable_ospi is only meaningful for NPU (Vela compiler)
-        # For CPU, --external only affects output directory naming
         vela_config = {
             'enable_ospi': needs_ext_mem and use_npu,
             'sys_config': 'RA8P1',
@@ -797,7 +792,6 @@ def compile_model(
             else:
                 print(f"  External memory: flagged (directory suffix only)")
         
-        # Step 6: Quantization (if needed)
         deploy_model_path = model_path
         qtz_dir = output_dir / "quantization"
         calib_data = None
@@ -827,7 +821,6 @@ def compile_model(
             deploy_model_path = qtz_path
             print(f"  Quantized model: {qtz_path}")
         
-        # Step 7: Deploy
         print(f"  Deploying model...")
         deploy_dir = output_dir / "deploy"
         
@@ -846,16 +839,14 @@ def compile_model(
         print(f"  ✅ Compilation complete: {deploy_dir}")
         artifacts_deploy_dir = deploy_dir
         
-        # Step 8: Host evaluation (optional, CPU only)
         if args.host_evaluate and not use_npu:
             qtz_ref_path = qtz_dir if use_quantize else output_dir / "deploy_qtz"
-            target_ref_model = deploy_model_path
             
             ref_data_dir = qtz_ref_path
             if not (ref_data_dir / "ref_qtz" / "inputs.npy").exists():
                 ref_calib_data = calib_data if use_quantize else None
                 final_ref_dir = qtz_ref_path / "ref_qtz"
-                generate_reference_data(target_ref_model, final_ref_dir, ref_calib_data)
+                generate_reference_data(deploy_model_path, final_ref_dir, ref_calib_data)
             
             print(f"  Running host evaluation...")
             success, error_msg, psnrs, mses = run_host_evaluation(qtz_ref_path, artifacts_deploy_dir)
@@ -926,6 +917,144 @@ def write_junit_xml(results: List[CompileResult], output_path: Path):
 
 
 # =============================================================================
+# Config YAML Loading
+# =============================================================================
+
+def _parse_yaml_bool(value, field_name: str) -> bool:
+    """Parse YAML bool values with support for common string/int representations."""
+    if isinstance(value, bool):
+        return value
+
+    if isinstance(value, int):
+        if value in (0, 1):
+            return bool(value)
+        print(f"Error: '{field_name}' must be a boolean (true/false), got integer: {value}")
+        sys.exit(1)
+
+    if isinstance(value, str):
+        normalized = value.strip().lower()
+        if normalized in ('true', 'yes', 'y', 'on', '1'):
+            return True
+        if normalized in ('false', 'no', 'n', 'off', '0'):
+            return False
+        print(f"Error: '{field_name}' must be a boolean, got string: '{value}'")
+        sys.exit(1)
+
+    print(f"Error: '{field_name}' must be a boolean, got type: {type(value).__name__}")
+    sys.exit(1)
+
+def load_config(config_path: str) -> Namespace:
+    """
+    Load compile configuration from a YAML file and return an args-compatible Namespace.
+
+    Expected YAML structure:
+        model_path: /path/to/model.tflite
+        output_dir: /path/to/output
+        target: cpu          # 'cpu' or 'npu'  (required)
+        quantize: false
+        external: false
+        memory_threshold: 0.8
+        calib_data: ''
+        calib_num: 5
+        memory_mode: Sram_Only
+        optimization: Performance
+        weight_loc: Flash
+        suffix: ''
+        onnx_dims: ''
+        ref_data: false
+        x86: false
+        host_evaluate: false
+        result: ''
+        verbose: false
+    """
+    try:
+        import yaml
+    except ImportError:
+        print("Error: PyYAML is not installed. Install it with: pip install pyyaml")
+        sys.exit(1)
+
+    config_file = Path(config_path)
+    if not config_file.exists():
+        print(f"Error: Config file does not exist: {config_file}")
+        sys.exit(1)
+
+    with open(config_file, 'r', encoding='utf-8') as f:
+        cfg = yaml.safe_load(f)
+
+    if cfg is None:
+        print("Error: Config file is empty.")
+        sys.exit(1)
+
+    # -------------------------------------------------------------------------
+    # Validate required fields
+    # -------------------------------------------------------------------------
+    if 'model_path' not in cfg:
+        print("Error: 'model_path' is required in the config file.")
+        sys.exit(1)
+    if 'output_dir' not in cfg:
+        print("Error: 'output_dir' is required in the config file.")
+        sys.exit(1)
+
+    target = str(cfg.get('target', '')).lower()
+    if target not in ('cpu', 'npu'):
+        print("Error: 'target' must be either 'cpu' or 'npu' in the config file.")
+        sys.exit(1)
+
+    # -------------------------------------------------------------------------
+    # Validate choice fields
+    # -------------------------------------------------------------------------
+    memory_mode = cfg.get('memory_mode', 'Sram_Only')
+    if memory_mode not in ('Sram_Only', 'Shared_Sram'):
+        print(f"Error: 'memory_mode' must be 'Sram_Only' or 'Shared_Sram', got: '{memory_mode}'")
+        sys.exit(1)
+
+    optimization = cfg.get('optimization', 'Performance')
+    if optimization not in ('Performance', 'Size'):
+        print(f"Error: 'optimization' must be 'Performance' or 'Size', got: '{optimization}'")
+        sys.exit(1)
+
+    weight_loc = cfg.get('weight_loc', 'Flash')
+    if weight_loc not in ('Flash', 'Iram'):
+        print(f"Error: 'weight_loc' must be 'Flash' or 'Iram', got: '{weight_loc}'")
+        sys.exit(1)
+
+    # -------------------------------------------------------------------------
+    # Build Namespace that mirrors the argparse output
+    # -------------------------------------------------------------------------
+    args = Namespace(
+        model_path=str(cfg['model_path']),
+        output_dir=str(cfg['output_dir']),
+        # target flags
+        cpu=(target == 'cpu'),
+        npu=(target == 'npu'),
+        # quantization
+        quantize=_parse_yaml_bool(cfg.get('quantize', False), 'quantize'),
+        # external memory
+        external=_parse_yaml_bool(cfg.get('external', False), 'external'),
+        memory_threshold=float(cfg.get('memory_threshold', 0.8)),
+        # calibration
+        calib_data=str(cfg.get('calib_data', '')),
+        calib_num=int(cfg.get('calib_num', 5)),
+        # MERA configuration
+        memory_mode=memory_mode,
+        optimization=optimization,
+        weight_loc=weight_loc,
+        suffix=str(cfg.get('suffix', '')),
+        # ONNX options
+        onnx_dims=str(cfg.get('onnx_dims', '')),
+        # evaluation
+        ref_data=_parse_yaml_bool(cfg.get('ref_data', False), 'ref_data'),
+        x86=_parse_yaml_bool(cfg.get('x86', False), 'x86'),
+        host_evaluate=_parse_yaml_bool(cfg.get('host_evaluate', False), 'host_evaluate'),
+        # output
+        result=str(cfg.get('result', '')),
+        verbose=_parse_yaml_bool(cfg.get('verbose', False), 'verbose'),
+    )
+
+    return args
+
+
+# =============================================================================
 # CLI Argument Parser
 # =============================================================================
 
@@ -933,17 +1062,17 @@ def create_parser() -> ArgumentParser:
     """Create argument parser."""
     parser = ArgumentParser(
         prog='mcu_compile.py',
-        description='MCU model compilation script'
+        description='MCU model compilation script (supports YAML config or CLI args)'
     )
     
-    # Positional arguments
-    parser.add_argument('model_path', type=str,
-                        help='Path to model file (.tflite, .onnx, .pte) or directory')
-    parser.add_argument('output_dir', type=str,
+    # Positional arguments (optional if YAML config is used)
+    parser.add_argument('model_path', type=str, nargs='?',
+                        help='Path to model file (.tflite, .onnx, .pte) or directory, or path to YAML config file')
+    parser.add_argument('output_dir', type=str, nargs='?',
                         help='Output directory for compiled C-code')
     
-    # Target platform (required)
-    target_group = parser.add_mutually_exclusive_group(required=True)
+    # Target platform (required for CLI mode)
+    target_group = parser.add_mutually_exclusive_group(required=False)
     target_group.add_argument('--cpu', action='store_true',
                               help='Deploy for CPU (CMSIS-NN)')
     target_group.add_argument('--npu', action='store_true',
@@ -1007,7 +1136,27 @@ def main():
     detect_windows_compilers()
     
     parser = create_parser()
-    args = parser.parse_args()
+    
+    # Check if first argument is a YAML config file
+    if len(sys.argv) >= 2 and Path(sys.argv[1]).suffix.lower() in ('.yaml', '.yml'):
+        print("Using YAML configuration mode...")
+        args = load_config(sys.argv[1])
+        input_mode = 'yaml'
+    else:
+        # Parse CLI arguments
+        args = parser.parse_args()
+        input_mode = 'cli'
+        
+        # Validate CLI mode: require both model_path and output_dir, and target
+        if not args.model_path or not args.output_dir:
+            print("Error: model_path and output_dir are required in CLI mode")
+            parser.print_help()
+            sys.exit(1)
+        
+        if not args.cpu and not args.npu:
+            print("Error: --cpu or --npu is required in CLI mode")
+            parser.print_help()
+            sys.exit(1)
     
     model_path = Path(args.model_path).resolve()
     output_dir = Path(args.output_dir).resolve()
@@ -1030,6 +1179,7 @@ def main():
         sys.exit(1)
     
     print(f"Found {len(model_files)} model(s)")
+    print(f"Input mode: {input_mode.upper()}")
     
     results = []
     for model_file in model_files:
@@ -1042,7 +1192,8 @@ def main():
         ext_str = "_external" if needs_ext else ""
         quant_str = "_quantized" if args.quantize else ""
         
-        base_dir_name = f"{model_file.stem}_{target_str}{ext_str}{quant_str}{args.suffix}"
+        safe_stem = model_file.stem.replace(' ', '_')
+        base_dir_name = f"{safe_stem}_{target_str}{ext_str}{quant_str}{args.suffix}"
         model_output_dir = output_dir / base_dir_name
         
         result = compile_model(model_file, model_output_dir, args)

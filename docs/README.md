@@ -28,6 +28,11 @@
 | Document | Description |
 |----------|-------------|
 | [Models Tested](models_tested.md) | List of models tested with the framework |
-| [Tips](tips.md) | Troubleshooting tips for common warnings and issues |
-| [Error List](error_list.md) | Error messages reference for quantization and deployment |
-| [Windows MinGW setup](windows_mingw_setup.md) | Setup guide for MinGW Clang + CMake on Windows |
+
+## Known Issues & Workarounds
+
+| Document | Description |
+|----------|-------------|
+| [Known Issues Index](known_issues/README.md) | Directory overview and quick links for issue-specific guides and setup notes |
+| [Compiler Error Reference](known_issues/compiler_error_reference.md) | Error messages reference for quantization and deployment |
+| [Windows MinGW setup](known_issues/windows_mingw_setup.md) | Setup guide for MinGW Clang + CMake on Windows |

@@ -63,10 +63,11 @@ python mcu_compile.py <model_path> <output_dir> [options]
 
 **Naming Convention:** `{model_name}_{TARGET}[_external][_quantized]`
 
-*   **{model_name}**: Derived from the input file (without extension).
+*   **{model_name}**: Derived from the input file (without extension). Spaces in the filename are replaced with underscores (e.g. `my model.tflite` → `my_model_CPU`).
 *   **{TARGET}**: `CPU` or `NPU`.
 *   **_external**: Appended if model needs external memory (auto-detected or via `--external`).
 *   **_quantized**: Appended if `--quantize` is used.
+
 
 #### Deployment examples
 
@@ -210,7 +211,7 @@ The directory configuration for the sample scripts to run is below.
   |     └── ad01_fp32.tflite  // sample model to input to Quantizer from MLCommons
 ```
 >[!TIP]
->If you see any warnings in the process below, you can refer [Tips](../doc/tips.md)
+>If you see any warnings in the process below, refer to [Known Issues](../docs/known_issues/README.md)
 
 #### Deploy to CPU only   
 By running the provided script **scripts/mcu_deploy.py**. we can compile the model for MCU only:  

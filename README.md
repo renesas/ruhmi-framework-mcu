@@ -103,8 +103,8 @@ This directory contains the model converted into a set of C99 source code files.
 | [Visualizer](docs/graph_vizualizer/README.md) | Model graph visualization tool |
 | [Inference Benchmark](docs/benchmark/README.md) | Performance benchmarking guide to measure inference on RA8xx |
 | [Models Tested](docs/models_tested.md) | List of tested models |
-| [Tips](docs/tips.md) | Troubleshooting common warnings and issues |
-| [Error List](docs/error_list.md) | Compile/runtime error references |
+| [Known Issues](docs/known_issues/README.md) | Troubleshooting guides and platform-specific workarounds |
+| [Compiler Error Reference](docs/known_issues/compiler_error_reference.md) | Compile/runtime error references |
 
 ## Inquiries
 
