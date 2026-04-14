@@ -4,7 +4,7 @@ import re
 import json
 from pathlib import Path
 
-__version__ = "1.0.0"
+__version__ = "1.1.1"
 
 # =============================================================================
 # Helper script to measure Model Metrics
@@ -172,7 +172,7 @@ def parse_memory_stats(deploy_dir: Path):
         for c_file in npu_files:
             try:
                 content = c_file.read_text()
-                # Find ARENA sizes (Tensor Arena / RAM)
+                # Find ARENA sizes (Tensor Arena / RAM) — take the largest NPU scratch
                 for match in npu_arena_pattern.finditer(content):
                     size = int(match.group(1))
                     if size > arena_bytes:
@@ -183,6 +183,36 @@ def parse_memory_stats(deploy_dir: Path):
                     flash_bytes += int(match.group(1))
             except Exception as e:
                  print(f"Warning: Failed to parse {c_file.name}: {e}")
+
+        # --- Also account for CPU-fallback subgraphs in mixed NPU builds ---
+        # When MERA offloads only part of the model to Ethos-U55, the remaining
+        # ops (e.g. post-processing) run as CPU C_CODEGEN subgraphs whose arena
+        # and weight sizes must be added to the totals.
+        cpu_h_files = list(src_dir.glob("compute_sub_*.h"))
+        cpu_buffer_pattern = re.compile(r'kBufferSize_sub_\d+(?:_\w+)?\s*=\s*(\d+)')
+        cpu_fallback_arena = 0
+        for h_file in cpu_h_files:
+            try:
+                content = h_file.read_text()
+                for match in cpu_buffer_pattern.finditer(content):
+                    cpu_fallback_arena += int(match.group(1))
+                    break  # only count once per file (pattern appears multiple times)
+            except Exception:
+                pass
+        if cpu_fallback_arena:
+            print(f"  CPU fallback subgraphs detected: adding {cpu_fallback_arena:,} B arena")
+            arena_bytes += cpu_fallback_arena
+
+        cpu_c_files = sorted(list(src_dir.glob("compute_sub_*.c")))
+        for c_file in cpu_c_files:
+            try:
+                content = c_file.read_text()
+                for match in re.finditer(r'static\s+const\s+([\w\s]+)\s+[\w\d_]+\s*\[(\d+)\]', content):
+                    type_str = match.group(1)
+                    count = int(match.group(2))
+                    flash_bytes += count * get_type_size(type_str)
+            except Exception:
+                pass
 
     else:
         # --- CPU Logic (Enhanced with postprocessing logic) ---
@@ -233,6 +263,9 @@ def parse_memory_stats(deploy_dir: Path):
 
     mac_count = 0
     npu_mac_count = 0
+    total_nodes = 0
+    npu_nodes = 0
+    cpu_nodes = 0
     
     if json_path:
         # print(f"  Found JSON: {json_path}")
@@ -243,15 +276,20 @@ def parse_memory_stats(deploy_dir: Path):
             for subgraph in data.get("subgraphs", []):
                 target = subgraph.get("target_name", "UNKNOWN")
                 subgraph_macs = 0
+                subgraph_nodes = len(subgraph.get("nodes", []))
                 
                 for node in subgraph.get("nodes", []):
                     node_data = node.get("node_data", {})
                     subgraph_macs += node_data.get("mac_count", 0)
                 
                 mac_count += subgraph_macs
+                total_nodes += subgraph_nodes
                 
                 if target == "ARM_ETHOS_U55":
                     npu_mac_count += subgraph_macs
+                    npu_nodes += subgraph_nodes
+                else:
+                    cpu_nodes += subgraph_nodes
                     
         except Exception as e:
             print(f"Warning: Failed to parse JSON for MACCs: {e}")
@@ -270,7 +308,10 @@ def parse_memory_stats(deploy_dir: Path):
     
     if mac_count > 0:
         npu_ratio = (npu_mac_count / mac_count) * 100
-        print(f"NPU Acceleration     : {npu_ratio:>11.1f}%      ({npu_mac_count:,} / {mac_count:,} ops)")
+        print(f"NPU Acceleration     : {npu_ratio:>11.1f}%      ({npu_mac_count:,} / {mac_count:,} MACs)")
+        if total_nodes > 0:
+            node_ratio = (npu_nodes / total_nodes) * 100
+            print(f"NPU Node Coverage    : {node_ratio:>11.1f}%      ({npu_nodes} / {total_nodes} nodes, {cpu_nodes} CPU fallback)")
         
     print(f"--------------------------------------------------\n")
 
