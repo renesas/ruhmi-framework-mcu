@@ -19,6 +19,7 @@ python check_model_metrics.py <path_to_deploy_dir>
 | **Flash (Parameters)** | Total storage size for weights and biases. | All constants are stored simultaneously (**SUM**). |
 | **MAC Operations** | Total Multiply-Accumulate operations. | Proxy for computational complexity. |
 | **NPU Acceleration** | Percentage of operations offloaded to NPU. | `(NPU MACs / Total MACs) * 100` |
+| **NPU Node Coverage** | Percentage of operators offloaded to NPU. | `(NPU Nodes / Total Nodes) × 100` Includes all node types, even zero-MAC ops like reshape, strided_slice, etc. Can be lower than NPU Acceleration if CPU runs post-processing layers. |
 
 
 ## Example Output
@@ -30,6 +31,7 @@ Platform: NPU
 RAM (Tensor Arena)   :      258,048 bytes  (0.25 MB)
 Flash (Parameters)   :    1,651,952 bytes  (1.58 MB)
 MAC Operations       :  192,854,016 ops    (192.85 M)
-NPU Acceleration     :        99.4%      (191,674,368 / 192,854,016 ops)
+NPU Acceleration     :        100.0%      (192,854,016 / 192,854,016 ops)
+NPU Node Coverage    :       100.0%      (36 / 36 nodes, 0 CPU fallback)
 ```
 > **Note:** In same cases the NPU % may not be accurate, refer to the Vela output during `mcu_compily.py` script usage.
