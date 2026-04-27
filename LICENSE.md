@@ -19,7 +19,7 @@ In the procedure to install it into your host machine, some software components 
 
 |Component|License|
 |---|---|
-|MERA™ IP, (C) Copyright EdgeCortix, Inc. 2025|Apache, Version 2.0|
+|MERA RA8 Support Packages (binaries & whl files)|Apache, Version 2.0|
 |google/libnop|Apache, Version 2.0|
 |uxlfoundation/oneDNN|Apache, Version 2.0|
 |GNU OpenMP Linux only|GNU General Public License version 3 with GCC Runtime Library Exception, version 3.1|

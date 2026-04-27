@@ -14,7 +14,7 @@ This guide enables:
 
 **Prerequisites:**
 - EK-RA8P1 board
-- e2studio IDE v6.2.0
+- Flexible Software Package (FSP)6.4.0
 - LLVM compiler environment
 - RUHMI AI compiler (for generating model code)
 
