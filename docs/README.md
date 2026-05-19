@@ -28,7 +28,7 @@
 | Document | Description |
 |----------|-------------|
 | [Models Tested](models_tested.md) | List of models tested with the framework |
-<<<<<<< HEAD
+
 
 ## Known Issues & Workarounds
 
@@ -41,4 +41,4 @@
 | [Tips](tips.md) | Troubleshooting tips for common warnings and issues |
 | [Error List](error_list.md) | Error messages reference for quantization and deployment |
 | [Windows MinGW setup](windows_mingw_setup.md) | Setup guide for MinGW Clang + CMake on Windows |
->>>>>>> fff1618973897ea02bb21dea37128bd8ceb5f201
+
