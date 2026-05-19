@@ -48,7 +48,7 @@ python mcu_compile.py ../models_int8 ../deploy_output --npu
 python utils/check_model_metrics.py ../deploy_output/ad01_int8_NPU
 ```
 
-Your compiled C source code will be in `deploy_output/ad01_int8_no_ospi/build/MCU/compilation/src/`.
+Your compiled C source code will be in `deploy_output/ad01_int8_npu/build/MCU/compilation/src/`.
 
 📖 For detailed installation instructions, see the [Installation Guide](install/README.md).
 
