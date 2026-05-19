@@ -151,6 +151,6 @@ mera_visualizer
 
 This will start a local server (default: http://127.0.0.1:5000).
 
-📖 For detailed usage instructions and features, see the [Visualizer Guide](../docs/visualizer/README.md).
+📖 For detailed usage instructions and features, see the [Visualizer Guide](../docs/graph_vizualizer/README.md).
 
 [^1]: RUHMI Framework AI MCU Compiler is powered by EdgeCortix® MERA™.
