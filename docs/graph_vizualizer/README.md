@@ -57,7 +57,7 @@ CLI options
 - `--debug`: Run in debug mode
 - `--version`, `-v`: Show version information
 - `--help`, `-h`: Show help message
-- cHandling JSON file
+- `--json` Handling JSON file
   - Load a JSON file directly and start the server   
   *mera_visualizer --json path/to/model_subgraphs.json*   
   - Load JSON file without opening browser automatically   
