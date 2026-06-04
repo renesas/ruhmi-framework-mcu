@@ -57,11 +57,16 @@ CLI options
 - `--debug`: Run in debug mode
 - `--version`, `-v`: Show version information
 - `--help`, `-h`: Show help message
-- `--json` : Handling JSON file
+- cHandling JSON file
   - Load a JSON file directly and start the server   
-  mera_visualizer --json path/to/model_subgraphs.json   
+  *mera_visualizer --json path/to/model_subgraphs.json*   
   - Load JSON file without opening browser automatically   
-  mera_visualizer --json path/to/model_subgraphs.json --no-browser  
+  *mera_visualizer --json path/to/model_subgraphs.json --no-browser*  
+- `--access-info`: Create (or overwrite) a file that contains the server address  
+  - If file path is invalid or have no write permission, it will show the error message clearly  
+  - it will create (or overwrite) a file that contains the server address  
+      *mera_visualizer --access-info /Users/access-info.txt*  
+  
 
 ## Web Interface  
 
