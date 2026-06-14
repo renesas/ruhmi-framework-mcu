@@ -135,10 +135,10 @@ Ensure your MERA virtual environment is activated, then install the visualizer w
 
 ```bash
 # Linux
-pip install mera_visualizer-2.5.0+mcuv3-py3-none-any.whl
+pip install mera_visualizer-2.5.0+mcuv4-py3-none-any.whl
 
 # Windows
-python -m pip install .\mera_visualizer-2.5.0+mcuv3-py3-none-any.whl
+python -m pip install .\mera_visualizer-2.5.0+mcuv4-py3-none-any.whl
 ```
 
 **Usage**
