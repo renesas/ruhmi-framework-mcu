@@ -53,7 +53,7 @@ Download and install MERA on the virtual environment:
 wget https://github.com/renesas/ruhmi-framework-mcu/raw/main/install/mera-2.6.0+pkg.4513-cp310-cp310-manylinux_2_27_x86_64.whl
 
 # Install MERA
-pip install ./mera-2.6.0+pkg.4513-cp310-cp310-manylinux_2_27_x86_64.whl
+pip install ./mera-2.6.0+pkg.4815-cp310-cp310-manylinux_2_27_x86_64.whl
 ```
 
 > [**TIP**]
@@ -102,10 +102,10 @@ Download and install RUHMI AI Compiler into the virtual environment:
 ```powershell
 # Download the wheel file
 Invoke-WebRequest -Uri "https://github.com/renesas/ruhmi-framework-mcu/raw/main/install/mera-2.6.0+pkg.4513-cp310-cp310-win_amd64.whl" 
--OutFile "mera-2.6.0+pkg.4513-cp310-cp310-win_amd64.whl"
+-OutFile "mera-2.6.0+pkg.4815-cp310-cp310-win_amd64.whl"
 
 # Install MERA and dependencies
-python -m pip install .\mera-2.6.0+pkg.4513-cp310-cp310-win_amd64.whl
+python -m pip install .\mera-2.6.0+pkg.4815-cp310-cp310-win_amd64.whl
 python -m pip install onnx==1.17.0 tflite==2.18.0
 ```
 
@@ -116,7 +116,7 @@ Please check that all your path settings of your environment are correct. After 
 successfully complete the following commands.
 ```
 python -c "import mera; print(mera.__version__)"  
-2.6.0+pkg.4513
+2.6.0+pkg.4815
 
 vela --version
 4.2.0

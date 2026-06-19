@@ -44,11 +44,19 @@
   <tr>
     <td align="center">
       <h3>Face detection</h3>
-      <img src="https://raw.github.com/wiki/renesas/ruhmi-framework-mcu/images/Face_detection_RA8P1.gif?raw=true" width="300">
+      <img src="https://raw.github.com/wiki/renesas/ruhmi-framework-mcu/images/Face_detection_RA8P1.gif?raw=true" width="650">
     </td>
+  </tr>
+  <tr>
     <td align="center">
       <h3>Image classification</h3>
-      <img src="https://raw.github.com/wiki/renesas/ruhmi-framework-mcu/images/image_classification.gif?raw=true" width="300">
+      <img src="https://raw.github.com/wiki/renesas/ruhmi-framework-mcu/images/image_classification.gif?raw=true" width="650">
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <h3>Hand landmark</h3>
+      <img src="../docs/assets/handlandmark_gesture_recog.gif" width="650">
     </td>
   </tr>
 </table>

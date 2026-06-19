@@ -1,0 +1,10 @@
+ra/arm/CMSIS-NN/Source/NNSupportFunctions/arm_nn_vec_mat_mult_t_s8.o: \
+  ../ra/arm/CMSIS-NN/Source/NNSupportFunctions/arm_nn_vec_mat_mult_t_s8.c \
+  /home/eldorado/e2_studio/workspace_6.4/ek_ra8p1_vision_palm_detection_hand_landmarkmodel_gesture_recognition_camera_LCD_FSP640/ra/arm/CMSIS-NN/Include/arm_nnsupportfunctions.h \
+  /home/eldorado/e2_studio/workspace_6.4/ek_ra8p1_vision_palm_detection_hand_landmarkmodel_gesture_recognition_camera_LCD_FSP640/ra/arm/CMSIS-NN/Include/Internal/arm_nn_compiler.h \
+  /home/eldorado/e2_studio/workspace_6.4/ek_ra8p1_vision_palm_detection_hand_landmarkmodel_gesture_recognition_camera_LCD_FSP640/ra/arm/CMSIS-NN/Include/arm_nn_math_types.h \
+  /home/eldorado/e2_studio/workspace_6.4/ek_ra8p1_vision_palm_detection_hand_landmarkmodel_gesture_recognition_camera_LCD_FSP640/ra/arm/CMSIS-NN/Include/arm_nn_types.h
+/home/eldorado/e2_studio/workspace_6.4/ek_ra8p1_vision_palm_detection_hand_landmarkmodel_gesture_recognition_camera_LCD_FSP640/ra/arm/CMSIS-NN/Include/arm_nnsupportfunctions.h:
+/home/eldorado/e2_studio/workspace_6.4/ek_ra8p1_vision_palm_detection_hand_landmarkmodel_gesture_recognition_camera_LCD_FSP640/ra/arm/CMSIS-NN/Include/Internal/arm_nn_compiler.h:
+/home/eldorado/e2_studio/workspace_6.4/ek_ra8p1_vision_palm_detection_hand_landmarkmodel_gesture_recognition_camera_LCD_FSP640/ra/arm/CMSIS-NN/Include/arm_nn_math_types.h:
+/home/eldorado/e2_studio/workspace_6.4/ek_ra8p1_vision_palm_detection_hand_landmarkmodel_gesture_recognition_camera_LCD_FSP640/ra/arm/CMSIS-NN/Include/arm_nn_types.h:

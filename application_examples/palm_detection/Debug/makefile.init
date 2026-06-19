@@ -1,0 +1,10 @@
+################################################################################
+# Automatically-generated file. Do not edit!
+################################################################################
+
+arg1 = $(1)
+export PATH=/home/eldorado/renesas/ra/e2studio_v2025-12_fsp_v6.4.0/toolchains/llvm_arm/ATfE-21.1.1-Linux-x86_64/bin/::/home/eldorado/renesas/ra/e2studio_v2025-12_fsp_v6.4.0/eclipse/plugins/com.renesas.ide.exttools.gnumake.linux.x86_64_1.0.1.v20240909-0854/mk/:/home/eldorado/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin:/home/eldorado/ngc-cli
+export TCINSTALL=/home/eldorado/renesas/ra/e2studio_v2025-12_fsp_v6.4.0/toolchains/llvm_arm/ATfE-21.1.1-Linux-x86_64/
+export CWD=$(CURDIR)
+export TC_VERSION=21.1.1
+export PWD=$(CURDIR)

@@ -34,7 +34,7 @@ source mera-env/bin/activate
 # 3. Install dependencies and MERA
 pip install --upgrade pip
 pip install decorator typing_extensions psutil attrs pybind11 cmake junitparser
-pip install ./install/mera-2.6.0+pkg.4513-cp310-cp310-manylinux_2_27_x86_64.whl
+pip install ./install/mera-2.6.0+pkg.4815-cp310-cp310-manylinux_2_27_x86_64.whl
 
 # 4. Download a sample model
 wget https://raw.githubusercontent.com/mlcommons/tiny/master/benchmark/training/anomaly_detection/trained_models/ad01_int8.tflite
