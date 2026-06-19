@@ -56,7 +56,7 @@
   <tr>
     <td align="center">
       <h3>Hand landmark</h3>
-      <img src="../docs/assets/handlandmark_gesture_recog.gif" width="950">
+      <img src="../docs/assets/handlandmark_gesture_recog.gif" width="650">
     </td>
   </tr>
 </table>
