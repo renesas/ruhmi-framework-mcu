@@ -46,7 +46,7 @@ processinf_time_info_t application_processing_time;
   **********************************************************************************************************************/
 int e_printf(const char *format, ...)
 {
-	sprintf(sprintf_buffer, format);
+	snprintf(sprintf_buffer, BUFFER_LINE_LENGTH, "%s", format);
 	print_to_console(sprintf_buffer);
     return 0;
 }
@@ -64,152 +64,152 @@ void handle_error (vision_ai_app_err_t err)
 	   case VISION_AI_APP_ERR_AI_INIT:
 	   {
 		   /*Suggest debugging into the code to identify the issue. */
-			sprintf(sprintf_buffer, "\r\n[failure: FACE_DET_APP_AI_INIT]: AI init failed.  \r\n");
+			snprintf(sprintf_buffer, BUFFER_LINE_LENGTH, "\r\n[failure: FACE_DET_APP_AI_INIT]: AI init failed.  \r\n");
 			print_to_console(sprintf_buffer);
 
 		   break;
 	   }
 	   case VISION_AI_APP_ERR_AI_INFERENCE:
 	   {
-		   	sprintf(sprintf_buffer, "\r\n[failure: FACE_DET_APP_INFERENCE]: AI inference failed.  \r\n");
+		   	snprintf(sprintf_buffer, BUFFER_LINE_LENGTH, "\r\n[failure: FACE_DET_APP_INFERENCE]: AI inference failed.  \r\n");
 			print_to_console(sprintf_buffer);
 			break;
 	   }
 	   case VISION_AI_APP_ERR_IMG_PROCESS:
 	   {
-		   	sprintf(sprintf_buffer, "\r\n[failure: FACE_DET_APP_IMG_PROCESS]: Image cropping failed. \r\n");
+		   	snprintf(sprintf_buffer, BUFFER_LINE_LENGTH, "\r\n[failure: FACE_DET_APP_IMG_PROCESS]: Image cropping failed. \r\n");
 			print_to_console(sprintf_buffer);
 			break;
 	   }
 	   case VISION_AI_APP_ERR_IMG_ROTATION:
 	   {
-		  	sprintf(sprintf_buffer, "\r\n[failure: FACE_DET_APP_IMG_ROTATION]: Image rotation failed. \r\n");
+		  	snprintf(sprintf_buffer, BUFFER_LINE_LENGTH, "\r\n[failure: FACE_DET_APP_IMG_ROTATION]: Image rotation failed. \r\n");
 			print_to_console(sprintf_buffer);
 			break;
 	   }
 	   case VISION_AI_APP_ERR_NULL_POINTER:
 	   {
 		   /*Suggest valid the input and output buffer.  */
-			sprintf(sprintf_buffer, "\r\n[failure: FACE_DET_APP_NULL_POINTER]: input buffer not allocated. \r\n");
+			snprintf(sprintf_buffer, BUFFER_LINE_LENGTH, "\r\n[failure: FACE_DET_APP_NULL_POINTER]: input buffer not allocated. \r\n");
 			print_to_console(sprintf_buffer);
 			break;
 	   }
  	   case VISION_AI_APP_ERR_GLCDC_OPEN:
 	   {
 		   /*Suggest valid the input and output buffer.  */
-			sprintf(sprintf_buffer, "\r\n[failure: FACE_DET_APP_GLCDC_OPEN]: R_GLCDC_Open returned error. \r\n");
+			snprintf(sprintf_buffer, BUFFER_LINE_LENGTH, "\r\n[failure: FACE_DET_APP_GLCDC_OPEN]: R_GLCDC_Open returned error. \r\n");
 			print_to_console(sprintf_buffer);
 			break;
 	   }
 	   case VISION_AI_APP_ERR_MIPI_CMD:
 	   {
 		   /*Suggest valid the input and output buffer.  */
-			sprintf(sprintf_buffer, "\r\n[failure: FACE_DET_APP_MIPI_CMD]: R_MIPI_DSI_Command returned error. \r\n");
+			snprintf(sprintf_buffer, BUFFER_LINE_LENGTH, "\r\n[failure: FACE_DET_APP_MIPI_CMD]: R_MIPI_DSI_Command returned error. \r\n");
 			print_to_console(sprintf_buffer);
 			break;
 	   }
 	   case VISION_AI_APP_ERR_GLCDC_START:
 	   {
 		   /*Suggest valid the input and output buffer.  */
-			sprintf(sprintf_buffer, "\r\n[failure: FACE_DET_APP_GLCDC_START]: R_GLCDC_Start returned error. \r\n");
+			snprintf(sprintf_buffer, BUFFER_LINE_LENGTH, "\r\n[failure: FACE_DET_APP_GLCDC_START]: R_GLCDC_Start returned error. \r\n");
 			print_to_console(sprintf_buffer);
 			break;
 	   }
 	   case VISION_AI_APP_ERR_GLCDC_LAYER_CHANGE:
 	   {
 		   /*Suggest valid the input and output buffer.  */
-			sprintf(sprintf_buffer, "\r\n[failure: FACE_DET_APP_GLCDC_LAYER_CHANGE]: R_GLCDC_LayerChange returned error. \r\n");
+			snprintf(sprintf_buffer, BUFFER_LINE_LENGTH, "\r\n[failure: FACE_DET_APP_GLCDC_LAYER_CHANGE]: R_GLCDC_LayerChange returned error. \r\n");
 			print_to_console(sprintf_buffer);
 			break;
 	   }
 	   case VISION_AI_APP_ERR_GRAPHICS_INIT:
 	   {
 		   /*Suggest valid the input and output buffer.  */
-			sprintf(sprintf_buffer, "\r\n[failure: FACE_DET_APP_GRAPHICS_INIT: Graphics system initialization returned error. \r\n");
+			snprintf(sprintf_buffer, BUFFER_LINE_LENGTH, "\r\n[failure: FACE_DET_APP_GRAPHICS_INIT: Graphics system initialization returned error. \r\n");
 			print_to_console(sprintf_buffer);
 			break;
 	   }
 	   case VISION_AI_APP_ERR_GPT_OPEN:
 	   {
 		   /*Suggest valid the input and output buffer.  */
-			sprintf(sprintf_buffer, "\r\n[failure: FACE_DET_APP_GPT_OPEN]: R_GPT_Open returned error. \r\n");
+			snprintf(sprintf_buffer, BUFFER_LINE_LENGTH, "\r\n[failure: FACE_DET_APP_GPT_OPEN]: R_GPT_Open returned error. \r\n");
 			print_to_console(sprintf_buffer);
 			break;
 	   }
 	   case VISION_AI_APP_ERR_CEU_OPEN:
 	   {
 		   /*Suggest valid the input and output buffer.  */
-			sprintf(sprintf_buffer, "\r\n[failure: FACE_DET_APP_CEU_OPEN]: R_CEU_Open returned error. \r\n");
+			snprintf(sprintf_buffer, BUFFER_LINE_LENGTH, "\r\n[failure: FACE_DET_APP_CEU_OPEN]: R_CEU_Open returned error. \r\n");
 			print_to_console(sprintf_buffer);
 			break;
 	   }
 	   case VISION_AI_APP_ERR_CAMERA_INIT:
 	   {
 		   /*Suggest valid the input and output buffer.  */
-			sprintf(sprintf_buffer, "\r\n[failure: FACE_DET_APP_CAMERA_INIT]: Camera initialization returned error. \r\n");
+			snprintf(sprintf_buffer, BUFFER_LINE_LENGTH, "\r\n[failure: FACE_DET_APP_CAMERA_INIT]: Camera initialization returned error. \r\n");
 			print_to_console(sprintf_buffer);
 			break;
 	   }
 	   case VISION_AI_APP_ERR_IIC_MASTER_OPEN:
 	   {
 		   /*Suggest valid the input and output buffer.  */
-			sprintf(sprintf_buffer, "\r\n[failure: FACE_DET_APP_IIC_MASTER_OPEN]: R_IIC_MASTER_Open returned error. \r\n");
+			snprintf(sprintf_buffer, BUFFER_LINE_LENGTH, "\r\n[failure: FACE_DET_APP_IIC_MASTER_OPEN]: R_IIC_MASTER_Open returned error. \r\n");
 			print_to_console(sprintf_buffer);
 			break;
 	   }
 	   case VISION_AI_APP_ERR_WRITE_OV3640_REG:
 	   {
 		   /*Suggest valid the input and output buffer.  */
-			sprintf(sprintf_buffer, "\r\n[failure: FACE_DET_APP_WRITE_OV3640_REG: write OV3640 register returned error. \r\n");
+			snprintf(sprintf_buffer, BUFFER_LINE_LENGTH, "\r\n[failure: FACE_DET_APP_WRITE_OV3640_REG: write OV3640 register returned error. \r\n");
 			print_to_console(sprintf_buffer);
 			break;
 	   }
 	   case VISION_AI_APP_ERR_WRITE_SENSOR_ARRAY:
 	   {
 		   /*Suggest valid the input and output buffer.  */
-			sprintf(sprintf_buffer, "\r\n[failure: FACE_DET_APP_WRITE_SENSOR_ARRAY: write OV3640 register array returned error. \r\n");
+			snprintf(sprintf_buffer, BUFFER_LINE_LENGTH, "\r\n[failure: FACE_DET_APP_WRITE_SENSOR_ARRAY: write OV3640 register array returned error. \r\n");
 			print_to_console(sprintf_buffer);
 			break;
 	   }
 	   case VISION_AI_APP_ERR_CONSOLE_OPEN:
 	   {
 		   /*Suggest valid the input and output buffer.  */
-			sprintf(sprintf_buffer, "\r\n[failure: FACE_DET_APP_JLINK_CONSOLE_OPEN]: R_SCI_B_UART_Open returned error. \r\n");
+			snprintf(sprintf_buffer, BUFFER_LINE_LENGTH, "\r\n[failure: FACE_DET_APP_JLINK_CONSOLE_OPEN]: R_SCI_B_UART_Open returned error. \r\n");
 			print_to_console(sprintf_buffer);
 			break;
 	   }
 	   case VISION_AI_APP_ERR_IIC_MASTER_WRITE:
 	   {
 		   /*Suggest valid the input and output buffer.  */
-			sprintf(sprintf_buffer, "\r\n[failure: FACE_DET_APP_IIC_MASTER_WRITE: R_IIC_MASTER_Write returned error. \r\n");
+			snprintf(sprintf_buffer, BUFFER_LINE_LENGTH, "\r\n[failure: FACE_DET_APP_IIC_MASTER_WRITE: R_IIC_MASTER_Write returned error. \r\n");
 			print_to_console(sprintf_buffer);
 			break;
 	   }
 	   case VISION_AI_APP_ERR_IIC_MASTER_READ:
 	   {
 		   /*Suggest valid the input and output buffer.  */
-			sprintf(sprintf_buffer, "\r\n[failure: FACE_DET_APP_IIC_MASTER_READ: R_IIC_MASTER_Read returned error. \r\n");
+			snprintf(sprintf_buffer, BUFFER_LINE_LENGTH, "\r\n[failure: FACE_DET_APP_IIC_MASTER_READ: R_IIC_MASTER_Read returned error. \r\n");
 			print_to_console(sprintf_buffer);
 			break;
 	   }
 	   case VISION_AI_APP_ERR_CONSOLE_WRITE:
 	   {
 		   /*Suggest valid the input and output buffer.  */
-			sprintf(sprintf_buffer, "\r\n[failure: FACE_DET_APP_JLINK_SONSOLE_WRITE: R_SCI_B_UART_Write returned error. \r\n");
+			snprintf(sprintf_buffer, BUFFER_LINE_LENGTH, "\r\n[failure: FACE_DET_APP_JLINK_SONSOLE_WRITE: R_SCI_B_UART_Write returned error. \r\n");
 			print_to_console(sprintf_buffer);
 			break;
 	   }
 	   case VISION_AI_APP_ERR_CONSOLE_READ:
 	   {
 		   /*Suggest valid the input and output buffer.  */
-			sprintf(sprintf_buffer, "\r\n[failure: FACE_DET_APP_JLINK_SONSOLE_READ: R_SCI_B_UART_Read returned error. \r\n");
+			snprintf(sprintf_buffer, BUFFER_LINE_LENGTH, "\r\n[failure: FACE_DET_APP_JLINK_SONSOLE_READ: R_SCI_B_UART_Read returned error. \r\n");
 			print_to_console(sprintf_buffer);
 			break;
 	   }
 	   case VISION_AI_APP_ERR_EXTERNAL_IRQ_INIT:
 	   {
            /*Suggest valid the input and output buffer.  */
-            sprintf(sprintf_buffer, "\r\n[failure: VISION_AI_APP_ERR_EXTERNAL_IRQ_INIT: R_ICU_ExternalIrq returned error. \r\n");
+            snprintf(sprintf_buffer, BUFFER_LINE_LENGTH, "\r\n[failure: VISION_AI_APP_ERR_EXTERNAL_IRQ_INIT: R_ICU_ExternalIrq returned error. \r\n");
             print_to_console(sprintf_buffer);
             break;
 	   }
