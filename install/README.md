@@ -101,7 +101,7 @@ Download and install RUHMI AI Compiler into the virtual environment:
 
 ```powershell
 # Download the wheel file
-Invoke-WebRequest -Uri "https://github.com/renesas/ruhmi-framework-mcu/raw/main/install/mera-2.6.0+pkg.4513-cp310-cp310-win_amd64.whl" 
+Invoke-WebRequest -Uri "https://github.com/renesas/ruhmi-framework-mcu/raw/main/install/mera-2.6.0+pkg.4815-cp310-cp310-win_amd64.whl" 
 -OutFile "mera-2.6.0+pkg.4815-cp310-cp310-win_amd64.whl"
 
 # Install MERA and dependencies
