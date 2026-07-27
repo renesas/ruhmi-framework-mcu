@@ -50,7 +50,7 @@ Download and install MERA on the virtual environment:
 
 ```bash
 # Download the wheel file
-wget https://github.com/renesas/ruhmi-framework-mcu/raw/main/install/mera-2.6.0+pkg.4513-cp310-cp310-manylinux_2_27_x86_64.whl
+wget https://github.com/renesas/ruhmi-framework-mcu/raw/main/install/mera-2.6.0+pkg.4815-cp310-cp310-manylinux_2_27_x86_64.whl
 
 # Install MERA
 pip install ./mera-2.6.0+pkg.4815-cp310-cp310-manylinux_2_27_x86_64.whl
