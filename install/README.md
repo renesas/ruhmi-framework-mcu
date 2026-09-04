@@ -48,7 +48,12 @@ Your prompt should now show that you are under a virtual environment mera-env:
 
 Download and install MERA on the virtual environment:
 The installation consists of three files of *whl.
-You can install one command using the option of --find-links=. simply.
+You can install one command using the option of *--find-links=.* simply.
+
+The installtion files you need to place in your installation folder
+- *mera-2.7.1+pkg.6102-cp310-cp310-win_amd64.whl*  
+- *mera_native_compile-2.7.1+pkg.6102-py3-none-linux_x86_64.whl*  
+- *mera_native_runtime-2.7.1+pkg.6102-py3-none-linux_x86_64.whl*  
 
 ```bash
 # Download all wheel files in the install directory
@@ -105,7 +110,12 @@ You will see the prompt as "(.venv) PS C:\work>"
 
 Download and install RUHMI AI Compiler into the virtual environment:
 The installation consists of three files of *whl.
-You can install one command using the option of --find-links=. simply.
+You can install one command using the option of *--find-links=.* simply.
+
+The installtion files you need to place in your installation folder
+- *mera-2.7.1+pkg.6102-cp310-cp310-win_amd64.whl*  
+- *mera_native_compile-2.7.1+pkg.6102-py3-none-win_amd64.whl*  
+- *mera_native_runtime-2.7.1+pkg.6102-py3-none-win_amd64.whl*  
 
 ```powershell
 # Download all wheel files in the install directory
