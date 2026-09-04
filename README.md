@@ -64,7 +64,7 @@ RUHMI supports Ubuntu Linux and Windows. The table below outlines the prerequisi
 
 | Requirement | Ubuntu Linux | Windows |
 |-------------|--------------|----------|
-| **OS Version** | Ubuntu 22.04 (recommended) | Windows 10 or 11 (11 recommended) |
+| **OS Version** | Ubuntu 22.04 (recommended), Ubuntu 24.04 | Windows 10 or 11 (11 recommended) |
 | **Python** | Python 3.10.x via PyEnv or venv | Python 3.10.x via PyEnv or venv |
 | **Additional** | — | Microsoft C++ runtime libraries |
 
