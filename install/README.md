@@ -2,7 +2,7 @@
 # Installation
 
 RUHMI Framework[^1] AI MCU compiler includes MERA IPs supported by EdgeCortix, so you will see files and descriptions with the name MERA included.
-The version number in the file name (e.g., 2.5.0) corresponds to the MERA IP version.
+The version number in the file name (e.g., 2.7.0) corresponds to the MERA IP version.
 
 Select your installation guide:
 - [Installation guide for Ubuntu Linux](#installation---ubuntu-linux)
@@ -12,7 +12,7 @@ Select your installation guide:
 
 In order to install RUHMI on a supported environment, you will need:
 
-- A machine with Ubuntu 22.04 (recommended, as this was the version used for testing)
+- A machine with Ubuntu 22.04 or Ubuntu 24.04 (Ubuntu 22.04 is recommended as this was the version used for testing)
 - A working installation of PyEnv or other Python virtual environment management system that provides Python version 3.10.x
 
 **Prepare the environment**  
@@ -42,18 +42,24 @@ pip install --upgrade pip && pip install decorator typing_extensions psutil attr
 Your prompt should now show that you are under a virtual environment mera-env:
 (mera-env) user@compute:~$
 
-> **Note:** Alternative such as Pyenvs can also be used.
+> **Note:** Alternative such as PyEnv can also be used.
 
 **Install MERA**
 
 Download and install MERA on the virtual environment:
+The installation consists of three files of *whl.
+You can install one command using the option of --find-links=. simply.
 
 ```bash
-# Download the wheel file
-wget https://github.com/renesas/ruhmi-framework-mcu/raw/main/install/mera-2.6.0+pkg.4815-cp310-cp310-manylinux_2_27_x86_64.whl
+# Download all wheel files in the install directory
+cd install  
+curl -s https://api.github.com/repos/renesas/ruhmi-framework-mcu/contents/install |
+    grep '"download_url":.*\.whl"' |
+    cut -d '"' -f 4 |
+    xargs -n 1 wget
 
 # Install MERA
-pip install ./mera-2.6.0+pkg.4815-cp310-cp310-manylinux_2_27_x86_64.whl
+pip install --find-links=. ./mera-2.7.1+pkg.6102-cp310-cp310-manylinux_2_27_x86_64.whl
 ```
 
 > [**TIP**]
@@ -98,14 +104,18 @@ You will see the prompt as "(.venv) PS C:\work>"
 **Install MERA into Windows**
 
 Download and install RUHMI AI Compiler into the virtual environment:
+The installation consists of three files of *whl.
+You can install one command using the option of --find-links=. simply.
 
 ```powershell
-# Download the wheel file
-Invoke-WebRequest -Uri "https://github.com/renesas/ruhmi-framework-mcu/raw/main/install/mera-2.6.0+pkg.4815-cp310-cp310-win_amd64.whl" 
--OutFile "mera-2.6.0+pkg.4815-cp310-cp310-win_amd64.whl"
+# Download all wheel files in the install directory
+$installFiles = Invoke-RestMethod -Uri "https://api.github.com/repos/renesas/ruhmi-framework-mcu/contents/install"
+$installFiles | Where-Object { $_.name -like "*.whl" } | ForEach-Object {
+    Invoke-WebRequest -Uri $_.download_url -OutFile $_.name
+}
 
 # Install MERA and dependencies
-python -m pip install .\mera-2.6.0+pkg.4815-cp310-cp310-win_amd64.whl
+pip install --find-links=. ./mera-2.7.1+pkg.6102-cp310-cp310-win_amd64.whl
 python -m pip install onnx==1.17.0 tflite==2.18.0
 ```
 
@@ -116,10 +126,10 @@ Please check that all your path settings of your environment are correct. After 
 successfully complete the following commands.
 ```
 python -c "import mera; print(mera.__version__)"  
-2.6.0+pkg.4815
+2.7.1+pkg.6102
 
 vela --version
-4.2.0
+5.1.0
 
 python -c "import mera;print(dir(mera))"
 ['Deployer', 'InputDescription', 'InputDescriptionContainer', 'Layout', 'MERADeployer', 'MeraModel', 'MeraTvmDeployment', 'MeraTvmModelRunner', 'MeraTvmPrjDeployment', 'ModelLoader', 'ModelQuantizer', 'Platform', 'PowerMetrics', 'QuantizationQualityMetrics', 'Quantizer', 'TVMDeployer', 'Target', '__builtins__', '__cached__', '__doc__', '__file__', '__loader__', '__name__', '__package__', '__path__', '__spec__', '__version__', 'calculate_quantization_quality', 'deploy', 'deploy_project', 'get_mera_dna_version', 'get_mera_tvm_version', 'get_mera_version', 'get_versions', 'load_mera_deployment', 'mera_deployment', 'mera_model', 'mera_platform', 'mera_quantizer', 'metrics', 'model', 'quantization_quality', 'quantizer', 'version']  
@@ -151,6 +161,6 @@ mera_visualizer
 
 This will start a local server (default: http://127.0.0.1:5000).
 
-📖 For detailed usage instructions and features, see the [Visualizer Guide](../docs/graph_vizualizer/README.md).
+📖 For detailed usage instructions and features, see the [Visualizer Guide](../docs/graph_visualizer/README.md).
 
 [^1]: RUHMI Framework AI MCU Compiler is powered by EdgeCortix® MERA™.

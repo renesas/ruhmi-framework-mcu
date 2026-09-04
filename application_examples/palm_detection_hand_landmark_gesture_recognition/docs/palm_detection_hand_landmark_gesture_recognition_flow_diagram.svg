@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="780" height="1353" viewBox="0 0 780 1353" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif">
+<rect width="780" height="1353" fill="#FFFFFF"/>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L9,5 L0,9 z" fill="#7FA3C6"/></marker></defs>
+<rect x="265.0" y="24.0" width="250.0" height="60.0" rx="3" fill="#E4F0FA" stroke="#3576B0" stroke-width="1.6"/>
+<text x="390.0" y="50.5" text-anchor="middle" font-size="14" fill="#1A3B5C">
+<tspan x="390.0" dy="0">Camera</tspan>
+<tspan x="390.0" dy="17">640×480 RGB565</tspan>
+</text>
+<rect x="53.0" y="150.0" width="250.0" height="60.0" rx="3" fill="#E4F0FA" stroke="#3576B0" stroke-width="1.6"/>
+<text x="178.0" y="176.5" text-anchor="middle" font-size="14" fill="#1A3B5C">
+<tspan x="178.0" dy="0">Letterbox Preprocess</tspan>
+<tspan x="178.0" dy="17">192×192 INT8</tspan>
+</text>
+<rect x="53.0" y="240.0" width="250.0" height="43.0" rx="3" fill="#E4F0FA" stroke="#3576B0" stroke-width="1.6"/>
+<text x="178.0" y="266.5" text-anchor="middle" font-size="14" fill="#1A3B5C">
+<tspan x="178.0" dy="0">Palm Detection</tspan>
+</text>
+<rect x="53.0" y="313.0" width="250.0" height="60.0" rx="3" fill="#E4F0FA" stroke="#3576B0" stroke-width="1.6"/>
+<text x="178.0" y="339.5" text-anchor="middle" font-size="14" fill="#1A3B5C">
+<tspan x="178.0" dy="0">Palm Post-process</tspan>
+<tspan x="178.0" dy="17">Dequant + NMS</tspan>
+</text>
+<rect x="53.0" y="403.0" width="250.0" height="60.0" rx="3" fill="#E4F0FA" stroke="#3576B0" stroke-width="1.6"/>
+<text x="178.0" y="429.5" text-anchor="middle" font-size="14" fill="#1A3B5C">
+<tspan x="178.0" dy="0">Hand Rect Compute</tspan>
+<tspan x="178.0" dy="17">from kp0/kp2</tspan>
+</text>
+<rect x="53.0" y="493.0" width="250.0" height="43.0" rx="3" fill="#E4F0FA" stroke="#3576B0" stroke-width="1.6"/>
+<text x="178.0" y="519.5" text-anchor="middle" font-size="14" fill="#1A3B5C">
+<tspan x="178.0" dy="0">1€ Rect Filter</tspan>
+</text>
+<rect x="484.0" y="150.0" width="240.0" height="60.0" rx="3" fill="#E4F0FA" stroke="#3576B0" stroke-width="1.6"/>
+<text x="604.0" y="176.5" text-anchor="middle" font-size="14" fill="#1A3B5C">
+<tspan x="604.0" dy="0">Tracked ROI</tspan>
+<tspan x="604.0" dy="17">from previous frame</tspan>
+</text>
+<rect x="245.0" y="610.0" width="290.0" height="60.0" rx="3" fill="#E4F0FA" stroke="#3576B0" stroke-width="1.6"/>
+<text x="390.0" y="636.5" text-anchor="middle" font-size="14" fill="#1A3B5C">
+<tspan x="390.0" dy="0">Frame-edge Check</tspan>
+<tspan x="390.0" dy="17">crop ≥ 75% inside frame</tspan>
+</text>
+<rect x="245.0" y="704.0" width="290.0" height="77.0" rx="3" fill="#E4F0FA" stroke="#3576B0" stroke-width="1.6"/>
+<text x="390.0" y="730.5" text-anchor="middle" font-size="14" fill="#1A3B5C">
+<tspan x="390.0" dy="0">Landmark Preprocess</tspan>
+<tspan x="390.0" dy="17">Rotated Crop 224×224</tspan>
+<tspan x="390.0" dy="17">INT8</tspan>
+</text>
+<rect x="265.0" y="815.0" width="250.0" height="43.0" rx="3" fill="#E4F0FA" stroke="#3576B0" stroke-width="1.6"/>
+<text x="390.0" y="841.5" text-anchor="middle" font-size="14" fill="#1A3B5C">
+<tspan x="390.0" dy="0">Hand Landmark</tspan>
+</text>
+<rect x="230.0" y="892.0" width="320.0" height="60.0" rx="3" fill="#E4F0FA" stroke="#3576B0" stroke-width="1.6"/>
+<text x="390.0" y="918.5" text-anchor="middle" font-size="14" fill="#1A3B5C">
+<tspan x="390.0" dy="0">Landmark Post-process</tspan>
+<tspan x="390.0" dy="17">21 Keypoints in Camera Coords</tspan>
+</text>
+<rect x="240.0" y="986.0" width="300.0" height="60.0" rx="3" fill="#E4F0FA" stroke="#3576B0" stroke-width="1.6"/>
+<text x="390.0" y="1012.5" text-anchor="middle" font-size="14" fill="#1A3B5C">
+<tspan x="390.0" dy="0">MediaPipe ROI Rule</tspan>
+<tspan x="390.0" dy="17">12 landmarks, no fingertips</tspan>
+</text>
+<rect x="265.0" y="1080.0" width="250.0" height="43.0" rx="3" fill="#E4F0FA" stroke="#3576B0" stroke-width="1.6"/>
+<text x="390.0" y="1106.5" text-anchor="middle" font-size="14" fill="#1A3B5C">
+<tspan x="390.0" dy="0">1€ Point Filter</tspan>
+</text>
+<rect x="116.0" y="1163.0" width="264.0" height="60.0" rx="3" fill="#E4F0FA" stroke="#3576B0" stroke-width="1.6"/>
+<text x="248.0" y="1189.5" text-anchor="middle" font-size="14" fill="#1A3B5C">
+<tspan x="248.0" dy="0">Handedness Decision</tspan>
+<tspan x="248.0" dy="17">evidence accumulator</tspan>
+</text>
+<rect x="400.0" y="1163.0" width="264.0" height="60.0" rx="3" fill="#E4F0FA" stroke="#3576B0" stroke-width="1.6"/>
+<text x="532.0" y="1189.5" text-anchor="middle" font-size="14" fill="#1A3B5C">
+<tspan x="532.0" dy="0">Gesture Classifier</tspan>
+<tspan x="532.0" dy="17">MLP FP32, CPU</tspan>
+</text>
+<rect x="225.0" y="1267.0" width="330.0" height="60.0" rx="3" fill="#E4F0FA" stroke="#3576B0" stroke-width="1.6"/>
+<text x="390.0" y="1293.5" text-anchor="middle" font-size="14" fill="#1A3B5C">
+<tspan x="390.0" dy="0">LCD Render</tspan>
+<tspan x="390.0" dy="17">Skeleton + Gesture Label</tspan>
+</text>
+<path d="M390.0,84.0 L390.0,118.0 L178.0,118.0 L178.0,148.0" fill="none" stroke="#7FA3C6" stroke-width="1.6" marker-end="url(#a)"/>
+<path d="M390.0,84.0 L390.0,118.0 L604.0,118.0 L604.0,148.0" fill="none" stroke="#7FA3C6" stroke-width="1.6" marker-end="url(#a)"/>
+<text x="284.0" y="111.0" text-anchor="middle" font-size="12.5" fill="#5B7B9C" font-style="italic">1 frame in 10, or when a slot is free</text>
+<text x="513.0" y="111.0" text-anchor="middle" font-size="12.5" fill="#5B7B9C" font-style="italic">while tracking</text>
+<path d="M178.0,210.0 L178.0,238.0" fill="none" stroke="#7FA3C6" stroke-width="1.6" marker-end="url(#a)"/>
+<path d="M178.0,283.0 L178.0,311.0" fill="none" stroke="#7FA3C6" stroke-width="1.6" marker-end="url(#a)"/>
+<path d="M178.0,373.0 L178.0,401.0" fill="none" stroke="#7FA3C6" stroke-width="1.6" marker-end="url(#a)"/>
+<path d="M178.0,463.0 L178.0,491.0" fill="none" stroke="#7FA3C6" stroke-width="1.6" marker-end="url(#a)"/>
+<path d="M178.0,536.0 L178.0,578.0 L390.0,578.0 L390.0,608.0" fill="none" stroke="#7FA3C6" stroke-width="1.6" marker-end="url(#a)"/>
+<path d="M604.0,210.0 L604.0,578.0 L390.0,578.0 L390.0,608.0" fill="none" stroke="#7FA3C6" stroke-width="1.6" marker-end="url(#a)"/>
+<path d="M390.0,670.0 L390.0,702.0" fill="none" stroke="#7FA3C6" stroke-width="1.6" marker-end="url(#a)"/>
+<path d="M390.0,781.0 L390.0,813.0" fill="none" stroke="#7FA3C6" stroke-width="1.6" marker-end="url(#a)"/>
+<path d="M390.0,858.0 L390.0,890.0" fill="none" stroke="#7FA3C6" stroke-width="1.6" marker-end="url(#a)"/>
+<path d="M390.0,952.0 L390.0,984.0" fill="none" stroke="#7FA3C6" stroke-width="1.6" marker-end="url(#a)"/>
+<path d="M390.0,1046.0 L390.0,1078.0" fill="none" stroke="#7FA3C6" stroke-width="1.6" marker-end="url(#a)"/>
+<path d="M390.0,1123.0 L390.0,1143.0 L248.0,1143.0 L248.0,1161.0" fill="none" stroke="#7FA3C6" stroke-width="1.6" marker-end="url(#a)"/>
+<path d="M390.0,1123.0 L390.0,1143.0 L532.0,1143.0 L532.0,1161.0" fill="none" stroke="#7FA3C6" stroke-width="1.6" marker-end="url(#a)"/>
+<path d="M248.0,1223.0 L248.0,1243.0 L390.0,1243.0 L390.0,1265.0" fill="none" stroke="#7FA3C6" stroke-width="1.6" marker-end="url(#a)"/>
+<path d="M532.0,1223.0 L532.0,1243.0 L390.0,1243.0 L390.0,1265.0" fill="none" stroke="#7FA3C6" stroke-width="1.6" marker-end="url(#a)"/>
+<path d="M540.0,1016.0 L740.0,1016.0 L740.0,180.0 L726.0,180.0" fill="none" stroke="#7FA3C6" stroke-width="1.6" stroke-dasharray="6,4" marker-end="url(#a)"/>
+<text x="734.0" y="598.0" text-anchor="end" font-size="12.5" fill="#5B7B9C" font-style="italic">next frame</text>
+</svg>

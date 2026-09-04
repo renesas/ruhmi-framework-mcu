@@ -45,6 +45,10 @@
 
 void do_detection_screen(bool ai_result_new);
 
+/* Landmark filter tuning currently compiled in — defined in MainLoop_obj.cc,
+ * reported by console_output_processing_time() below. */
+const char * hand_tuning_tag(void);
+
 /***************************************************************************************************************************
  * Exported global variables and functions (to be accessed by other files)
  ***************************************************************************************************************************/
@@ -357,6 +361,12 @@ void console_output_processing_time(void)
     print_to_console(sprintf_buffer);
     sprintf (sprintf_buffer, "  LCD display vsync period          : %4d ms, %4d fps\r\n",
             application_processing_time.lcd_display_update_refresh_ms, TimeCounter_ConvertFromMsToFps(application_processing_time.lcd_display_update_refresh_ms));
+    print_to_console(sprintf_buffer);
+
+    /* Landmark filter tuning currently compiled in, so a captured log says
+     * which build produced it. Defined in MainLoop_obj.cc alongside the
+     * constants it reports. */
+    sprintf (sprintf_buffer, "  Tuning                            : %s\r\n", hand_tuning_tag());
     print_to_console(sprintf_buffer);
 }
 #endif

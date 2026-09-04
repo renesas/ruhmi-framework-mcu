@@ -39,6 +39,7 @@
 #define ENABLE_CONSOLE_OUTPUT_SCREEN_CLEAR           (1) // 0: Disabled, 1: Enabled. If you'd like to keep a log data, set 0 (disabled).
 #define ENABLE_AI_INFERENCE_RESULT_CONSOLE_OUTPUT    (1) // 0: Disabled, 1: Enabled
 #define ENABLE_PROCESSING_TIME_RESULT_CONSOLE_OUTPUT (1) // 0: Disabled, 1: Enabled
+#define ENABLE_DRW_ERROR_CONSOLE_OUTPUT              (1) // 0: Disabled, 1: Enabled
 
 #define ENABLE_OSPI_8BIT_MODE                        (0) // 0: Disabled, 1: Enabled
 

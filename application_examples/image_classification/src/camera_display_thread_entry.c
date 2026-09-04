@@ -25,6 +25,7 @@
 #include "console_output.h"
 
 #include "common_util.h"
+#include "Labels.h"
 
 #include "time_counter.h"
 
@@ -243,7 +244,34 @@ void console_output(bool ai_result_new)
 ***********************************************************************************************************************/
 void console_output_ai_inference_result(bool ai_result_new)
 {
+    const char** labels = getLabelPtr();
 
+    sprintf (sprintf_buffer, "\r\nAI inference result:\r\n");
+    print_to_console(sprintf_buffer);
+
+    if(ai_result_new)
+    {
+        sprintf (sprintf_buffer, "  New data\r\n\r\n");
+        print_to_console(sprintf_buffer);
+    }
+    else
+    {
+        sprintf (sprintf_buffer, "  Last detected data\r\n\r\n");
+        print_to_console(sprintf_buffer);
+    }
+
+    for(uint8_t i = 0; i < AI_MAX_DETECTION_NUM; i++)
+    {
+        /* Bounds-checked on purpose: this prints the raw category value straight from
+         * g_ai_classification[] for debugging, so an out-of-range value (the thing we're
+         * trying to catch) is reported instead of being dereferenced into labels[]. */
+        unsigned short category = g_ai_classification[i].category;
+        const char* label_str = (category < (unsigned short)getLabelSize()) ? labels[category] : "(OUT OF RANGE)";
+
+        sprintf (sprintf_buffer, "  #%d: category=%4d prob=%3d%%  %s\r\n",
+                 i, category, (int)(g_ai_classification[i].prob * 100.0f), label_str);
+        print_to_console(sprintf_buffer);
+    }
 }
 #endif
 

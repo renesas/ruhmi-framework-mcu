@@ -1,140 +1,99 @@
 # Introduction
 
+This demo showcases an image classification application using MobileNet V1 on the Renesas EK-RA8P1 board with Arm Ethos-U NPU support. It leverages the RUHMI Framework for efficient model deployment. Real-time inference is performed on camera input, and the Top-5 classification results are displayed on an LCD, demonstrating low-power, high-performance edge AI on an embedded platform.
 
-This demo showcases an image classification application using MobileNet_v1 on the Renesas RA8P1 MCU with Arm Ethos-U55 support. It leverages the RUHMI Framework for efficient model deployment. Real-time inference is performed on camera input, and the top-5 classification results are displayed on an LCD, demonstrating low-power, high-performance edge AI capabilities. 
-
-Use [.zip file](../ek_ra8p1_vision_image_classification_mobilenet_v1.zip) when you inport the application project into e2studio.
+Use the [.zip file](../ek_ra8p1_vision_image_classification_mobilenet_v1_FSP660.zip) when you import the application project into e² studio.
 
 ---
 
 ## Overview
 
-This demo performs real-time image classification on captured frames, using a MobileNet V1 model trained on the ImageNet dataset (1000 classes). The top-5 predicted classes with associated probabilities are displayed on the screen.
+This demo performs real-time image classification on captured camera frames, using a MobileNet V1 model trained on the ImageNet dataset (1000 classes). The Top-5 predicted classes, with their confidence scores, are displayed on the screen.
 
-| No   | Content            | Description      |
-| ---- | --------------- | --------- |
-|1|AI Model|mobilenetv1|
-|2|Inference time|Displays inference time in milliseconds|
-|3|TOP 5 accuracy|The Top-5 predicted class labels along with their confidence scores on the screen|
+| No | Content | Description |
+| --- | --- | --- |
+| 1 | AI Model | MobileNet V1 |
+| 2 | Inference time | Displays inference time in milliseconds |
+| 3 | Top-5 accuracy | The Top-5 predicted class labels along with their confidence scores |
 
 <div align="center">
-<img src ="../../docs/assets/IM_flow.png" width="20%">  <img src ="../../docs/assets/Image_class_demo.png" width="50%">  
+<img src="docs/image_classification_flow.png" width="18%">  <img src="docs/image_classification_demo.png" width="55%">
+</div>
 
-
-<div align="left">
-  
 ---
 
 ## Hardware Setup
 
-- **Board**: Renesas EK-RA8P1
-- **Camera & Display**: Integrated into the EK-RA8P1 kit
-- **NPU**: On-chip **Arm Ethos-U** (no external setup required)
-- **Connection to PC**: Power on the EK-RA8P1 Kit with any of the USB connectors that are available.  
-- **Switch Setting**: Ensure **SW4** (center switch block) is set to all **0** (OFF)  
-  > (See right image above for reference)
+- **Evaluation Kit**: Renesas **EK-RA8P1**
+- **Camera & Display**: Integrated in the EK-RA8P1 kit
+- **NPU**: On-board **Arm Ethos-U** (no external setup required)
+- **Connection to PC**: Power on the EK-RA8P1 kit with any of the available USB connectors
+- **Important**: Ensure the **SW4 switch (middle of the board)** is set to all **0** (OFF)
 
 ---
 
 ## Software Setup
 
-- **e² studio version**: 2025-12 (25.12.0)      
-- **Flexible Software Package (FSP)**: 6.4.0  
+- **e² studio version**: 2026-07
+- **Flexible Software Package (FSP)**: 6.6.0
+- **Toolchain**: LLVM/Clang (ATfE 22.1.0) is the toolchain this project is configured to build with by default.
+- **RTOS**: FreeRTOS (via FSP's `rtos.awsfreertos` module)
 - **mera inference framework**: Included in this repository
-- **Model**: MobileNet V1 (quantized, 1000-class output)
+- **Model**: MobileNet V1, quantized INT8, 1000-class ImageNet output
 
-No external dependencies are needed beyond what’s bundled in this repo and FSP.
-
----
+No external dependencies are needed beyond what's bundled in this repository and FSP.
 
 ## How to Compile and Flash
 
 1. **Install e² studio**
 2. **Connect your EK-RA8P1 board** via USB Type-C
-3. **Download this repository and extract**
-3. **Open e² studio** and import this project: `File` -> `Import` -> `Existing Projects into Workspace`
-4. **Generate drivers**: Double click `configuration.xml` -> `Generate Project Content`
-5. **Build the Project**:
-    - `Right click the project name in left side bar` -> `Build Project`
-6. **Flash to Board**:
-    - `Right click the project name in left side bar` -> `Debug As` -> `Renesas GDB Hardware Debugging`.
-7. **Run the binary**
-    - Click `Resume` button several times
+3. **Download this repository and extract**, or extract the project zip linked above
+4. **Open e² studio** and import the project: `File` → `Import` → `Existing Projects into Workspace`
+5. **Generate drivers**: double-click `configuration.xml` → `Generate Project Content`
+6. **Build the project**: right-click the project in the left sidebar → `Build Project`
+7. **Flash to the board**: right-click the project → `Debug As` → `Renesas GDB Hardware Debugging`
+8. **Run**: click `Resume` a few times
+
 ---
 ## Key Source Code
 
-Main AI inference logic is in:
-`<project_root/src/ai_application/image_classification/MainLoop_img.cc> (from line 99)
-`
+Main AI inference logic is in:  
+`src/ai_application/image_classification/MainLoop_img.cc` (`main_loop_image_classification()`)
 
-### Code Explanation:
+Classification result smoothing is in:  
+`src/ai_inference_thread_entry.c` (`update_classification_result()`)
+
+Display/UI rendering is in:  
+`src/display_layer/image_classification_screen_mipi.c` (`do_image_classification_screen()`)
+
+---
+## Code Explanation
 
 ```cpp
 copy_data_to_mera((int8_t*)mera_input_ptr(), (uint8_t*)model_buffer_int8, (uint32_t)mera_input_size());
 ```
-* Prepares the input data for inference by copying it into the memory area expected by the mera framework.
+Copies the preprocessed input image into the model input buffer.
 
 ```cpp
 volatile uint32_t old_counter = TimeCounter_CurrentCountGet();
 mera_invoke();
-volatile uint32_t new_counter = TimeCounter_CurrentCountGet();
+application_processing_time.ai_inference_time_ms = TimeCounter_CountValueConvertToMs(old_counter, TimeCounter_CurrentCountGet());
 ```
-* Measures inference time using a timer.
-* `mera_invoke()` is the actual function that performs inference using Ethos-U (if enabled).
+Runs one inference and measures the inference time in milliseconds.
 
 ```cpp
-volatile uint32_t diff = new_counter - old_counter;
-application_processing_time.ai_inference_time_ms = TimeCounter_CountValueConvertToMs(old_counter, new_counter);
+int8_t* output = (int8_t*)mera_output_ptr();
 ```
-* Calculates the AI processing time in milliseconds and stores it in a global variable.
+Gets a pointer to the model output tensor used by post-processing.
 
-```cpp
-int8_t* output = (int8_t*)mera_output1_ptr();
-```
-Retrieves the pointer to the output buffer, it contain the model's results for postprocessing. Postprocessing ranks the top-5 class predictions using softmax and displays results.
-
-### Results Display
-The demo displays:
-* Top-5 predicted classes
-* Class names (mapped from ImageNet labels)
-* Confidence probabilities (approximate, using softmax from int8 scores)
-
+---
 
 ## Results & Performance
 
-| Mode             | Inference Time |            Notes              |
-|------------------|----------------|-------------------------------|
-| Ethos-U enabled  |      2ms       | NPU accelerated inference     |
-
+| Mode | Inference Time | Notes |
+| --- | --- | --- |
+| Ethos-U enabled | ~2ms | NPU-accelerated inference |
 
 ## Model reference
 
-You can generate the FP32/INT8 model using the provided python script `generate_IC_model_tflite.py` and running it in the same enviroment as the compiler `python3 -m venv mera-env`, refer to `venv` installation [here](../../install/README.md).  
-
-The model is referenced from the following [Github](https://github.com/tensorflow/models/blob/master/research/slim/nets/mobilenet_v1.md).
-
-**Library version for testing:**
-- WSL Ubuntu 22.04 
-- Tensorflow 2.13.1
-- Numpy 1.24.3
-
-
-**FP32 Mobilenetv1 Model:**
-- Open the python script 
-- Comment out the 5 lines after .from_keras (lines 48-52)
-- Run the python script 
-- It will generated a model named "mobilenet_v1.tflite" in the same directory.
-- You can choose a different name by modifying the script on line 56.
-
-
-**INT8 Mobilenetv1 Model:**
-- Download the calibration Data from here https://s3.amazonaws.com/fast-ai-imageclas/imagenette2-160.tgz
-- UNzip the file in the same directory as python file, as follows `"./imagenette2-160/imagenette2-160"`
-- Run the python script, your INT8 generated model "mobilenet_v1.tflite" in the same directory.
-- You can choose a different name by modifying the script on line 56.
-
-
-
-
-
-
+The model used in this project is MobileNet V1, quantized to INT8 with a 1000-class (ImageNet) output, referenced from [tensorflow/models](https://github.com/tensorflow/models/blob/master/research/slim/nets/mobilenet_v1.md).

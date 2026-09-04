@@ -53,25 +53,39 @@ void create_int8_tensor(TfLiteTensor* tensor, int8_t* input_ptr, float scale, in
 
     // Set dims to NULL as requested
     tensor->dims = NULL;
-    // Allocate and set quantization parameters on the stack
-    static TfLiteAffineQuantization quantization;  // Static to avoid malloc
-    static TfLiteFloatArray scale_array;           // Static to avoid malloc
-    static TfLiteIntArray zero_point_array;       // Static to avoid malloc
+
+    /* TfLiteFloatArray/TfLiteIntArray end in a flexible array member, so a bare
+     * instance reserves no storage for data[0]; and a single shared static would
+     * make all tensors share one scale/zero-point. Use a small static pool with
+     * real backing for one element, one slot per tensor. */
+    #define Q_POOL_SIZE 4
+    static struct q_slot {
+        TfLiteAffineQuantization quant;
+        struct { int size; float data[1]; } scale_arr;  // real storage for data[0]
+        struct { int size; int   data[1]; } zp_arr;
+    } q_pool[Q_POOL_SIZE];
+    static unsigned q_next = 0;
+
+    /* main_loop_face_detection() calls this twice per frame, forever, so the index
+     * must wrap around (not clamp) or every call past the 4th would alias onto the
+     * same slot and reintroduce cross-tensor sharing between the two live tensors. */
+    struct q_slot* slot = &q_pool[q_next % Q_POOL_SIZE];
+    q_next++;
 
     // Set scale
-    scale_array.size = 1;
-    scale_array.data[0] = scale;
-    quantization.scale = &scale_array;
+    slot->scale_arr.size = 1;
+    slot->scale_arr.data[0] = scale;
+    slot->quant.scale = (TfLiteFloatArray*)&slot->scale_arr;
 
     // Set zero point
-    zero_point_array.size = 1;
-    zero_point_array.data[0] = zero_point;
-    quantization.zero_point = &zero_point_array;
+    slot->zp_arr.size = 1;
+    slot->zp_arr.data[0] = zero_point;
+    slot->quant.zero_point = (TfLiteIntArray*)&slot->zp_arr;
 
-    quantization.quantized_dimension = 0;  // Per-tensor quantization
+    slot->quant.quantized_dimension = 0;  // Per-tensor quantization
 
     tensor->quantization.type = kTfLiteAffineQuantization;
-    tensor->quantization.params = &quantization;
+    tensor->quantization.params = &slot->quant;
 
     // Set allocation type
     tensor->allocation_type = kTfLiteArenaRw;
@@ -82,13 +96,18 @@ void create_int8_tensor(TfLiteTensor* tensor, int8_t* input_ptr, float scale, in
 
 static bool PresentInferenceResult(const std::vector<arm::app::object_detection::DetectionResult>& results)
 {
-    for (uint16_t i = 0; i < AI_MAX_DETECTION_NUM; i++)
-    {
-        update_detection_result(i, (signed short)0, (signed short)0, (signed short)0, (signed short)0);
+    /* Only clear slots that have no detection this frame. Calling update_detection_result()
+     * with (0,0,0,0) and then immediately again with the real box (as this used to do for
+     * every slot, every frame) resets that slot's smoothing filter right before writing to
+     * it, so the "no previous value yet, show raw immediately" fast path fired on every
+     * single frame and the dead-zone/EMA smoothing never actually got to run. */
+    for (uint16_t i = 0; i < results.size() && i < AI_MAX_DETECTION_NUM; ++i) {
+        update_detection_result(i, (signed short)results[i].m_x0, (signed short)results[i].m_y0, (signed short)results[i].m_w, (signed short)results[i].m_h );
     }
 
-    for (uint16_t i = 0; i < results.size(); ++i) {
-        update_detection_result(i, (signed short)results[i].m_x0, (signed short)results[i].m_y0, (signed short)results[i].m_w, (signed short)results[i].m_h );
+    for (uint16_t i = (uint16_t)results.size(); i < AI_MAX_DETECTION_NUM; i++)
+    {
+        update_detection_result(i, (signed short)0, (signed short)0, (signed short)0, (signed short)0);
     }
 
     return true;
@@ -121,6 +140,9 @@ bool main_loop_face_detection()
     arm::app::object_detection::PostProcessParams postProcessParams {
         AI_INPUT_IMAGE_HEIGHT, AI_INPUT_IMAGE_WIDTH, AI_INPUT_IMAGE_WIDTH, anchor1, anchor2
     };
+    // Cap the pre-NMS candidate list to the number of boxes the app can actually display,
+    // instead of letting GetNetworkBoxes() grow it unbounded (topN <= 0 means "no limit").
+    postProcessParams.topN = AI_MAX_DETECTION_NUM;
     results.clear();
 
     TfLiteTensor outputTensor0;

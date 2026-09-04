@@ -290,5 +290,22 @@ void external_irq_sw2_cb(external_irq_callback_args_t *p_args)
 {
     FSP_PARAMETER_NOT_USED(p_args);
 
-    /* Do nothing */
+    /* Toggle full pause/resume of the recognition pipeline (camera preprocessing,
+     * AI inference and screen update). See AI_PAUSE handling in
+     * camera_display_thread_entry() for details. */
+    BaseType_t xHigherPriorityTaskWoken, xResult;
+    xHigherPriorityTaskWoken = pdFALSE;
+
+    if((xEventGroupGetBitsFromISR(g_ai_app_event) & AI_PAUSE))
+    {
+        xEventGroupClearBitsFromISR(g_ai_app_event, AI_PAUSE);
+    }
+    else
+    {
+        xResult = xEventGroupSetBitsFromISR(g_ai_app_event, AI_PAUSE, &xHigherPriorityTaskWoken);
+        if( xResult != pdFAIL )
+        {
+            portYIELD_FROM_ISR( xHigherPriorityTaskWoken );
+        }
+    }
 }

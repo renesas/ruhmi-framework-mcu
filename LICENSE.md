@@ -15,7 +15,7 @@ The framework shall use some external components to be installed in the installa
 > **For the generated source code by the AI MCU compiler to import into your project for e2Studio, please refer to the copyright and license notice contained in each source-code file.**  
 
 ## External Licenses
-In the procedure to install it into your host machine, some software components from the external place will be downloaded and installed automatically. Please refer to the license information for each components listed below.   
+In the procedure to install it into your host machine, some software components from the external place will be downloaded and installed automatically. Please refer to the license information for each component listed below.   
 
 |Component|License|
 |---|---|

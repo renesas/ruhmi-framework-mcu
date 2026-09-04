@@ -11,7 +11,13 @@
 #define CAMERA_IMAGE_SCALING  (1.25f)
 #define DISPLAY_FONT_SCALING  (1.25f)
 
-#define AI_INFERENCE_RESULT_BOUNDING_BOX_COLOR  (0x000000) // 24-bit RGB color format
+/* Red, matching the two landmark projects.
+ *
+ * This was black, which is hard to pick out: black has only brightness to
+ * separate it from the picture behind it, and a live camera frame is full of
+ * brightness. Skin, walls and clothing are all low-saturation, so a strongly
+ * saturated overlay stands out from them whatever happens to be in shot. */
+#define AI_INFERENCE_RESULT_BOUNDING_BOX_COLOR  (0xFF0000) // 24-bit RGB color format
 
 
 #endif /* DISPLAY_LAYER_CONFIG_H__ */

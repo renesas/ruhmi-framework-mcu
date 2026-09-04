@@ -5,7 +5,7 @@ After compiling the model with the provided Python code, several files will be g
 This directory contains the model converted into C99 source code files, ready to be integrated into your MCU project.
 
 > [NOTE]
-> The generated code  supports < [FSP6.0.0](https://github.com/renesas/fsp/releases/tag/v6.0.0) with [CMSIS-NN 7.0.0](https://github.com/ARM-software/CMSIS-NN/releases).  
+> The generated code  supports < [FSP6.6.0](https://github.com/renesas/fsp/releases/tag/v6.6.0) with [CMSIS-NN 7.0.0](https://github.com/ARM-software/CMSIS-NN/releases).  
 
 ## Reference example of the folder structure
 ```
@@ -99,7 +99,7 @@ float* GetModelOutputPtr_Identity_70029();
 ### Code example  
 ```
 memcpy(GetModelInputPtr_input_1(), model_input0, model_input_SIZE0);  //Set the input model to the pointer for the compiler  
-                                                                      //WIll be set the output data to the GetModelOutputPtr_Identity_70029()  
+                                                                      //Will be set the output data to the GetModelOutputPtr_Identity_70029()  
 RunModel();  //Execution  
 ```
 The function GetModelInputPtr_input1 provides access to the buffer where the user can write the first input of the model.  

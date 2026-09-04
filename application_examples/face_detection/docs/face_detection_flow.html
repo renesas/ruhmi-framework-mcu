@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Face Detection Application Flow</title>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  html, body { margin: 0; padding: 0; background: #ffffff; }
+  svg { display: block; font-family: 'Geist', -apple-system, 'Segoe UI', sans-serif; }
+</style>
+</head>
+<body>
+<svg viewBox="0 0 940 800" width="940" height="800" xmlns="http://www.w3.org/2000/svg"
+     role="img" aria-labelledby="facedet-flow-title facedet-flow-desc">
+<title id="facedet-flow-title">Face detection application main loop</title>
+<desc id="facedet-flow-desc">Flowchart showing the EK-RA8P1 face detection firmware's main loop: after initializing and starting the camera preview, the app waits for a camera frame, runs face detection, and either reports zero faces or smooths the detected bounding box position before drawing it and looping back to wait for the next frame.</desc>
+
+<defs>
+  <marker id="arrow-blue" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+    <polygon points="0 0, 9 3.5, 0 7" fill="#2e5aa8"/>
+  </marker>
+</defs>
+
+<rect width="940" height="800" fill="#ffffff"/>
+
+<!-- ============ ARROWS (drawn first, boxes painted over them) ============ -->
+<g stroke="#2e5aa8" stroke-width="1.6" fill="none">
+
+  <!-- start -> init -->
+  <line x1="470" y1="88"  x2="470" y2="132" marker-end="url(#arrow-blue)"/>
+  <!-- init -> pend -->
+  <line x1="470" y1="208" x2="470" y2="252" marker-end="url(#arrow-blue)"/>
+  <!-- pend -> diamond -->
+  <line x1="470" y1="308" x2="470" y2="320" marker-end="url(#arrow-blue)"/>
+
+  <!-- diamond left vertex -> left box (elbow, r=8) -->
+  <path d="M330,384 L198,384 Q190,384 190,392 L190,508" marker-end="url(#arrow-blue)"/>
+  <!-- diamond right vertex -> smoothing box (elbow, r=8) -->
+  <path d="M610,384 L714,384 Q722,384 722,392 L722,508" marker-end="url(#arrow-blue)"/>
+
+  <!-- smoothing box -> display box -->
+  <line x1="722" y1="572" x2="722" y2="608" marker-end="url(#arrow-blue)"/>
+
+  <!-- loop-back path A: left box bottom -> rail -> merge dot (no arrowhead) -->
+  <path d="M190,580 L190,736 Q190,744 198,744 L722,744"/>
+  <!-- loop-back path B: display box bottom -> merge dot (no arrowhead) -->
+  <line x1="722" y1="688" x2="722" y2="744"/>
+  <!-- loop-back path C: merge dot -> rail -> riser -> back into "pend" box, right edge (single arrowhead) -->
+  <path d="M722,744 L892,744 Q900,744 900,736 L900,288 Q900,280 892,280 L610,280" marker-end="url(#arrow-blue)"/>
+</g>
+
+<!-- merge dot -->
+<circle cx="722" cy="744" r="4" fill="#2e5aa8"/>
+
+<!-- ============ BRANCH LABELS ============ -->
+<rect x="222" y="368" width="108" height="16" rx="2" fill="#ffffff"/>
+<text x="276" y="380" text-anchor="middle" font-size="11" font-weight="600" fill="#2e5aa8" font-family="'Geist', sans-serif">Not Detect face</text>
+
+<rect x="642" y="368" width="88" height="16" rx="2" fill="#ffffff"/>
+<text x="686" y="380" text-anchor="middle" font-size="11" font-weight="600" fill="#2e5aa8" font-family="'Geist', sans-serif">Detect face</text>
+
+<!-- ============ NODES ============ -->
+
+<!-- 1. Start oval -->
+<rect x="350" y="24" width="240" height="64" rx="32" fill="#ffffff"/>
+<rect x="350" y="24" width="240" height="64" rx="32" fill="#ffffff" stroke="#2e5aa8" stroke-width="1.8"/>
+<text x="470" y="61" text-anchor="middle" font-size="15" font-weight="600" fill="#1f2430" font-family="'Geist', sans-serif">Power On/Reset</text>
+
+<!-- 2. Initialize -->
+<rect x="310" y="132" width="320" height="76" rx="6" fill="#ffffff"/>
+<rect x="310" y="132" width="320" height="76" rx="6" fill="#ffffff" stroke="#2e5aa8" stroke-width="1.6"/>
+<text x="470" y="162" text-anchor="middle" font-size="12.5" fill="#1f2430" font-family="'Geist', sans-serif">Initialize the project and</text>
+<text x="470" y="180" text-anchor="middle" font-size="12.5" fill="#1f2430" font-family="'Geist', sans-serif">display the camera data</text>
+<text x="470" y="198" text-anchor="middle" font-size="12.5" fill="#1f2430" font-family="'Geist', sans-serif">on the display.</text>
+
+<!-- 3. Pend camera data -->
+<rect x="330" y="252" width="280" height="56" rx="6" fill="#ffffff"/>
+<rect x="330" y="252" width="280" height="56" rx="6" fill="#ffffff" stroke="#2e5aa8" stroke-width="1.6"/>
+<text x="470" y="285" text-anchor="middle" font-size="13" fill="#1f2430" font-family="'Geist', sans-serif">Pend camera data is ready</text>
+
+<!-- 4. Decision diamond -->
+<polygon points="470,320 610,384 470,448 330,384" fill="#ffffff" stroke="#2e5aa8" stroke-width="1.8"/>
+<text x="470" y="378" text-anchor="middle" font-size="13" font-weight="600" fill="#1f2430" font-family="'Geist', sans-serif">Face</text>
+<text x="470" y="396" text-anchor="middle" font-size="13" font-weight="600" fill="#1f2430" font-family="'Geist', sans-serif">Detection</text>
+
+<!-- 5a. Left: no face -->
+<rect x="48" y="508" width="284" height="72" rx="6" fill="#ffffff"/>
+<rect x="48" y="508" width="284" height="72" rx="6" fill="#ffffff" stroke="#2e5aa8" stroke-width="1.6"/>
+<text x="190" y="540" text-anchor="middle" font-size="12.5" fill="#1f2430" font-family="'Geist', sans-serif">Display inference time</text>
+<text x="190" y="558" text-anchor="middle" font-size="12.5" fill="#1f2430" font-family="'Geist', sans-serif">and No of faces is zero.</text>
+
+<!-- 5b-1. Smoothing step -->
+<rect x="580" y="508" width="284" height="64" rx="6" fill="#ffffff"/>
+<rect x="580" y="508" width="284" height="64" rx="6" fill="#ffffff" stroke="#2e5aa8" stroke-width="1.6"/>
+<text x="722" y="536" text-anchor="middle" font-size="12.5" fill="#1f2430" font-family="'Geist', sans-serif">Smooth bounding box</text>
+<text x="722" y="554" text-anchor="middle" font-size="12.5" fill="#1f2430" font-family="'Geist', sans-serif">position (dead-zone + EMA)</text>
+
+<!-- 5b-2. Display bounding box -->
+<rect x="580" y="608" width="284" height="80" rx="6" fill="#ffffff"/>
+<rect x="580" y="608" width="284" height="80" rx="6" fill="#ffffff" stroke="#2e5aa8" stroke-width="1.6"/>
+<text x="722" y="636" text-anchor="middle" font-size="12.5" fill="#1f2430" font-family="'Geist', sans-serif">Display bounding box,</text>
+<text x="722" y="654" text-anchor="middle" font-size="12.5" fill="#1f2430" font-family="'Geist', sans-serif">No of faces, and</text>
+<text x="722" y="672" text-anchor="middle" font-size="12.5" fill="#1f2430" font-family="'Geist', sans-serif">inference time</text>
+
+</svg>
+</body>
+</html>

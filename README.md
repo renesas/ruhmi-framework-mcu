@@ -34,7 +34,7 @@ source mera-env/bin/activate
 # 3. Install dependencies and MERA
 pip install --upgrade pip
 pip install decorator typing_extensions psutil attrs pybind11 cmake junitparser
-pip install ./install/mera-2.6.0+pkg.4815-cp310-cp310-manylinux_2_27_x86_64.whl
+pip install --find-links=. ./mera-2.7.1+pkg.6102-cp310-cp310-manylinux_2_27_x86_64.whl
 
 # 4. Download a sample model
 wget https://raw.githubusercontent.com/mlcommons/tiny/master/benchmark/training/anomaly_detection/trained_models/ad01_int8.tflite
@@ -100,7 +100,7 @@ This directory contains the model converted into a set of C99 source code files.
 | [AI Model Compiler API](https://renesas.github.io/ruhmi-framework-mcu/mera_api.html) | API specification for AI Compiler python library|
 | [Tutorials](docs/tutorials/README.md) | Hands-on Jupyter notebooks for learning the AI MCU Compiler workflow |
 | [Operator Support](docs/operator_support.md) | Supported operators for each frontend framework |
-| [Visualizer](docs/graph_vizualizer/README.md) | Model graph visualization tool |
+| [Visualizer](docs/graph_visualizer/README.md) | Model graph visualization tool |
 | [Inference Benchmark](docs/benchmark/README.md) | Performance benchmarking guide to measure inference on RA8xx |
 | [Models Tested](docs/models_tested.md) | List of tested models |
 | [Known Issues](docs/known_issues/README.md) | Troubleshooting guides and platform-specific workarounds |

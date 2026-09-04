@@ -259,7 +259,7 @@ void console_output_ai_inference_result(bool ai_result_new)
 
     for(uint8_t i = 0; i < AI_MAX_DETECTION_NUM; i++)
     {
-        if((g_ai_detection[i].m_x != 0) && (g_ai_detection[i].m_x != 0))
+        if((g_ai_detection[i].m_x != 0) && (g_ai_detection[i].m_y != 0))
         {
             sprintf (sprintf_buffer, "  Face count %2d: x=%4d, y=%4d, w=%4d, h=%4d\r\n",
                      detected_face_count, g_ai_detection[i].m_x, g_ai_detection[i].m_y, g_ai_detection[i].m_w, g_ai_detection[i].m_h);

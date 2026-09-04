@@ -52,35 +52,158 @@ extern vision_ai_app_err_t image_classification(void);
 
 st_ai_classification_point_t g_ai_classification[AI_MAX_DETECTION_NUM] = {};
 
-void update_detection_result(uint16_t index, signed short  x, signed short  y, signed short  w, signed short  h);
-
 /***************************************************************************************************************************
  * Private global variables and functions
  ***************************************************************************************************************************/
 
 
+/* Categories tracked by class ID across frames, independent of g_ai_classification[]
+ * (which only ever holds this frame's *displayed* Top-N, derived from this pool). Kept
+ * separate so a category's smoothed confidence survives even on frames where it briefly
+ * drops out of the raw per-frame Top-N. */
+typedef struct
+{
+    bool           b_valid;
+    bool           b_seen_this_frame;
+    unsigned short category;
+    float          smoothed_prob;
+} st_class_pool_slot_t;
+
+static st_class_pool_slot_t g_class_pool[AI_CLASS_POOL_SIZE] = {};
+
+/* Find the pool slot already tracking `category`, or a slot to start tracking it in.
+ * Preference order: exact match > free slot > evict the weakest slot not already
+ * touched earlier in this same frame's batch (so one frame's own results can never
+ * evict each other -- guaranteed possible since AI_CLASS_POOL_SIZE > AI_MAX_DETECTION_NUM). */
+static st_class_pool_slot_t* find_or_alloc_pool_slot(unsigned short category)
+{
+    for (int i = 0; i < AI_CLASS_POOL_SIZE; i++)
+    {
+        if (g_class_pool[i].b_valid && (g_class_pool[i].category == category))
+        {
+            return &g_class_pool[i];
+        }
+    }
+    for (int i = 0; i < AI_CLASS_POOL_SIZE; i++)
+    {
+        if (!g_class_pool[i].b_valid)
+        {
+            return &g_class_pool[i];
+        }
+    }
+    st_class_pool_slot_t* p_lowest = NULL;
+    for (int i = 0; i < AI_CLASS_POOL_SIZE; i++)
+    {
+        if (!g_class_pool[i].b_seen_this_frame &&
+            ((NULL == p_lowest) || (g_class_pool[i].smoothed_prob < p_lowest->smoothed_prob)))
+        {
+            p_lowest = &g_class_pool[i];
+        }
+    }
+    return p_lowest;
+}
+
 /*********************************************************************************************************************
- *  Read the face detection result to a buffer which will be used by the mipi display function.
- *  @param[IN]   index: index of the image in the result list
- *  @param[IN]   x: x coordinate of the bottom left corner
- *  @param[IN]   y: y coordinate of the bottom left corner
- *  @param[IN]   w: width of the face detected
- *  @param[IN]   h: height of the face detected
+ *  Read one of this frame's raw Top-N classification results (index 0 = highest raw
+ *  probability) into the class pool above, smoothing each category's confidence across
+ *  frames by class ID. On the last index of the batch (index == total_count - 1), the pool
+ *  is re-sorted and the smoothed Top-N is published to g_ai_classification[] for the
+ *  display thread.
+ *  @param[IN]   index: index of the result in this frame's raw Top-N list
+ *  @param[IN]   category: class ID reported by the classifier for this result
+ *  @param[IN]   probability: this frame's raw (or dequantized) score for that class
+ *  @param[IN]   total_count: number of results in this frame's raw Top-N list (the caller's
+ *               results.size(), i.e. whatever GetTopNResults() actually returned this frame --
+ *               NOT assumed to equal AI_MAX_DETECTION_NUM, so a mismatch between the two can
+ *               never silently break the "did we just process the last result" check below).
  *  @retval      None
 ***********************************************************************************************************************/
-void update_classification_result(unsigned index, unsigned short category, float probability)
+void update_classification_result(unsigned index, unsigned short category, float probability, unsigned total_count)
 {
-    if(index < AI_MAX_DETECTION_NUM)
+    if (0 == index)
     {
-        g_ai_classification[index].prob = probability;
-        g_ai_classification[index].category = category;
+        for (int i = 0; i < AI_CLASS_POOL_SIZE; i++)
+        {
+            g_class_pool[i].b_seen_this_frame = false;
+        }
     }
-    if(index == (AI_MAX_DETECTION_NUM - 1)) {
-        float sum = 1e-6;
-        for(uint32_t i = 0; i < AI_MAX_DETECTION_NUM; i++) {
+
+    st_class_pool_slot_t* p_slot = find_or_alloc_pool_slot(category);
+    if (NULL != p_slot)
+    {
+        if (p_slot->b_valid && (p_slot->category == category))
+        {
+            p_slot->smoothed_prob += AI_CLASS_SMOOTHING_ALPHA * (probability - p_slot->smoothed_prob);
+        }
+        else
+        {
+            /* First time this category has been seen: show it immediately, nothing to smooth against yet. */
+            p_slot->b_valid = true;
+            p_slot->category = category;
+            p_slot->smoothed_prob = probability;
+        }
+        p_slot->b_seen_this_frame = true;
+    }
+
+    if ((0 != total_count) && (index == (total_count - 1)))
+    {
+        /* Categories not seen this frame drift down instead of vanishing outright,
+         * so a class that only briefly drops out of the raw Top-N doesn't flicker away. */
+        for (int i = 0; i < AI_CLASS_POOL_SIZE; i++)
+        {
+            if (g_class_pool[i].b_valid && !g_class_pool[i].b_seen_this_frame)
+            {
+                g_class_pool[i].smoothed_prob *= AI_CLASS_DECAY_ALPHA;
+                if (g_class_pool[i].smoothed_prob < AI_CLASS_MIN_PROB)
+                {
+                    g_class_pool[i].b_valid = false;
+                }
+            }
+        }
+
+        /* Selection sort of the valid pool slots by smoothed probability, descending.
+         * AI_CLASS_POOL_SIZE is tiny (default 10), so an O(n^2) sort is cheap here. */
+        uint8_t order[AI_CLASS_POOL_SIZE];
+        uint8_t valid_count = 0;
+        for (uint8_t i = 0; i < AI_CLASS_POOL_SIZE; i++)
+        {
+            if (g_class_pool[i].b_valid)
+            {
+                order[valid_count++] = i;
+            }
+        }
+        for (uint8_t a = 0; a < valid_count; a++)
+        {
+            uint8_t best = a;
+            for (uint8_t b = (uint8_t)(a + 1); b < valid_count; b++)
+            {
+                if (g_class_pool[order[b]].smoothed_prob > g_class_pool[order[best]].smoothed_prob)
+                {
+                    best = b;
+                }
+            }
+            uint8_t tmp = order[a]; order[a] = order[best]; order[best] = tmp;
+        }
+
+        for (uint32_t slot = 0; slot < AI_MAX_DETECTION_NUM; slot++)
+        {
+            if (slot < valid_count)
+            {
+                g_ai_classification[slot].category = g_class_pool[order[slot]].category;
+                g_ai_classification[slot].prob = g_class_pool[order[slot]].smoothed_prob;
+            }
+            else
+            {
+                g_ai_classification[slot].category = 0;
+                g_ai_classification[slot].prob = 0.0f;
+            }
+        }
+
+        float sum = 1e-6f;
+        for (uint32_t i = 0; i < AI_MAX_DETECTION_NUM; i++) {
             sum += g_ai_classification[i].prob;
         }
-        for(uint32_t i = 0; i < AI_MAX_DETECTION_NUM; i++) {
+        for (uint32_t i = 0; i < AI_MAX_DETECTION_NUM; i++) {
             g_ai_classification[i].prob /= sum;
         }
     }

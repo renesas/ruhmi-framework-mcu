@@ -49,8 +49,7 @@ DetectorPostProcess::DetectorPostProcess(
                                                    ->scale->data[0],
                                       .zeroPoint = (static_cast<TfLiteAffineQuantization*>(	// Zero point value for the first tensor
                                                         this->m_outputTensor0->quantization.params))
-                                                       ->zero_point->data[0],
-                                      .size = this->m_outputTensor0->bytes},	// Size of the first tensor
+                                                       ->zero_point->data[0]},
              object_detection::Branch{	// Second branch
                                       .resolution  = postProcessParams.inputImgCols / 16,	// Calculate resolution
                                       .numBox      = 3,	// Number of boxes
@@ -61,8 +60,7 @@ DetectorPostProcess::DetectorPostProcess(
                                                    ->scale->data[0],
                                       .zeroPoint = (static_cast<TfLiteAffineQuantization*>(	// Zero point value for the second tensor
                                                         this->m_outputTensor1->quantization.params))
-                                                       ->zero_point->data[0],
-                                      .size = this->m_outputTensor1->bytes}},	// Size of the second tensor
+                                                       ->zero_point->data[0]}},
         .topN = postProcessParams.topN};	// Set the top N value from post-process parameters
     /* End init */
 }
@@ -239,8 +237,6 @@ void DetectorPostProcess::GetNetworkBoxes(
             }
         }
     }
-    if(num > net.topN)
-        num -=1;
 }
 
 } /* namespace app */

@@ -51,7 +51,6 @@ namespace object_detection {
         int8_t* modelOutput;		// Pointer to the model output
         float scale;				// Scale factor for the output
         int zeroPoint;				// Zero point for quantization
-        size_t size;				// Size of the branch
     };
 
     // Structure to represent the object detection network

@@ -365,6 +365,20 @@ void console_output_processing_time(void)
     sprintf (sprintf_buffer, "  AI inference time                 : %4d ms, %4d fps\r\n",
             application_processing_time.ai_inference_time_ms, TimeCounter_ConvertFromMsToFps(application_processing_time.ai_inference_time_ms));
     print_to_console(sprintf_buffer);
+#if (ENABLE_DRW_ERROR_CONSOLE_OUTPUT == 1)
+    /* Any DRW error latched since this line was last printed. A non-zero value
+     * -- D2_NOMEMORY is 3 -- means the display list ran out of FreeRTOS heap
+     * and part of a frame was silently discarded. Defined in
+     * detection_screen_mipi.c. */
+    {
+        extern int32_t g_drw_last_error;
+        sprintf (sprintf_buffer, "  DRW error latched                 : %4d\r\n",
+                 (int)g_drw_last_error);
+        print_to_console(sprintf_buffer);
+        g_drw_last_error = 0;
+    }
+#endif
+
     sprintf (sprintf_buffer, "  LCD display vsync period          : %4d ms, %4d fps\r\n",
             application_processing_time.lcd_display_update_refresh_ms, TimeCounter_ConvertFromMsToFps(application_processing_time.lcd_display_update_refresh_ms));
     print_to_console(sprintf_buffer);

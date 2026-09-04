@@ -11,8 +11,8 @@
 
 ### Software Requirements  
 - Windows® 10 or 11 operating system 
-- **e² studio version**: Version: 2025-12 (25.12.0)      
-- **Flexible Software Package (FSP)**: 6.4.0  
+- **e² studio version**: Version: 2026-07        
+- **Flexible Software Package (FSP)**: 6.6.0  
 
 ### Connecting and Powering Up the EK-RA8P1 Board  
 1.	Attach the Camera module   
@@ -24,7 +24,7 @@
 
 ## Downloading sample AI Application and run  
 
-### Lauch AI Navigator and Import sample AI Application.  
+### Launch AI Navigator and Import sample AI Application.  
 
 <div align="center">
 <img src ="../docs/assets/launch_import.gif"> 

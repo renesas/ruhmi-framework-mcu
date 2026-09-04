@@ -1,6 +1,6 @@
 # RUHMI Performance Benchmark Base Project for EK-RA8P1
 
-This guide helps developers quickly measure inference latency on EK-RA8P1 using the RUHMI AI compiler. [The base project](ruhmi_perf_exal_ek_ra8p1_base_project_fsp620.zip) is designed for easy integration of your own AI model C-code, with best practices for memory configuration and CPU/NPU execution.
+This guide helps developers quickly measure inference latency on EK-RA8P1 using the RUHMI AI compiler. [The base project](ruhmi_perf_exal_ek_ra8p1_base_project_fsp660.zip) is designed for easy integration of your own AI model C-code, with best practices for memory configuration and CPU/NPU execution.
 
 
 ## Overview
@@ -14,9 +14,10 @@ This guide enables:
 
 **Prerequisites:**
 - EK-RA8P1 board
-- Flexible Software Package (FSP)6.4.0
-- LLVM compiler environment
+- Flexible Software Package (FSP)6.6.0
+- LLVM compiler environment 22.1.0
 - RUHMI AI compiler (for generating model code)
+
 
 ## Project Structure
 
@@ -95,7 +96,7 @@ For this case model.c file handles the complexities and wraps it nicely into `Ru
 RunModel(false);
 ```
 
-For more guidance to port the inference function into the source code, you can refer to [Guide to the generated C source code](../doc/runtime_api.md).
+For more guidance to port the inference function into the source code, you can refer to [Guide to the generated C source code](../../docs/runtime_api.md).
 
 ### 3. External Memory Initialization
 The base project has this covered and provides you with #define function to easily leverage the various memories capabilities. 
@@ -177,9 +178,9 @@ For NPU-assigned operators, RUHMI can generate code with the correct attributes 
    - Use e2studio Memory Usage view.
    - Focus on `ruhmi_inference_code` and `ruhmi_perf_eval.c` for RAM/ROM usage.
 5. **Analyze NPU usage**:  
-   - Use [Mera Vizualizer](https://github.com/renesas/ruhmi-framework-mcu/tree/main/docs/visualizer) to count operators assigned to NPU/CPU.
+   - Use [Mera Visualizer](../graph_visualizer/README.md) to count operators assigned to NPU/CPU.
 
-### Vizualizing inference cycles at 1 GHz
+### Visualizing inference cycles at 1 GHz
 
 <img src="../assets/inference_benchmark_ekra8p1.png" alt="Inference Benchmark EK-RA8P1" width="400">
 

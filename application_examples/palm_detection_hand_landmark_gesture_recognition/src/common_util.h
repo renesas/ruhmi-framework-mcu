@@ -70,6 +70,7 @@
 #define AI_INFERENCE_RESULT_UPDATED     (1 << 14)
 #define DISPLAY_PAUSE                   (1 << 15)
 #define CAMERA_AUTO_FOCUS_EXECUTE       (1 << 16)
+#define AI_PAUSE                        (1 << 17)
 
 #define APP_ERROR_TRAP(err)        if(err) { __asm("BKPT #0\n");} /* system execution breaks  */
 

@@ -1,0 +1,42 @@
+# Troubleshooting Tips
+
+If you see some warnings when running the sample scripts, refer to the tips below depending on the message displayed.
+
+**[Linux]** For Linux version  
+**[Windows]** For Windows version
+
+
+### **[Linux]** `GLIBCXX_3.4.32' not found` occered at running the script like "python mcu_deploy.py --ethos --ref_data ../models_int8 deploy_qtzed_ethos"
+
+Run the following commands for upgrading the stdc library to an actual version:
+```
+sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+sudo apt-get update
+sudo apt-get install libstdc++6 libgcc-s1
+```
+
+For installation clean up run the following after the above step is finished:
+```
+sudo apt-get upgrade
+sudo apt-get dist-upgrade
+```
+
+### **[Linux]** .tflite,model_000_ad01_fp32,Error,Command '['cmake', '-DBUILD_PY_BINDINGS=ON', '..']' returned non-zero exit status 1.
+
+This issue comes from the version of cmake.
+Please follow the next topic.
+
+### **[Linux]** CMake Error at CMakeLists.txt:1 (cmake_minimum_required):
+  CMake 3.24 or higher is required.  You are running version 3.22.1
+  In order to install any higher version, you can refer to below steps.
+
+```
+$ cmake --version  # Confirm the current version
+$ wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | gpg --dearmor - | sudo tee /etc/apt/trusted.gpg.d/kitware.gpg >/dev/null
+$ sudo apt-add-repository "deb https://apt.kitware.com/ubuntu/ $(lsb_release -cs) main"
+$ sudo apt update
+$ sudo apt install cmake
+$ cmake --version   # Check the updated version, to be revised.
+```
+
+

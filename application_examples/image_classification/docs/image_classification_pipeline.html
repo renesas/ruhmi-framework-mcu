@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Image Classification Processing Pipeline</title>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  html, body { margin: 0; padding: 0; background: #ffffff; }
+  svg { display: block; font-family: 'Geist', -apple-system, 'Segoe UI', sans-serif; }
+</style>
+</head>
+<body>
+<svg viewBox="0 0 300 680" width="300" height="680" xmlns="http://www.w3.org/2000/svg"
+     role="img" aria-labelledby="imgclass-pipe-title imgclass-pipe-desc">
+<title id="imgclass-pipe-title">Image classification processing pipeline</title>
+<desc id="imgclass-pipe-desc">Architectural pipeline diagram of the EK-RA8P1 image classification application: a 320x240 RGB565 camera frame is preprocessed into a 224x224 RGB888 tensor, run through MobileNet V1 on the Ethos-U NPU, decoded with dequantization and Top-N selection, smoothed with an exponential moving average per class to reduce jitter, and rendered as the Top-5 labels with confidence and inference time on the LCD.</desc>
+
+<defs>
+  <marker id="pipe-arrow" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+    <polygon points="0 0, 9 3.5, 0 7" fill="#2e5aa8"/>
+  </marker>
+</defs>
+
+<rect width="300" height="680" fill="#ffffff"/>
+
+<!-- ============ ARROWS (drawn first) ============ -->
+<g stroke="#2e5aa8" stroke-width="1.6">
+  <line x1="150" y1="100" x2="150" y2="128" marker-end="url(#pipe-arrow)"/>
+  <line x1="150" y1="208" x2="150" y2="236" marker-end="url(#pipe-arrow)"/>
+  <line x1="150" y1="316" x2="150" y2="344" marker-end="url(#pipe-arrow)"/>
+  <line x1="150" y1="424" x2="150" y2="452" marker-end="url(#pipe-arrow)"/>
+  <line x1="150" y1="532" x2="150" y2="560" marker-end="url(#pipe-arrow)"/>
+</g>
+
+<!-- ============ NODES ============ -->
+
+<!-- 1. Camera -->
+<rect x="20" y="24" width="260" height="76" rx="6" fill="#ffffff" stroke="#2e5aa8" stroke-width="1.6"/>
+<text x="150" y="56" text-anchor="middle" font-size="13" font-weight="600" fill="#1f2430" font-family="'Geist', sans-serif">Camera</text>
+<text x="150" y="76" text-anchor="middle" font-size="12" fill="#1f2430" font-family="'Geist', sans-serif">320×240 RGB565</text>
+
+<!-- 2. Preprocess -->
+<rect x="20" y="132" width="260" height="76" rx="6" fill="#ffffff" stroke="#2e5aa8" stroke-width="1.6"/>
+<text x="150" y="164" text-anchor="middle" font-size="13" font-weight="600" fill="#1f2430" font-family="'Geist', sans-serif">Preprocess</text>
+<text x="150" y="184" text-anchor="middle" font-size="12" fill="#1f2430" font-family="'Geist', sans-serif">Crop + Resize</text>
+<text x="150" y="198" text-anchor="middle" font-size="12" fill="#1f2430" font-family="'Geist', sans-serif">224×224 RGB888</text>
+
+<!-- 3. Image Classification (NPU) -->
+<rect x="20" y="240" width="260" height="76" rx="6" fill="#ffffff" stroke="#2e5aa8" stroke-width="1.6"/>
+<text x="150" y="272" text-anchor="middle" font-size="13" font-weight="600" fill="#1f2430" font-family="'Geist', sans-serif">Image Classification</text>
+<text x="150" y="292" text-anchor="middle" font-size="12" fill="#1f2430" font-family="'Geist', sans-serif">MobileNet V1</text>
+<text x="150" y="306" text-anchor="middle" font-size="12" fill="#1f2430" font-family="'Geist', sans-serif">(Ethos-U NPU)</text>
+
+<!-- 4. Classification Post-process -->
+<rect x="20" y="348" width="260" height="76" rx="6" fill="#ffffff" stroke="#2e5aa8" stroke-width="1.6"/>
+<text x="150" y="380" text-anchor="middle" font-size="13" font-weight="600" fill="#1f2430" font-family="'Geist', sans-serif">Classification Post-process</text>
+<text x="150" y="400" text-anchor="middle" font-size="12" fill="#1f2430" font-family="'Geist', sans-serif">Dequant + Top-N Select</text>
+
+<!-- 5. Confidence Smoothing -->
+<rect x="20" y="456" width="260" height="76" rx="6" fill="#ffffff" stroke="#2e5aa8" stroke-width="1.6"/>
+<text x="150" y="488" text-anchor="middle" font-size="13" font-weight="600" fill="#1f2430" font-family="'Geist', sans-serif">Confidence Smoothing</text>
+<text x="150" y="508" text-anchor="middle" font-size="12" fill="#1f2430" font-family="'Geist', sans-serif">Per-class EMA</text>
+
+<!-- 6. LCD Render -->
+<rect x="20" y="564" width="260" height="92" rx="6" fill="#ffffff" stroke="#2e5aa8" stroke-width="1.6"/>
+<text x="150" y="596" text-anchor="middle" font-size="13" font-weight="600" fill="#1f2430" font-family="'Geist', sans-serif">LCD Render</text>
+<text x="150" y="616" text-anchor="middle" font-size="12" fill="#1f2430" font-family="'Geist', sans-serif">Top-5 Labels + Confidence</text>
+<text x="150" y="630" text-anchor="middle" font-size="12" fill="#1f2430" font-family="'Geist', sans-serif">+ Inference Time</text>
+
+</svg>
+</body>
+</html>

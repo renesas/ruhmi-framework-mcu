@@ -34,6 +34,14 @@
  * Refer to the application note for the physical definition of these values
  ***************************************************************************************************************************/
 
+/* Area of the screen covered by the camera image, i.e. the only part that
+ * display_camera_image() repaints every frame. Everything to the right of it
+ * is the static sidebar, which is painted once at start-up and thereafter only
+ * touched by the small text-clearing writes in print_inf_time_and_detections().
+ * 640x480 camera x 1.25 = 800x600 on a 1024x600 panel. */
+#define CAMERA_DISPLAY_WIDTH   ((int)(CAMERA_CAPTURE_IMAGE_WIDTH  * CAMERA_IMAGE_SCALING))
+#define CAMERA_DISPLAY_HEIGHT  ((int)(CAMERA_CAPTURE_IMAGE_HEIGHT * CAMERA_IMAGE_SCALING))
+
 /***************************************************************************************************************************
  * Typedef definitions
  ***************************************************************************************************************************/
@@ -269,6 +277,23 @@ void  do_detection_screen(bool ai_result_new)
             exe_count_print_static_text++;
         }
 
+        /* Clip the overlays to the camera image.
+         *
+         * The landmark model extrapolates keypoints past the frame border when
+         * a hand reaches the edge, so pts[].x can exceed the 640 px camera
+         * width; scaled by 1.25 that lands beyond x=800, inside the sidebar.
+         * Nothing repaints the sidebar, so such pixels stay on screen
+         * permanently and accumulate with every pass of the hand. The bounding
+         * box reaches the seam the same way: landmark_bounding_box() clamps it
+         * at camera x=639, which scales to 798, and the 2 px line width then
+         * covers 800. Let DRW discard the overflow rather than clamping at
+         * each call site, so every primitive drawn here is covered by
+         * construction -- including any added later. */
+        d2_cliprect(d2_handle,
+                    (d2_border) 0, (d2_border) 0,
+                    (d2_border) (CAMERA_DISPLAY_WIDTH  - 1),
+                    (d2_border) (CAMERA_DISPLAY_HEIGHT - 1));
+
         /* if a new inference has finished, update the detection result: bounding box and number of palms */
         if(ai_result_new)
         {
@@ -295,6 +320,13 @@ void  do_detection_screen(bool ai_result_new)
                 draw_landmark_points(i);
             }
         }
+
+        /* Restore full-screen clipping - the sidebar text below is drawn at
+         * x=820 and would otherwise be clipped away entirely. */
+        d2_cliprect(d2_handle,
+                    (d2_border) 0, (d2_border) 0,
+                    (d2_border) (DISPLAY_SCREEN_WIDTH  - 1),
+                    (d2_border) (DISPLAY_SCREEN_HEIGHT - 1));
 
         print_inf_time_and_detections();
 

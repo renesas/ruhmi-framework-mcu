@@ -14,6 +14,7 @@
 #include "console_output.h"
 #include "hal_data.h"
 #include "stdio.h"
+#include "stdarg.h"
 #include "common_util.h"
 
 /***************************************************************************************************************************
@@ -46,7 +47,10 @@ processinf_time_info_t application_processing_time;
   **********************************************************************************************************************/
 int e_printf(const char *format, ...)
 {
-	sprintf(sprintf_buffer, format);
+	va_list args;
+	va_start(args, format);
+	vsnprintf(sprintf_buffer, BUFFER_LINE_LENGTH, format, args);
+	va_end(args);
 	print_to_console(sprintf_buffer);
     return 0;
 }

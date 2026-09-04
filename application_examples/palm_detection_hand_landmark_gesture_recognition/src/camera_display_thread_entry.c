@@ -45,6 +45,12 @@
 
 void do_detection_screen(bool ai_result_new);
 
+/* Landmark filter tuning currently compiled in — defined in MainLoop_obj.cc,
+ * reported by console_output_processing_time() below. A captured log is
+ * otherwise impossible to tell apart from one taken before a retune, and a
+ * stale terminal scrollback is easy to mistake for a fresh capture. */
+const char * hand_tuning_tag(void);
+
 /***************************************************************************************************************************
  * Exported global variables and functions (to be accessed by other files)
  ***************************************************************************************************************************/
@@ -167,6 +173,10 @@ void camera_display_thread_entry(void *pvParameters)
     camera_capture_start();
 #endif
 
+    // Tracks the previous iteration's AI_PAUSE state so the backlight is only
+    // toggled once on the pause/resume transition, not on every paused iteration.
+    bool ai_pause_prev = false;
+
     while (true)
     {
 #if (ENABLE_CAMERA_INPUT == 1)
@@ -181,6 +191,33 @@ void camera_display_thread_entry(void *pvParameters)
         time_counter_end = TimeCounter_CurrentCountGet();
         application_processing_time.camera_post_processing_time_ms = TimeCounter_CountValueConvertToMs(time_counter_start, time_counter_end);
 #endif
+        /* SW2: pause/resume the whole recognition pipeline. While paused, skip AI
+         * preprocessing, inference signalling, screen update and console output for
+         * this iteration. The camera frame buffer above is still refreshed each loop,
+         * so resuming (press SW2 again) immediately picks up a live frame instead of
+         * a stale one captured before the pause. The AI thread is not signalled while
+         * paused, so it stays blocked on AI_INFERENCE_INPUT_IMAGE_READY at zero CPU cost. */
+        bool ai_pause_now = (xEventGroupGetBits(g_ai_app_event) & AI_PAUSE) != 0;
+
+        if (ai_pause_now && !ai_pause_prev)
+        {
+            // Just paused: turn the backlight off so the panel goes dark, rather than
+            // just freezing the last frame.
+            R_IOPORT_PinWrite(&g_ioport_ctrl, LCD_BLEN, BSP_IO_LEVEL_LOW);
+        }
+        else if (!ai_pause_now && ai_pause_prev)
+        {
+            // Just resumed: turn the backlight back on.
+            R_IOPORT_PinWrite(&g_ioport_ctrl, LCD_BLEN, BSP_IO_LEVEL_HIGH);
+        }
+        ai_pause_prev = ai_pause_now;
+
+        if (ai_pause_now)
+        {
+            vTaskDelay(DISPLAY_THREAD_YIELD);
+            continue;
+        }
+
         time_counter_start = TimeCounter_CurrentCountGet();
 
         /* Fast RGB565 → INT8 RGB letterbox preprocess (nearest-neighbor, integer math)
@@ -357,6 +394,12 @@ void console_output_processing_time(void)
     print_to_console(sprintf_buffer);
     sprintf (sprintf_buffer, "  LCD display vsync period          : %4d ms, %4d fps\r\n",
             application_processing_time.lcd_display_update_refresh_ms, TimeCounter_ConvertFromMsToFps(application_processing_time.lcd_display_update_refresh_ms));
+    print_to_console(sprintf_buffer);
+
+    /* Landmark filter tuning currently compiled in, so a captured log says
+     * which build produced it. Defined in MainLoop_obj.cc alongside the
+     * constants it reports. */
+    sprintf (sprintf_buffer, "  Tuning                            : %s\r\n", hand_tuning_tag());
     print_to_console(sprintf_buffer);
 }
 #endif

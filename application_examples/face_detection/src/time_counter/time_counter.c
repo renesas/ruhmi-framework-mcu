@@ -109,6 +109,10 @@ uint32_t TimeCounter_CountValueConvertToMs(uint32_t t1, uint32_t t2)
 ***********************************************************************************************************************/
 uint32_t TimeCounter_ConvertFromMsToFps(uint32_t ms)
 {
+    if (0 == ms)
+    {
+        return 0;
+    }
     return (uint32_t)(1000 / ms);
 }
 

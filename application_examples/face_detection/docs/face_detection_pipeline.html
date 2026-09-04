@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Face Detection Processing Pipeline</title>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  html, body { margin: 0; padding: 0; background: #ffffff; }
+  svg { display: block; font-family: 'Geist', -apple-system, 'Segoe UI', sans-serif; }
+</style>
+</head>
+<body>
+<svg viewBox="0 0 300 680" width="300" height="680" xmlns="http://www.w3.org/2000/svg"
+     role="img" aria-labelledby="facedet-pipe-title facedet-pipe-desc">
+<title id="facedet-pipe-title">Face detection processing pipeline</title>
+<desc id="facedet-pipe-desc">Architectural pipeline diagram of the EK-RA8P1 face detection application: a 640x480 RGB565 camera frame is preprocessed into a 192x192 INT8 grayscale tensor, run through the YOLO-fastest model on the Ethos-U NPU, decoded with dequantization, sigmoid and non-max suppression, smoothed with a dead-zone plus exponential moving average to reduce jitter, and rendered as a bounding box with face count and inference time on the LCD.</desc>
+
+<defs>
+  <marker id="pipe-arrow" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+    <polygon points="0 0, 9 3.5, 0 7" fill="#2e5aa8"/>
+  </marker>
+</defs>
+
+<rect width="300" height="680" fill="#ffffff"/>
+
+<!-- ============ ARROWS (drawn first) ============ -->
+<g stroke="#2e5aa8" stroke-width="1.6">
+  <line x1="150" y1="100" x2="150" y2="128" marker-end="url(#pipe-arrow)"/>
+  <line x1="150" y1="208" x2="150" y2="236" marker-end="url(#pipe-arrow)"/>
+  <line x1="150" y1="316" x2="150" y2="344" marker-end="url(#pipe-arrow)"/>
+  <line x1="150" y1="424" x2="150" y2="452" marker-end="url(#pipe-arrow)"/>
+  <line x1="150" y1="532" x2="150" y2="560" marker-end="url(#pipe-arrow)"/>
+</g>
+
+<!-- ============ NODES ============ -->
+
+<!-- 1. Camera -->
+<rect x="20" y="24" width="260" height="76" rx="6" fill="#ffffff" stroke="#2e5aa8" stroke-width="1.6"/>
+<text x="150" y="56" text-anchor="middle" font-size="13" font-weight="600" fill="#1f2430" font-family="'Geist', sans-serif">Camera</text>
+<text x="150" y="76" text-anchor="middle" font-size="12" fill="#1f2430" font-family="'Geist', sans-serif">640×480 RGB565</text>
+
+<!-- 2. Preprocess -->
+<rect x="20" y="132" width="260" height="76" rx="6" fill="#ffffff" stroke="#2e5aa8" stroke-width="1.6"/>
+<text x="150" y="164" text-anchor="middle" font-size="13" font-weight="600" fill="#1f2430" font-family="'Geist', sans-serif">Preprocess</text>
+<text x="150" y="184" text-anchor="middle" font-size="12" fill="#1f2430" font-family="'Geist', sans-serif">Center-crop + Resize</text>
+<text x="150" y="198" text-anchor="middle" font-size="12" fill="#1f2430" font-family="'Geist', sans-serif">192×192 INT8 (grayscale)</text>
+
+<!-- 3. Face Detection (NPU) -->
+<rect x="20" y="240" width="260" height="76" rx="6" fill="#ffffff" stroke="#2e5aa8" stroke-width="1.6"/>
+<text x="150" y="272" text-anchor="middle" font-size="13" font-weight="600" fill="#1f2430" font-family="'Geist', sans-serif">Face Detection</text>
+<text x="150" y="292" text-anchor="middle" font-size="12" fill="#1f2430" font-family="'Geist', sans-serif">YOLO-fastest</text>
+<text x="150" y="306" text-anchor="middle" font-size="12" fill="#1f2430" font-family="'Geist', sans-serif">(Ethos-U NPU)</text>
+
+<!-- 4. Detection Post-process -->
+<rect x="20" y="348" width="260" height="76" rx="6" fill="#ffffff" stroke="#2e5aa8" stroke-width="1.6"/>
+<text x="150" y="380" text-anchor="middle" font-size="13" font-weight="600" fill="#1f2430" font-family="'Geist', sans-serif">Detection Post-process</text>
+<text x="150" y="400" text-anchor="middle" font-size="12" fill="#1f2430" font-family="'Geist', sans-serif">Dequant + Sigmoid</text>
+<text x="150" y="414" text-anchor="middle" font-size="12" fill="#1f2430" font-family="'Geist', sans-serif">+ NMS</text>
+
+<!-- 5. Box Smoothing -->
+<rect x="20" y="456" width="260" height="76" rx="6" fill="#ffffff" stroke="#2e5aa8" stroke-width="1.6"/>
+<text x="150" y="488" text-anchor="middle" font-size="13" font-weight="600" fill="#1f2430" font-family="'Geist', sans-serif">Box Smoothing</text>
+<text x="150" y="508" text-anchor="middle" font-size="12" fill="#1f2430" font-family="'Geist', sans-serif">Dead-zone + EMA</text>
+
+<!-- 6. LCD Render -->
+<rect x="20" y="564" width="260" height="92" rx="6" fill="#ffffff" stroke="#2e5aa8" stroke-width="1.6"/>
+<text x="150" y="596" text-anchor="middle" font-size="13" font-weight="600" fill="#1f2430" font-family="'Geist', sans-serif">LCD Render</text>
+<text x="150" y="616" text-anchor="middle" font-size="12" fill="#1f2430" font-family="'Geist', sans-serif">Bounding Box + Face Count</text>
+<text x="150" y="630" text-anchor="middle" font-size="12" fill="#1f2430" font-family="'Geist', sans-serif">+ Inference Time</text>
+
+</svg>
+</body>
+</html>

@@ -11,6 +11,7 @@
 #include "ai_inference_thread.h"
 
 #include <stdio.h>
+#include <math.h>
 #include "common_util.h"
 #include "common_data.h"
 
@@ -59,8 +60,23 @@ void update_detection_result(uint16_t index, signed short  x, signed short  y, s
  ***************************************************************************************************************************/
 
 
+/* Per-slot smoothing state, indexed the same as g_ai_detection[]. Kept separate so it
+ * survives the per-frame clear-to-zero of g_ai_detection[] done by the caller. */
+typedef struct
+{
+    bool  b_valid;
+    float x;
+    float y;
+    float w;
+    float h;
+} st_ai_detection_filter_t;
+
+static st_ai_detection_filter_t g_ai_detection_filter[AI_MAX_DETECTION_NUM] = {};
+
 /*********************************************************************************************************************
  *  Read the face detection result to a buffer which will be used by the mipi display function.
+ *  Applies a dead zone plus an exponential moving average to (x,y,w,h) to smooth out
+ *  frame-to-frame jitter in the raw inference output before it reaches the display layer.
  *  @param[IN]   index: index of the image in the result list
  *  @param[IN]   x: x coordinate of the bottom left corner
  *  @param[IN]   y: y coordinate of the bottom left corner
@@ -72,10 +88,60 @@ void update_detection_result(uint16_t index, signed short  x, signed short  y, s
 {
     if(index < AI_MAX_DETECTION_NUM)
     {
-        g_ai_detection[index].m_x = x;
-        g_ai_detection[index].m_y = y;
-        g_ai_detection[index].m_w = w;
-        g_ai_detection[index].m_h = h;
+        st_ai_detection_filter_t * const p_filter = &g_ai_detection_filter[index];
+
+        /* (0,0,0,0) is the "no detection this slot" sentinel used throughout the app.
+         * Reset the filter so a face that leaves and later re-enters the frame snaps
+         * to its new position instead of smoothing in from its old, stale one. */
+        if ((0 == x) && (0 == y) && (0 == w) && (0 == h))
+        {
+            p_filter->b_valid = false;
+            g_ai_detection[index].m_x = 0;
+            g_ai_detection[index].m_y = 0;
+            g_ai_detection[index].m_w = 0;
+            g_ai_detection[index].m_h = 0;
+            return;
+        }
+
+        if (!p_filter->b_valid)
+        {
+            /* First detection at this slot: show it immediately, nothing to smooth against yet. */
+            p_filter->b_valid = true;
+            p_filter->x = (float)x;
+            p_filter->y = (float)y;
+            p_filter->w = (float)w;
+            p_filter->h = (float)h;
+        }
+        else
+        {
+            /* Two-speed EMA instead of a hard dead zone: a hard "ignore small moves
+             * entirely" dead zone froze the box until enough real movement had piled up
+             * to cross the threshold in one comparison, then jumped to catch up -- looked
+             * sluggish. Now every frame nudges the box at least a little, just by a much
+             * smaller factor for small moves (still strong enough to cancel a persistent
+             * few-pixel flicker between two overlapping candidate boxes) and a bigger
+             * factor once the move is large enough to be genuine motion, so the box
+             * actually tracks a moving face instead of catching up in jumps. */
+            float dx = (float)x - p_filter->x;
+            float dy = (float)y - p_filter->y;
+            float dw = (float)w - p_filter->w;
+            float dh = (float)h - p_filter->h;
+
+            float alpha_x = (fabsf(dx) > AI_DETECTION_DEADZONE_PX) ? AI_DETECTION_SMOOTHING_ALPHA_FAST : AI_DETECTION_SMOOTHING_ALPHA_SLOW;
+            float alpha_y = (fabsf(dy) > AI_DETECTION_DEADZONE_PX) ? AI_DETECTION_SMOOTHING_ALPHA_FAST : AI_DETECTION_SMOOTHING_ALPHA_SLOW;
+            float alpha_w = (fabsf(dw) > AI_DETECTION_DEADZONE_PX) ? AI_DETECTION_SMOOTHING_ALPHA_FAST : AI_DETECTION_SMOOTHING_ALPHA_SLOW;
+            float alpha_h = (fabsf(dh) > AI_DETECTION_DEADZONE_PX) ? AI_DETECTION_SMOOTHING_ALPHA_FAST : AI_DETECTION_SMOOTHING_ALPHA_SLOW;
+
+            p_filter->x += alpha_x * dx;
+            p_filter->y += alpha_y * dy;
+            p_filter->w += alpha_w * dw;
+            p_filter->h += alpha_h * dh;
+        }
+
+        g_ai_detection[index].m_x = (signed short)p_filter->x;
+        g_ai_detection[index].m_y = (signed short)p_filter->y;
+        g_ai_detection[index].m_w = (signed short)p_filter->w;
+        g_ai_detection[index].m_h = (signed short)p_filter->h;
     }
 }
 

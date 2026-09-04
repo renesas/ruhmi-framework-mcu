@@ -233,11 +233,27 @@ void do_image_classification_screen(bool ai_result_new)
                 char processed_str[MAX_STR_LEN] = {0};
 
                 process_str(labels[g_ai_classification[i].category], processed_str, MAX_STR_LEN);
-                sprintf(local_str[i],"%s            ", processed_str);
-                local_str[i][MAX_STR_LEN] = '\0';
-                memset(&local_str[i][strlen(processed_str)], ' ', strlen(local_str[i])-1);
+                strncpy(local_str[i], processed_str, sizeof(local_str[i]) - 1);
+                local_str[i][sizeof(local_str[i]) - 1] = '\0';
 
-                sprintf(local_prob[i],"%02d%%  ", (size_t)(g_ai_classification[i].prob * 100.0f));
+                /* print_bg_font_18() only draws glyphs for the characters it's given -- it
+                 * never clears a background rect first. process_str() pads every label to the
+                 * same *character* count, but letter glyphs (e.g. 'm', 'w') are wider than the
+                 * space glyph, so a short label's trailing spaces don't always cover the same
+                 * *pixel* width a longer previous label occupied, leaving a sliver on screen.
+                 * Pad with extra guaranteed-blank spaces beyond the content so this frame's
+                 * draw always covers more width than any previous frame's label could have used. */
+                #define LABEL_CLEAR_PAD (10)
+                size_t base_len = strlen(local_str[i]);
+                size_t pad_end = base_len + LABEL_CLEAR_PAD;
+                if (pad_end > sizeof(local_str[i]) - 1)
+                {
+                    pad_end = sizeof(local_str[i]) - 1;
+                }
+                memset(&local_str[i][base_len], ' ', pad_end - base_len);
+                local_str[i][pad_end] = '\0';
+
+                sprintf(local_prob[i],"%02d%%  ", (int)(g_ai_classification[i].prob * 100.0f));
                 local_prob[i][5] = '\0';
                 print_bg_font_18(d2_handle, hpos, vpos + 30*i, NORMAL_FONT_SCALING, (char*)local_prob[i]);
                 print_bg_font_18(d2_handle, hpos + 50, vpos + 30*i, NORMAL_FONT_SCALING, (char*)local_str[i]);

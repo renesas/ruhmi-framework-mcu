@@ -58,6 +58,31 @@ static d2_point top_left_y[AI_MAX_DETECTION_NUM];
 static d2_point bottom_right_x[AI_MAX_DETECTION_NUM];
 static d2_point bottom_right_y[AI_MAX_DETECTION_NUM];
 
+/* Surface DRW display-list exhaustion, which is otherwise completely silent.
+ *
+ * DAVE2D builds its display list in blocks of 51 entries taken from the
+ * FreeRTOS heap. When a block allocation fails, dave_dlist.c records
+ * D2_NOMEMORY and then simply does not chain the next block, discarding the
+ * rest of the frame -- and nothing in this project checks any d2_* return
+ * value, so the only evidence is content quietly missing from the screen.
+ *
+ * That ceiling matters more here than the small amount of drawing suggests:
+ * AI_MAX_DETECTION_NUM is 8, so a busy frame is 32 box lines, and the sidebar
+ * text is expensive in its own right -- print_bg_font_18() costs a
+ * d2_setblitsrc plus a d2_blitcopy for every single character. The sidebar is
+ * also drawn last, which makes it the first thing dropped.
+ *
+ * Reported by console_output_processing_time(); non-zero means a frame was
+ * truncated and the FreeRTOS heap needs raising. Switched by
+ * ENABLE_DRW_ERROR_CONSOLE_OUTPUT in application_config.h, which is where the
+ * console side can see it too.
+ *
+ * The variable itself is defined unconditionally on purpose: guarding it as
+ * well would turn switching the feature off into an undefined-reference link
+ * error from the extern in camera_display_thread_entry.c, and four bytes is
+ * not worth that trap. */
+int32_t g_drw_last_error = 0;
+
 static void print_static_text (void);
 static void draw_bounding_box(uint8_t i);
 static void calculate_and_draw_bounding_box(uint8_t i);
@@ -118,18 +143,21 @@ static void calculate_and_draw_bounding_box(uint8_t i)
 {
     detection_count++;
 
-    float camera_capture_image_downscaling_for_ai = (float)CAMERA_CAPTURE_IMAGE_HEIGHT / (float)AI_INPUT_IMAGE_HEIGHT;
-
-    /* these are the coordinate in a 480x480 space for AI coordinate*/
-    signed short scaled_x = (signed short)(g_ai_detection[i].m_x * camera_capture_image_downscaling_for_ai);
-    signed short scaled_y = (signed short)(g_ai_detection[i].m_y * camera_capture_image_downscaling_for_ai);
-    signed short scaled_w = (signed short)(g_ai_detection[i].m_w * camera_capture_image_downscaling_for_ai);
-    signed short scaled_h = (signed short)(g_ai_detection[i].m_h * camera_capture_image_downscaling_for_ai);
-
-    top_left_x[i]     = (d2_point)((((CAMERA_CAPTURE_IMAGE_WIDTH - CAMERA_CAPTURE_IMAGE_HEIGHT) / 2) + scaled_x) * CAMERA_IMAGE_SCALING);
-    top_left_y[i]     = (d2_point)(scaled_y * CAMERA_IMAGE_SCALING);
-    bottom_right_x[i] = (d2_point)((((CAMERA_CAPTURE_IMAGE_WIDTH - CAMERA_CAPTURE_IMAGE_HEIGHT) / 2) + scaled_x + scaled_w) * CAMERA_IMAGE_SCALING);
-    bottom_right_y[i] = (d2_point)((scaled_y + scaled_h) * CAMERA_IMAGE_SCALING);
+    /* m_x/y/w/h are in camera pixel coords (640x480), so this is a plain scale
+     * to display coords.
+     *
+     * It used to multiply by CAMERA_CAPTURE_IMAGE_HEIGHT / AI_INPUT_IMAGE_HEIGHT
+     * and add (640-480)/2, which assumed the model had been fed a 480x480
+     * centre crop of the camera frame. The preprocessing in
+     * camera_display_thread_entry.c does not do that -- it letterboxes the full
+     * 640x480 into 192x192, leaving 24 blank rows top and bottom -- so the box
+     * came out about 25% too small and offset from the hand. The conversion now
+     * happens in MainLoop_obj.cc where the letterbox parameters are known,
+     * which is also how the landmark projects do it. */
+    top_left_x[i]     = (d2_point)((float)g_ai_detection[i].m_x * CAMERA_IMAGE_SCALING);
+    top_left_y[i]     = (d2_point)((float)g_ai_detection[i].m_y * CAMERA_IMAGE_SCALING);
+    bottom_right_x[i] = (d2_point)((float)(g_ai_detection[i].m_x + g_ai_detection[i].m_w) * CAMERA_IMAGE_SCALING);
+    bottom_right_y[i] = (d2_point)((float)(g_ai_detection[i].m_y + g_ai_detection[i].m_h) * CAMERA_IMAGE_SCALING);
 
     draw_bounding_box(i);
 }
@@ -243,6 +271,18 @@ void  do_detection_screen(bool ai_result_new)
         }
 
         print_inf_time_and_detections();
+
+#if (ENABLE_DRW_ERROR_CONSOLE_OUTPUT == 1)
+        {
+            /* Read before the flip: d2_geterror returns and clears the delayed
+             * code recorded while the list was being built. */
+            const d2_s32 err = d2_geterror(d2_handle);
+            if (0 != err)
+            {
+                g_drw_last_error = (int32_t)err;
+            }
+        }
+#endif
 
         /* Wait for previous frame rendering to finish, then finalize this frame and flip the buffers */
         graphics_end_frame();

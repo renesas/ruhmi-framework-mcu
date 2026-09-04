@@ -258,8 +258,25 @@ static const st_ov_reg_t cam_config_table_normal_mode[] =
  { 0x4800, 0x24 }, // MIPI Control 00
  { 0x3007, 0XFB }, // Disable DVP PCLK and enable others
 
- // Timing control
- { 0x380c, 0x0b }, { 0x380d, 0x1c }, { 0x380e, 0x07 }, { 0x380f, 0xb0 }, // Detail unknown
+ // Timing control: HTS (0x380c/0x380d) and VTS (0x380e/0x380f), in pixel
+ // clocks per line and lines per frame. Frame rate = PCLK / (HTS * VTS).
+ //
+ // The timing clock here is 140 MHz: ov5640_configure_clocks() below sets
+ // PLL = 24 MHz / (root 2 * pre 3) * 140 = 560 MHz, sys_clk = 560/2 = 280 MHz,
+ // and the timing counter runs at half of that. HTS 2844 * VTS 1968 = 5596992
+ // gives 25.0 fps, which is exactly what the capture vsync period measures.
+ //
+ // HTS stays at the stock 2844 (line time 20.31 us). VTS was 1968 (0x07b0),
+ // i.e. the full-resolution frame height, even though this mode only outputs
+ // 640x480 -- so most of the frame was vertical blanking. Cutting it to 1300
+ // gives 140e6 / (2844 * 1300) = 37.9 fps, which shortens the readout half of
+ // the capture latency by about 7 ms.
+ //
+ // The commented-out line below is the stock VGA timing and would give 75 fps,
+ // but that also thirds the exposure ceiling and triples the SDRAM write
+ // traffic, and this pipeline cannot use the extra frames anyway (palm
+ // detection runs well under 30 fps), so the middle setting is taken instead.
+ { 0x380c, 0x0b }, { 0x380d, 0x1c }, { 0x380e, 0x05 }, { 0x380f, 0x14 }, // HTS 2844, VTS 1300 -> 37.9 fps
 // { 0x380c, 0x07 }, { 0x380d, 0x68 }, { 0x380e, 0x03 }, { 0x380f, 0xd8 },
 // { 0x380c, ((X_ISP_INPUT_SIZE >> 8) & 0xFF) },  // Xout size_high- 0x0280(640)
 // { 0x380d, (X_ISP_INPUT_SIZE & 0xFF) },         // Xout size_low
@@ -268,8 +285,32 @@ static const st_ov_reg_t cam_config_table_normal_mode[] =
 
  { 0x3c01, 0xb4 }, { 0x3c00, 0x04 }, { 0x3a08, 0x00 }, { 0x3a09, 0x93 },
  { 0x3a0e, 0x06 }, { 0x3a0a, 0x00 }, { 0x3a0b, 0x7b }, { 0x3a0d, 0x08 },
- { 0x3a00, 0x3c }, { 0x3a02, 0x05 }, { 0x3a03, 0xc4 }, { 0x3a14, 0x05 },
- { 0x3a15, 0xc4 }, { 0x3618, 0x00 }, { 0x3612, 0x29 }, { 0x3708, 0x64 },
+ // AEC control 00. Was 0x3c; bit2 (night mode) cleared to 0x38.
+ //
+ // Night mode lets the sensor stretch the frame period to buy exposure time
+ // when the scene is dim, so the capture rate is not fixed: the same build was
+ // measured at 40 ms/frame (25 fps) in one session and 48 ms (20 fps) in a
+ // dimmer one. That 8 ms lands directly on end-to-end latency, and a capture
+ // rate that drifts with the room lighting also makes the reported vsync
+ // period impossible to compare between sessions. The trade is that a dim
+ // scene now comes out darker rather than slower.
+ //
+ // 0x3a02/0x3a03 (60 Hz) and 0x3a14/0x3a15 (50 Hz) are the AEC exposure
+ // ceiling in lines, and must stay below VTS -- an exposure longer than the
+ // frame is not physically available. They were 0x05c4 (1476), which no longer
+ // fits the VTS of 1300 set above, so they become VTS-4 = 1296 (0x0510).
+ //
+ // This costs less light than the frame rate change suggests: the old pair
+ // only allowed 1476 of 1968 lines (75% of the frame), while the new one
+ // allows 1296 of 1300 (99.7%). In time that is 30.0 ms before against
+ // 26.3 ms after -- a 12% reduction, around 0.19 EV.
+ //
+ // The banding filter is left alone deliberately: its worst case is the 60 Hz
+ // setting, 0x3a0a/0x3a0b step 123 x 0x3a0d max 8 bands = 984 lines, which
+ // still sits under the new 1296 ceiling, so that configuration stays
+ // self-consistent.
+ { 0x3a00, 0x38 }, { 0x3a02, 0x05 }, { 0x3a03, 0x10 }, { 0x3a14, 0x05 },
+ { 0x3a15, 0x10 }, { 0x3618, 0x00 }, { 0x3612, 0x29 }, { 0x3708, 0x64 },
  { 0x3709, 0x52 }, { 0x370c, 0x03 },
  { 0x4004, 0x02 }, { 0x4713, 0x03 }, { 0x460b, 0x35 }, { 0x460c, 0x22 },
  { 0x4837, 0x0a }, // MIPI global timing

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Image Classification Application Flow</title>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  html, body { margin: 0; padding: 0; background: #ffffff; }
+  svg { display: block; font-family: 'Geist', -apple-system, 'Segoe UI', sans-serif; }
+</style>
+</head>
+<body>
+<svg viewBox="0 0 340 784" width="340" height="784" xmlns="http://www.w3.org/2000/svg"
+     role="img" aria-labelledby="imgclass-flow-title imgclass-flow-desc">
+<title id="imgclass-flow-title">Image classification application main loop</title>
+<desc id="imgclass-flow-desc">Flowchart showing the EK-RA8P1 image classification firmware's main loop: after initializing and starting the camera preview, the app waits for a camera frame, runs image classification, extracts the Top-N results, smooths each class's confidence across frames, and displays the prediction before looping back to wait for the next frame.</desc>
+
+<defs>
+  <marker id="arrow-blue" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+    <polygon points="0 0, 9 3.5, 0 7" fill="#2e5aa8"/>
+  </marker>
+</defs>
+
+<rect width="340" height="784" fill="#ffffff"/>
+
+<!-- ============ ARROWS (drawn first) ============ -->
+<g stroke="#2e5aa8" stroke-width="1.6" fill="none">
+  <!-- start -> init -->
+  <line x1="150" y1="88"  x2="150" y2="120" marker-end="url(#arrow-blue)"/>
+  <!-- init -> merge dot (no arrowhead, joins loop-back below) -->
+  <line x1="150" y1="212" x2="150" y2="228"/>
+  <!-- merge dot -> pend (single arrowhead into box) -->
+  <line x1="150" y1="228" x2="150" y2="244" marker-end="url(#arrow-blue)"/>
+  <!-- pend -> classification -->
+  <line x1="150" y1="300" x2="150" y2="332" marker-end="url(#arrow-blue)"/>
+  <!-- classification -> extract topN -->
+  <line x1="150" y1="396" x2="150" y2="428" marker-end="url(#arrow-blue)"/>
+  <!-- extract topN -> smoothing -->
+  <line x1="150" y1="504" x2="150" y2="536" marker-end="url(#arrow-blue)"/>
+  <!-- smoothing -> display -->
+  <line x1="150" y1="612" x2="150" y2="644" marker-end="url(#arrow-blue)"/>
+
+  <!-- loop-back: display bottom -> rail -> riser (offset clear of the boxes' right edge) -> left into merge dot (no arrowhead) -->
+  <path d="M150,708 L150,736 Q150,744 158,744 L292,744 Q300,744 300,736 L300,236 Q300,228 292,228 L150,228"/>
+</g>
+
+<!-- merge dot -->
+<circle cx="150" cy="228" r="4" fill="#2e5aa8"/>
+
+<!-- ============ NODES ============ -->
+
+<!-- 1. Start oval -->
+<rect x="30" y="24" width="260" height="64" rx="32" fill="#ffffff" stroke="#2e5aa8" stroke-width="1.8"/>
+<text x="160" y="61" text-anchor="middle" font-size="15" font-weight="600" fill="#1f2430" font-family="'Geist', sans-serif">Power on/Reset</text>
+
+<!-- 2. Initialize -->
+<rect x="20" y="120" width="260" height="92" rx="6" fill="#ffffff" stroke="#2e5aa8" stroke-width="1.6"/>
+<text x="150" y="150" text-anchor="middle" font-size="12.5" fill="#1f2430" font-family="'Geist', sans-serif">Initialize the project and</text>
+<text x="150" y="168" text-anchor="middle" font-size="12.5" fill="#1f2430" font-family="'Geist', sans-serif">display the camera data</text>
+<text x="150" y="186" text-anchor="middle" font-size="12.5" fill="#1f2430" font-family="'Geist', sans-serif">on the display.</text>
+
+<!-- 3. Pend camera data -->
+<rect x="20" y="244" width="260" height="56" rx="6" fill="#ffffff" stroke="#2e5aa8" stroke-width="1.6"/>
+<text x="150" y="277" text-anchor="middle" font-size="13" fill="#1f2430" font-family="'Geist', sans-serif">Pend camera data is ready</text>
+
+<!-- 4. Image Classification -->
+<rect x="20" y="332" width="260" height="64" rx="6" fill="#ffffff" stroke="#2e5aa8" stroke-width="1.6"/>
+<text x="150" y="370" text-anchor="middle" font-size="13" fill="#1f2430" font-family="'Geist', sans-serif">Image Classification</text>
+
+<!-- 5. Extract Top-N -->
+<rect x="20" y="428" width="260" height="76" rx="6" fill="#ffffff" stroke="#2e5aa8" stroke-width="1.6"/>
+<text x="150" y="460" text-anchor="middle" font-size="12.5" fill="#1f2430" font-family="'Geist', sans-serif">The Top-N classification results</text>
+<text x="150" y="478" text-anchor="middle" font-size="12.5" fill="#1f2430" font-family="'Geist', sans-serif">are extracted for use</text>
+
+<!-- 6. Smooth classification confidence -->
+<rect x="20" y="536" width="260" height="76" rx="6" fill="#ffffff" stroke="#2e5aa8" stroke-width="1.6"/>
+<text x="150" y="568" text-anchor="middle" font-size="12.5" fill="#1f2430" font-family="'Geist', sans-serif">Smooth classification</text>
+<text x="150" y="586" text-anchor="middle" font-size="12.5" fill="#1f2430" font-family="'Geist', sans-serif">confidence (EMA)</text>
+
+<!-- 7. Display Prediction data -->
+<rect x="20" y="644" width="260" height="64" rx="6" fill="#ffffff" stroke="#2e5aa8" stroke-width="1.6"/>
+<text x="150" y="682" text-anchor="middle" font-size="13" fill="#1f2430" font-family="'Geist', sans-serif">Display Prediction data</text>
+
+</svg>
+</body>
+</html>

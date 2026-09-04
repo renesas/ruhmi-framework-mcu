@@ -129,7 +129,7 @@ ad_large_int8_npu
 ```
 
 The generated C code under **"build/MCU/compilation/src"** can be incorporated into an e2 studio project.  
-You can refer to [Guide to the generated C source code](/docs/runtime_api.md) to study how to use the output file from AI MCU compiler.  
+You can refer to [Guide to the generated C source code](../docs/runtime_api.md) to study how to use the output file from AI MCU compiler.  
 
 
 ### Helper Utilities
