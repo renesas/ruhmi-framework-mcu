@@ -8,9 +8,9 @@ Date: 2026-09-04
   - LLVM 22.1.0  
 
 ## Overall
-** Unified all five demo branches to the FSP v6.6.0 baseline for consistent build/import behavior in the latest e² studio environment.  
-** Improved runtime stability and visual consistency across demos, especially for overlay behavior, tracking continuity, and frame-to-frame smoothness.
-** Resolved reliability issues in inference input/output handling and display update flow to reduce intermittent mis-detections or UI artifacts.  
+- Unified all five demo branches to the FSP v6.6.0 baseline for consistent build/import behavior in the latest e² studio environment.  
+- Improved runtime stability and visual consistency across demos, especially for overlay behavior, tracking continuity, and frame-to-frame smoothness.
+- Resolved reliability issues in inference input/output handling and display update flow to reduce intermittent mis-detections or UI artifacts.  
 
 ### 1) Face Detection  
 - Updated project baseline to FSP v6.6.0 for release alignment.  
