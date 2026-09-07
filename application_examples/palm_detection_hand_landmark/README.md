@@ -107,7 +107,14 @@ Computes and reports averaged pipeline processing time.
 <img src="./docs/palm_detection_hand_landmark_demo.png" width="50%">
 </div>
 
-## Model Reference
+## Reference
+
+The temporal filtering used in this application is an independent implementation of the 1€ Filter algorithm described in:
+
+Géry Casiez, Nicolas Roussel, and Daniel Vogel, “1€ Filter: A Simple Speed-Based Low-Pass Filter for Noisy Input in Interactive Systems,” Proceedings of CHI 2012, pp. 2527–2530.  
+https://doi.org/10.1145/2207676.2208639
+
+The implementation in this project was independently written from the algorithm described in the paper. No source code from the reference implementations is incorporated.
 
 Models are based on [hand-gesture-recognition-using-onnx](https://github.com/PINTO0309/hand-gesture-recognition-using-onnx) by PINTO0309 (Apache-2.0), originally derived from MediaPipe by Google LLC.
 
