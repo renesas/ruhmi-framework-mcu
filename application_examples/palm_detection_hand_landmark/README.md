@@ -51,6 +51,7 @@ The system runs a sequential pipeline: palm detection finds hands, then a rotate
 8. **Run**: click `Resume` a few times
 
 > **Note:** In Release builds, the demo may require one manual board reset after flashing (or power-cycle) before it runs correctly.
+>  ⚠️ **FSP 6.6.0 known issue:** if Debug later fails with `Cannot find smart bundle`, re-import using `Rename & Import Existing C/C++ Project Into Workspace` instead.
 
 ---
 ## Key Source Code
