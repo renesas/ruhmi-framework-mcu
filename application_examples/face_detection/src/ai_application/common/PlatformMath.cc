@@ -140,10 +140,16 @@ namespace math {
 
         fftOutput[0] = 0;
         fftOutput[1] = 0;
+        const bool evenLength = ((inputLength & 1U) == 0U);
         for (size_t t = 0; t < inputLength; t++) {
             fftOutput[0] += input[t];
-            fftOutput[1] += input[t] *
-                MathUtils::CosineF32(2 * M_PI * halfLength * t / inputLength);
+            if (evenLength) {
+                /* Exact identity: cos(2 * pi * (N/2) * t / N) == cos(pi * t) == (-1)^t */
+                fftOutput[1] += ((t & 1U) != 0U) ? -input[t] : input[t];
+            } else {
+                fftOutput[1] += input[t] *
+                    MathUtils::CosineF32(2 * M_PI * halfLength * t / inputLength);
+            }
         }
 
         for (size_t k = 1, j = 2; k < halfLength; ++k, j += 2) {

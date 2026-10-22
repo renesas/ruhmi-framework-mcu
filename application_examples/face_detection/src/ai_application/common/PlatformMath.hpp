@@ -26,7 +26,9 @@
 #define M_PI (PI)
 #else /* (defined (__ARM_FEATURE_DSP) && (__ARM_FEATURE_DSP == 1)) */
 #include <cmath>
+#ifndef M_PI
 #define M_PI 3.141592653589
+#endif /* M_PI */
 
 #endif /* (defined (__ARM_FEATURE_DSP) && (__ARM_FEATURE_DSP == 1)) */
 

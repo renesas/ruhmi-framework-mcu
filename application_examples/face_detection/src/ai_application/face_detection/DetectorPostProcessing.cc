@@ -167,14 +167,33 @@ void DetectorPostProcess::GetNetworkBoxes(
         int width    = net.branches[i].resolution;
         int channel  = net.branches[i].numBox*(5+numClasses);
 
+        /* Pre-compute exact int8 objectness threshold once per branch to skip >99% of
+         * SigmoidF32 (std::exp) evaluations on background anchors while remaining bit-identical. */
+        int minObjInt8 = -128;
+        if (net.branches[i].scale > 0.0f) {
+            while (minObjInt8 <= 127) {
+                float candObj = math::MathUtils::SigmoidF32(
+                    (static_cast<float>(minObjInt8) - static_cast<float>(net.branches[i].zeroPoint))
+                    * net.branches[i].scale);
+                if (candObj > threshold) {
+                    break;
+                }
+                ++minObjInt8;
+            }
+        }
+
         for (int h = 0; h < net.branches[i].resolution; h++) {
             for (int w = 0; w < net.branches[i].resolution; w++) {
                 for (int anc = 0; anc < net.branches[i].numBox; anc++) {
 
                     /* Objectness score */
                     int bbox_obj_offset = h * width * channel + w * channel + anc * (numClasses + 5) + 4;
+                    int8_t rawObjInt8 = net.branches[i].modelOutput[bbox_obj_offset];
+                    if (net.branches[i].scale > 0.0f && static_cast<int>(rawObjInt8) < minObjInt8) {
+                        continue;
+                    }
                     float objectness = math::MathUtils::SigmoidF32(
-                            (static_cast<float>(net.branches[i].modelOutput[bbox_obj_offset])
+                            (static_cast<float>(rawObjInt8)
                             - (float)net.branches[i].zeroPoint
                             ) * net.branches[i].scale);
 
